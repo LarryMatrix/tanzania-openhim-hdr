@@ -25,7 +25,7 @@ SECRET_KEY = '&dsrr!838+mbs+ebn1*i4w-(c@%^e6c2zd+w2+51sz!onm1a3g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['139.162.149.249','127.0.0.1']
 
 
 # Application definition
@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'API',
     'UserManagement',
     'MasterData',
+
+    # APi specific apps
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 REST_FRAMEWORK = {
@@ -91,11 +96,12 @@ WSGI_APPLICATION = 'HDR.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS': {
-          'options': '-c search_path=public'
+          'options': '-c search_path=core'
         },
         'NAME': 'hdr',
         'USER': 'postgres',
@@ -144,3 +150,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

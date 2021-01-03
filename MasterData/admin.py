@@ -1,3 +1,29 @@
 from django.contrib import admin
+from MasterData.models import Department, Ward, Payer, Exemption
 
 # Register your models here.
+class DepartmentAdmin(admin.ModelAdmin):
+    list_display = ('local_department_id', 'department_name')
+    search_fields = ['department_name']
+
+
+class WardAdmin(admin.ModelAdmin):
+    list_display = ('local_ward_id','ward_name', 'department_id', 'department_id', 'number_of_beds')
+    search_fields = ['health_commodity_category_name']
+
+
+class PayerAdmin(admin.ModelAdmin):
+    list_display = ('local_payer_id','payer_name')
+    search_fields = ['payer_name',]
+
+
+class ExemptionAdmin(admin.ModelAdmin):
+    list_display = ('local_exemption_id','exemption_name')
+    search_fields = ['exemption_name',]
+
+
+admin.site.register(Department, DepartmentAdmin)
+admin.site.register(Ward, WardAdmin)
+admin.site.register(Payer, PayerAdmin)
+admin.site.register(Exemption, ExemptionAdmin)
+
