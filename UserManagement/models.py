@@ -33,16 +33,6 @@ class Profile(models.Model):
         db_table = 'UserProfile'
 
 
-class UserLocation(models.Model):
-    def __str__(self):
-        return '%d' %self.id
-
-    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    location_id = models.ForeignKey(master_data_models.Location, on_delete=models.SET_NULL, null=True, blank=True)
-
-    class Meta:
-        db_table = "UserLocation"
-
 
 class TokenModel(models.Model):
     key = models.CharField(max_length=255)

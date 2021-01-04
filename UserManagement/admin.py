@@ -20,9 +20,9 @@ class CustomUserAdmin(UserAdmin):
             return list()
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
-admin.site.site_header = 'Health Commodity Tracer Admin Panel'
+admin.site.site_header = 'Health Data Repository'
 admin.site.site_url = '/dashboard'
-admin.site.site_title = 'Health Commodity Tracer'
+admin.site.site_title = 'Health Data Repository'
 admin.site.index_title = 'App Configurations'
 
 admin.site.unregister(User)
