@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1da87fb6-8abe-4c94-a57d-83ba842ce1a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HDR/settings.py" afterPath="$PROJECT_DIR$/HDR/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test.py" afterPath="$PROJECT_DIR$/tests/test.py" />
     </list>
     <ignored path="HDR.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HDR/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="859">
+            <state relative-caret-position="634">
               <caret line="105" column="20" selection-start-line="105" selection-start-column="17" selection-end-line="105" selection-end-column="20" />
               <folding />
             </state>
@@ -69,12 +70,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="19" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="19" />
-              <folding />
+            <state relative-caret-position="664">
+              <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -166,11 +169,11 @@
         <option value="$PROJECT_DIR$/UserManagement/admin.py" />
         <option value="$PROJECT_DIR$/MasterData/admin.py" />
         <option value="$PROJECT_DIR$/HDR/settingds.py" />
-        <option value="$PROJECT_DIR$/tests/test.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/.github/workflows/build.yml" />
         <option value="$PROJECT_DIR$/API/tests.py" />
         <option value="$PROJECT_DIR$/HDR/settings.py" />
+        <option value="$PROJECT_DIR$/tests/test.py" />
       </list>
     </option>
   </component>
@@ -1048,19 +1051,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test.py">
+    <entry file="file://$PROJECT_DIR$/HDR/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="19" />
+        <state relative-caret-position="634">
+          <caret line="105" column="20" selection-start-line="105" selection-start-column="17" selection-end-line="105" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HDR/settings.py">
+    <entry file="file://$PROJECT_DIR$/tests/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="859">
-          <caret line="105" column="20" selection-start-line="105" selection-start-column="17" selection-end-line="105" selection-end-column="20" />
-          <folding />
+        <state relative-caret-position="664">
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
