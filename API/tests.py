@@ -11,9 +11,7 @@ class ClientEventTestCase(APITestCase, URLPatternsTestCase):
     ]
 
     def test_post_client_event(self):
-        """
-        Ensure we can send an object to the endpoint.
-        """
+        """Ensure we can send an object to the endpoint."""
         url = reverse('clients_events')
         data = {
             "hdrClient": {
