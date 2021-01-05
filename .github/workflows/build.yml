@@ -20,6 +20,17 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v1
 
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ./web/requirements.txt
+    - name: Run Tests'
+
+
     - name: Unit tests
       run: python3 -m unittest discover tests
 
@@ -29,6 +40,9 @@ jobs:
         github-token: ${{ secrets.COVERALLS_TOKEN }}
         parallel: true
         flag-name: Unit Test
+
+      run: |
+        python ./web/manage.py test
 
   coveralls_finish:
     needs: test
