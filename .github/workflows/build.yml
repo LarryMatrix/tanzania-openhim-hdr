@@ -31,15 +31,16 @@ jobs:
         pip install -r ./web/requirements.txt
 
 
+    - name: Unit tests
+#      run: python3 -m unittest discover tests
+      run: python3 ./web/manage.py test
+
     - name: Coveralls
       uses: AndreMiras/coveralls-python-action@develop
       with:
         github-token: ${{ secrets.COVERALLS_TOKEN }}
         parallel: true
         flag-name: Unit Test
-
-      run: |
-        python ./web/manage.py test
 
   coveralls_finish:
     needs: test
