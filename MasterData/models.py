@@ -79,7 +79,7 @@ class LocationMetadata(models.Model):
 
 class Department(models.Model):
     def __str__(self):
-        return '%d' % self.id
+        return '%s' % self.department_name
 
     local_department_id = models.IntegerField()
     department_name = models.CharField(max_length=255)
@@ -88,13 +88,24 @@ class Department(models.Model):
         db_table = "department"
 
 
+class Facility(models.Model):
+    def __str__(self):
+        return '%s' % self.facility_name
+
+    facility_name = models.CharField(max_length=255)
+    facility_code = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'Facility'
+
 class Ward(models.Model):
     def __str__(self):
         return '%d' % self.id
 
     local_ward_id = models.IntegerField()
     ward_name = models.CharField(max_length=255)
-    department_id = models.IntegerField()
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE, null=True, blank=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
     number_of_beds = models.IntegerField()
 
     class Meta:
