@@ -1,5 +1,6 @@
 amqp==5.0.2
 appdirs==1.4.4
+asgiref==3.2.10
 billiard==3.6.3.0
 celery==5.0.5
 certifi==2020.12.5
@@ -8,7 +9,11 @@ click==7.1.2
 click-didyoumean==0.0.3
 click-plugins==1.1.1
 click-repl==0.1.6
+configparser==5.0.1
 distlib==0.3.1
+Django==3.1.4
+django-rest-auth==0.9.5
+djangorestframework==3.12.1
 filelock==3.0.12
 idna==2.10
 kombu==5.0.2
@@ -18,6 +23,7 @@ psycopg2-binary==2.8.6
 pytz==2020.5
 requests==2.25.1
 six==1.15.0
+sqlparse==0.4.1
 stevedore==3.3.0
 urllib3==1.26.2
 vine==5.0.0
