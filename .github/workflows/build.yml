@@ -31,10 +31,6 @@ jobs:
         pip install -r ./web/requirements.txt
 
 
-    - name: Unit tests
-#      run: python3 -m unittest discover tests
-      run: python3 manage.py test
-
     - name: Coveralls
       uses: AndreMiras/coveralls-python-action@develop
       with:
