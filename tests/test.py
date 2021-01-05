@@ -1,5 +1,5 @@
 import unittest
-from django.urls import include, path, reverse
+from django.urls import path, reverse
 from rest_framework.test import APITestCase, URLPatternsTestCase
 from API import views as api_views
 from rest_framework import status
@@ -23,9 +23,7 @@ class ClientEventTestCase(APITestCase, URLPatternsTestCase):
     ]
 
     def test_post_client_event(self):
-        """
-        Ensure we can send an object to the endpoint.
-        """
+        """Ensure we can send an object to the endpoint."""
         url = reverse('clients_events')
         data = {
             "hdrClient": {
