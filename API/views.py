@@ -1,9 +1,5 @@
-from rest_framework import viewsets, status, generics, permissions
-from rest_framework.generics import UpdateAPIView, GenericAPIView
+from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated,IsAdminUser, AllowAny
-from django.db.models import Count, Sum
-from django.conf import settings
 from .serializers import ClientSerializer, ClientMetadataSerializer, \
     EventSerializer, EventMetadataSerializer, LocationSerializer, LocationMetadataSerializer, ClientEventSerializer
 from MasterData.models import Event, Client, ClientMetadata, EventMetadata,Location, LocationMetadata

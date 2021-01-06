@@ -5,16 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
-from ..forms import UserProfileForm
-import datetime
-from django.utils import timezone
-import json
 from django.conf import settings
-from MasterData import models as master_data_models
-from django.db.models import Count
-from django.db.models import Avg
-from django.db.models import F
-
 from django.contrib.auth.decorators import login_required
 
 def get_login_page(request):
