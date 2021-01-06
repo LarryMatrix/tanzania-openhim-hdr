@@ -17,9 +17,12 @@ from rest_framework import status
 #         with self.assertRaises(TypeError):
 #             s.split(2)
 
+# if __name__ == '__main__':
+#     unittest.main()
+
 class ClientEventTestCase(APITestCase, URLPatternsTestCase):
     urlpatterns = [
-        path('clients_events/', api_views.as_view(), name='clients_events'),
+        path('clients_events/', api_views.ClientEventView.as_view(), name='clients_events'),
     ]
 
     def test_post_client_event(self):
@@ -54,8 +57,6 @@ class ClientEventTestCase(APITestCase, URLPatternsTestCase):
         }
 
         response = self.client.post(url,data ,format='json')
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-# if __name__ == '__main__':
-#     unittest.main()
+
