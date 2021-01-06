@@ -1,5 +1,4 @@
-from django.test import TestCase
-from django.urls import include, path, reverse
+from django.urls import path, reverse
 from rest_framework.test import APITestCase, URLPatternsTestCase
 from .views import ClientEventView
 from rest_framework import status
