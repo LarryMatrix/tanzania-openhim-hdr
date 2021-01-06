@@ -135,5 +135,8 @@ class ClientEventView(generics.CreateAPIView):
             instance_event.json = x["json"]
             instance_event.save()
 
+            return status.HTTP_200_OK
+
+
 
 
