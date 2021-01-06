@@ -1,8 +1,8 @@
 from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
-from .serializers import ClientSerializer, ClientMetadataSerializer, \
+from .serializers import ClientMetadataSerializer, \
     EventSerializer, EventMetadataSerializer, LocationSerializer, LocationMetadataSerializer, ClientEventSerializer
-from MasterData.models import Event, Client, ClientMetadata, EventMetadata,Location, LocationMetadata
+from MasterData.models import Event, ClientMetadata, EventMetadata,Location, LocationMetadata
 
 
 # Create your views here.
