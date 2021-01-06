@@ -32,12 +32,9 @@ jobs:
         pip install django-rest-framework
         pip install django-rest-auth
         pip install psycopg2-binary
-#        pip install -r requirements.txt
 
 
     - name: Unit tests
-#      run: python3 -m unittest discover tests
-#      run: python3 ./web/manage.py test
       run: python3 manage.py test
 
     - name: Coveralls
