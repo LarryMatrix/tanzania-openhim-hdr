@@ -4,5 +4,3 @@
 # Tanzania Health Data Repository
 A Health Data Repository for data visualization for received from EMR systems through [OpenHIM](http://openhim.org/) mediators.
 
-
-
