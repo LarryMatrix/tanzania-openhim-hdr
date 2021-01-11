@@ -4,6 +4,7 @@ from .serializers import ClientMetadataSerializer, \
     EventSerializer, EventMetadataSerializer, LocationSerializer, LocationMetadataSerializer, ClientEventSerializer
 from MasterData.models import Client, Event, ClientMetadata, EventMetadata,Location, LocationMetadata
 import dateutil.parser
+import json
 
 
 # Create your views here.
@@ -70,23 +71,23 @@ class ClientEventView(generics.CreateAPIView):
         instance_client_metadata.save()
 
         # Store in event
-        instance_event = Event()
-        instance_event.json = event_data
-        instance_event.save()
 
-        for x in event_data:
+        for x in json.loads(json.dumps(event_data)):
             instance_event_metadata = EventMetadata()
+            instance_event = Event()
+
+            instance_event.json = x
+            instance_event.save()
 
             instance_event_metadata.event_id = instance_event.id
             instance_event_metadata.event_type = x["eventType"]
             event_date_time = dateutil.parser.parse(x["eventDate"])
-            print(event_date_time)
             instance_event_metadata.event_date = event_date_time
             instance_event_metadata.open_him_client_id = x["openHimClientId"]
             instance_event_metadata.mediator_version = x["mediatorVersion"]
             instance_event_metadata.save()
 
-            return status.HTTP_200_OK
+        return status.HTTP_200_OK
 
 
 
