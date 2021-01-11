@@ -80,7 +80,7 @@ class HdrEventSerializer(serializers.Serializer):
     eventDate = serializers.CharField()
     openHimClientId = serializers.CharField()
     mediatorVersion = serializers.CharField()
-    json = serializers.JSONField()
+    payload = serializers.JSONField()
 
 
 class ClientEventSerializer(serializers.Serializer):

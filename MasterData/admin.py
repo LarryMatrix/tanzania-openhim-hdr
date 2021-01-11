@@ -21,7 +21,7 @@ class FacilityAdmin(admin.ModelAdmin):
 
 class WardAdmin(admin.ModelAdmin):
     list_display = ('local_ward_id','ward_name','facility', 'department', 'number_of_beds')
-    search_fields = ['health_commodity_category_name']
+    search_fields = ['ward_name']
 
     def has_delete_permission(self, request, obj=None):
         # Disable delete

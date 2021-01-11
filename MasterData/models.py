@@ -5,8 +5,7 @@ class Client(models.Model):
     def __str__(self):
         return '%d' % self.id
 
-    json = models.TextField()
-    date_deleted = models.DateTimeField(null=True, blank=True)
+    json = models.JSONField()
 
     class Meta:
         db_table = 'client'
@@ -16,10 +15,9 @@ class ClientMetadata(models.Model):
     def __str__(self):
         return '%d' % self.id
 
-    client_id = models.CharField( max_length=255, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
+    open_him_client_id = models.CharField(max_length=255)
     name = models.CharField(max_length=255, null=True, blank=True)
-    document_id = models.TextField(null=True, blank=True)
-    date_deleted = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         db_table = 'client_metadata'
@@ -29,8 +27,7 @@ class Event(models.Model):
     def __str__(self):
         return '%d' %self.id
 
-    json = models.TextField(null=True, blank=True)
-    date_deleted = models.DateTimeField(null=True, blank=True)
+    json = models.JSONField()
 
     class Meta:
         db_table = 'event'
@@ -40,8 +37,9 @@ class EventMetadata(models.Model):
     def __str__(self):
         return '%d' %self.id
 
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
     event_type = models.CharField(max_length=255, null=True, blank=True)
-    event_date = models.CharField(max_length=255,null=True, blank=True)
+    event_date = models.DateTimeField(null=True, blank=True)
     open_him_client_id = models.CharField(max_length=255,null=True, blank=True)
     mediator_version = models.CharField(max_length=255,null=True, blank=True)
 
