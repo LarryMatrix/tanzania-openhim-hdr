@@ -116,6 +116,7 @@ class Payer(models.Model):
 
     local_payer_id = models.IntegerField()
     payer_name = models.CharField(max_length=255)
+    hdr_payer_category = models.IntegerField()
 
     class Meta:
         db_table = "payer"
@@ -127,6 +128,7 @@ class Exemption(models.Model):
 
     local_exemption_id = models.IntegerField()
     exemption_name = models.CharField(max_length=255)
+    hdr_exemption_category = models.IntegerField()
 
     class Meta:
         db_table = "exemption"

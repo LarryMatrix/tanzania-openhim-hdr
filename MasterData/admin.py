@@ -29,7 +29,7 @@ class WardAdmin(admin.ModelAdmin):
 
 
 class PayerAdmin(admin.ModelAdmin):
-    list_display = ('local_payer_id','payer_name')
+    list_display = ('local_payer_id','payer_name', 'hdr_payer_category')
     search_fields = ['payer_name',]
 
     def has_delete_permission(self, request, obj=None):
@@ -38,7 +38,7 @@ class PayerAdmin(admin.ModelAdmin):
 
 
 class ExemptionAdmin(admin.ModelAdmin):
-    list_display = ('local_exemption_id','exemption_name')
+    list_display = ('local_exemption_id','exemption_name', 'hdr_exemption_category')
     search_fields = ['exemption_name',]
 
     def has_delete_permission(self, request, obj=None):
