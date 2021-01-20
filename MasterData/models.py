@@ -95,6 +95,8 @@ class Facility(models.Model):
 
     class Meta:
         db_table = 'facility'
+        verbose_name_plural = "Facilities"
+
 
 class Ward(models.Model):
     def __str__(self):
@@ -119,6 +121,7 @@ class HdrPayerCategory(models.Model):
 
     class Meta:
         db_table = 'hdr_payer_category'
+        verbose_name_plural = "HDR Payer Categories"
 
 
 class HdrExemptionCategory(models.Model):
@@ -130,6 +133,7 @@ class HdrExemptionCategory(models.Model):
 
     class Meta:
         db_table = 'hdr_exemption_category'
+        verbose_name_plural = "HDR Exemption Categories"
 
 
 
