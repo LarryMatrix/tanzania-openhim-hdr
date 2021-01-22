@@ -24,7 +24,7 @@ class ClientEventTestCase(APITestCase, URLPatternsTestCase):
                     "eventDate": "Dec 29, 2020, 4:33:45 PM",
                     "openHimClientId": "csv-sync-service",
                     "mediatorVersion": "0.1.0",
-                    "json": {
+                    "payload": {
                         "messageType": "SVCREC",
                         "orgName": "Masana",
                         "localOrgID": "108627-1",
