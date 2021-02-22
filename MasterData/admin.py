@@ -1,6 +1,6 @@
 from django.contrib import admin
 from MasterData.models import Department, Ward, Payer, Exemption, Facility, HdrExemptionCategory, HdrPayerCategory, \
-    Icd10Mapping
+    Icd10Code, CPTCode
 
 # Register your models here.
 class DepartmentAdmin(admin.ModelAdmin):
@@ -74,6 +74,14 @@ class ICD10MappingAdmin(admin.ModelAdmin):
         return False
 
 
+class CPTCodeAdmin(admin.ModelAdmin):
+    list_display = ('cpt_code', 'cpt_name')
+    search_fields = ['cpt_name', ]
+
+    def has_delete_permission(self, request, obj=None):
+        # Disable delete
+        return False
+
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Ward, WardAdmin)
 admin.site.register(Payer, PayerAdmin)
@@ -81,5 +89,6 @@ admin.site.register(Exemption, ExemptionAdmin)
 admin.site.register(Facility, FacilityAdmin)
 admin.site.register(HdrExemptionCategory, HdrExemptionCategoryAdmin)
 admin.site.register(HdrPayerCategory, HdrPayerCategoryAdmin)
-admin.site.register(Icd10Mapping, ICD10MappingAdmin)
+admin.site.register(Icd10Code, ICD10MappingAdmin)
+admin.site.register(CPTCodeAdmin, CPTCode)
 

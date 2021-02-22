@@ -161,7 +161,7 @@ class Exemption(models.Model):
         db_table = "exemption"
 
 
-class Icd10Mapping(models.Model):
+class Icd10Code(models.Model):
     def __str__(self):
         return '%d' % self.id
 
@@ -169,7 +169,18 @@ class Icd10Mapping(models.Model):
     icd10_name = models.CharField(max_length=255)
 
     class Meta:
-        db_table = "icd10_mapping"
+        db_table = "icd10_code"
+
+
+class CPTCode(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    cpt_code = models.BigIntegerField()
+    cpt_name = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = "cpt_code"
 
 
 
