@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+
+{% block content %}
+
+    <div class="row" id="clients">
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    <div align="right" style="padding-right: 50px">
+                        <a class="las la-file-excel la-3x" id="id_export_xls"></a>
+                    </div>
+                    <h4 class="card-title">CLIENT REGISTRATION BY CHWS</h4>
+                </div>
+
+
+                <div class="table-responsive">
+                    <table id = "table_registrations" class = "table table-bordered">
+                        <thead class = "alert-primary">
+                        <tr>
+
+                            <th>CHW NAME</th>
+                            <th>CHW ID</th>
+                            <th>NUMBER OF CLIENT REGISTRATIONS</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for x in chw_array %}
+                            <tr>
+
+                                <td align="center" id="cr_chw_name">{{ x.chw_name }}</td>
+                                <td align="center" id="cr_chw_id">{{ x.chw_id }}</td>
+                                <td align="center", id="cr_id_value">{{ x.value }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">REFERRALS ISSUED BY CHWS</h4>
+                </div>
+
+                <div class="table-responsive">
+
+                    <table id = "table_referrals" class = "table table-bordered">
+                        <thead class = "alert-success">
+                        <tr>
+                            <th>CHW NAME</th>
+                            <th>CHW ID</th>
+                            <th>REFERRALS ISSUED</th>
+                            <th>REFERRALS COMPLETED</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for x in referral_issued_by_chw %}
+                            <tr>
+                                <td align="center" id="ri_chw_name">{{ x.chw_name }}</td>
+                                <td align="center" id="ri_chw_id">{{ x.chw_id }}</td>
+                                <td align="center" id="ri_issued">{{ x.issued }}</td>
+                                <td align="center" id="ri_completed">{{ x.completed }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    {% block scripts %}
+
+        <script>
+
+            $(document).ready(function(){
+
+                $("#filter_spinner").hide();
+
+                $("#btn_filter").on("click", function () {
+
+                    $("#filter_spinner").show();
+
+                    var date_from = document.getElementById("id_date_from").value;
+                    var date_to = document.getElementById("id_date_to").value;
+                    var location_id = document.getElementById("selected_location_id").value;
+                    var url = "{% url 'filter_chw_performance' %}";
+
+                    if (date_from == "" || date_to == "" || location_id =="")
+                    {
+                        swal("Error!", "Filter(s) are empty.", "error");
+                    }
+
+                    else {
+                        if (date_from > date_to)
+                        {
+                            swal("Error!", "Date From is greater than Date To", "error");
+                        }
+
+                        else {
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: {
+                                    date_from: date_from, date_to: date_to, location_id: location_id,
+                                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                },
+
+                                success: function (data) {
+
+                                    data = $.parseJSON(data);
+
+                                    var tb = document.getElementById('table_registrations');
+                                    while (tb.rows.length > 1) {
+                                        tb.deleteRow(1);
+                                    }
+
+                                    var tb = document.getElementById('table_referrals');
+                                    while (tb.rows.length > 1) {
+                                        tb.deleteRow(1);
+                                    }
+
+                                    if (data["chw_array"] == '') {
+
+                                        swal("Empty!", "No records found.", "warning");
+                                    }
+                                    else {
+
+                                        $.each(data["chw_array"], function (k, v) {
+
+                                            var chwName = v.chw_name;
+                                            var chwId = v.chw_id;
+                                            var value = v.value;
+
+                                            $("#table_registrations > tbody").append("<tr><td align='center' id='cr_chw_name'>"+chwName+"</td><td align='center' id='cr_chw_id'>"+chwId+"</td><td align='center' id='cr_id_value'>"+value+"</td></tr>");
+
+
+                                        });
+                                    }
+
+
+                                    if (data["json_array_chw"] == '') {
+
+                                        swal("Empty!", "No records found.", "warning");
+                                    }
+                                    else {
+                                        $.each(data["json_array_chw"], function (k, v) {
+
+
+                                            var chwName = v.chw_name;
+                                            var chwId = v.chw_id;
+                                            var issued = v.issued;
+                                            var received = v.completed;
+
+                                            $("#table_referrals > tbody").append("<tr><td align='center' id='ri_chw_name'>"+chwName+"</td><td align='center' id='ri_chw_id'>"+chwId+"</td><td align='center' id='ri_issued'>"+issued+"</td><td align='center' id='ri_received'>"+received+"</td></tr>");
+
+
+                                        });
+                                    }
+
+                                    $("#filter_spinner").hide();
+
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                    $("#filter_spinner").hide();
+
+                                    swal("Error!", "Operation Failed.", "error");
+
+                                }
+                            });
+                        }
+                    }
+
+
+                });
+
+                $("#id_export_xls").on("click", function () {
+
+                    downloadExcel('RegistrationsByCHWs', 'table_registrations');
+                    downloadExcel('ReferralsByChWS', 'table_referrals');
+
+                });
+
+                function downloadExcel(fileName, tableId){
+
+                    let dataType = 'application/vnd.ms-excel';
+                    let extension = '.xls';
+                    let filename = fileName;
+
+                    let base64 = function(s) {
+                        return window.btoa(unescape(encodeURIComponent(s)))
+                    };
+
+                    let template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
+                    let render = function(template, content) {
+                        return template.replace(/{(\w+)}/g, function(m, p) { return content[p]; });
+                    };
+
+                    let tableElement = document.getElementById(''+tableId+'');
+
+                    let tableExcel = render(template, {
+                        worksheet: filename,
+                        table: tableElement.innerHTML
+                    });
+
+                    filename = filename + extension;
+
+                    if (navigator.msSaveOrOpenBlob)
+                    {
+                        let blob = new Blob(
+                                [ '\ufeff', tableExcel ],
+                                { type: dataType }
+                        );
+
+                        navigator.msSaveOrOpenBlob(blob, filename);
+                    } else {
+                        let downloadLink = document.createElement("a");
+
+                        document.body.appendChild(downloadLink);
+
+                        downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
+
+                        downloadLink.download = filename;
+
+                        downloadLink.click();
+                    }
+                }
+
+
+            });
+
+        </script>
+
+    {% endblock %}
+
+
+{% endblock %}

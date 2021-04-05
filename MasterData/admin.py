@@ -1,94 +1,78 @@
 from django.contrib import admin
-from MasterData.models import Department, Ward, Payer, Exemption, Facility, HdrExemptionCategory, HdrPayerCategory, \
-    Icd10Code, CPTCode
+from MasterData.models import Department, Ward, Payer, Exemption, Facility, ExemptionCategory, PayerCategory, \
+    ICD10Code, CPTCode,PayerMapping, ExemptionMapping, DepartmentMappings
 
 # Register your models here.
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('local_department_id', 'department_name')
-    search_fields = ['department_name']
+    list_display = ('id','description',)
+    search_fields = ['description',]
 
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
+
+class DepartmentMappingsAdmin(admin.ModelAdmin):
+    list_display = ('id','department','local_department_id', 'local_department_description', 'facility')
+    search_fields = ['local_department_description',]
 
 
 class FacilityAdmin(admin.ModelAdmin):
-    list_display = ('id','facility_name', 'facility_code')
-    search_fields = ['facility_name']
+    list_display = ('id','description', 'hfr_code')
+    search_fields = ['description',]
 
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
 
 class WardAdmin(admin.ModelAdmin):
-    list_display = ('local_ward_id','ward_name','facility', 'department', 'number_of_beds')
-    search_fields = ['ward_name']
+    list_display = ('description','local_ward_id','local_ward_description', 'number_of_beds', 'department','facility')
+    search_fields = ['local_ward_description']
 
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
+
+class PayerCategoryAdmin(admin.ModelAdmin):
+    list_display = ('id','description')
+    search_fields = ['description',]
 
 
 class PayerAdmin(admin.ModelAdmin):
-    list_display = ('local_payer_id','payer_name', 'hdr_payer_category')
-    search_fields = ['payer_name',]
+    list_display = ('id','payer_category','description')
+    search_fields = ['description',]
 
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
+
+class PayerMappingsAdmin(admin.ModelAdmin):
+    list_display = ('id','payer','local_payer_id','local_payer_description', 'facility')
+    search_fields = ['local_payer_description',]
+
+
+class ExemptionCategoryAdmin(admin.ModelAdmin):
+    list_display = ('id','description')
+    search_fields = ['description',]
 
 
 class ExemptionAdmin(admin.ModelAdmin):
-    list_display = ('local_exemption_id','exemption_name', 'hdr_exemption_category')
-    search_fields = ['exemption_name',]
-
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
+    list_display = ('id', 'exemption_category','description')
+    search_fields = ['description', ]
 
 
-class HdrPayerCategoryAdmin(admin.ModelAdmin):
-    list_display = ('hdr_payer_category_description', 'hdr_payer_category_local_id')
-    search_fields = ['hdr_payer_category_description', ]
-
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
-
-
-class HdrExemptionCategoryAdmin(admin.ModelAdmin):
-    list_display = ('hdr_exemption_category_description', 'hdr_exemption_category_local_id')
-    search_fields = ['hdr_exemption_category_description', ]
-
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
+class ExemptionMappingsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'exemption','local_exemption_id','local_exemption_description','facility')
+    search_fields = ['local_exemption_description', ]
 
 
 class ICD10MappingAdmin(admin.ModelAdmin):
-    list_display = ('icd10_code', 'icd10_name')
-    search_fields = ['icd10_name', ]
-
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
+    list_display = ('icd10_code', 'icd10_description')
+    search_fields = ['icd10_description', ]
 
 
 class CPTCodeAdmin(admin.ModelAdmin):
-    list_display = ('cpt_code', 'cpt_name')
-    search_fields = ['cpt_name', ]
+    list_display = ('cpt_code', 'cpt_description')
+    search_fields = ['cpt_description', ]
 
-    def has_delete_permission(self, request, obj=None):
-        # Disable delete
-        return False
 
 admin.site.register(Department, DepartmentAdmin)
-admin.site.register(Ward, WardAdmin)
-admin.site.register(Payer, PayerAdmin)
-admin.site.register(Exemption, ExemptionAdmin)
+admin.site.register(DepartmentMappings, DepartmentMappingsAdmin)
 admin.site.register(Facility, FacilityAdmin)
-admin.site.register(HdrExemptionCategory, HdrExemptionCategoryAdmin)
-admin.site.register(HdrPayerCategory, HdrPayerCategoryAdmin)
-admin.site.register(Icd10Code, ICD10MappingAdmin)
-admin.site.register(CPTCodeAdmin, CPTCode)
+admin.site.register(Ward, WardAdmin)
+admin.site.register(PayerCategory, PayerCategoryAdmin)
+admin.site.register(Payer, PayerAdmin)
+admin.site.register(PayerMapping, PayerMappingsAdmin)
+admin.site.register(Exemption, ExemptionAdmin)
+admin.site.register(ExemptionMapping, ExemptionMappingsAdmin)
+admin.site.register(ExemptionCategory, ExemptionCategoryAdmin)
+admin.site.register(ICD10Code, ICD10MappingAdmin)
+admin.site.register(CPTCode, CPTCodeAdmin)
 

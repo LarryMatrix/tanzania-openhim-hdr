@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">REFERRAL FOCUS LINE GRAPH</h4>
+                </div>
+                <div id="container_area" class="col-md-12">
+                    <div class="loader-wrapper" id="area_spinner">
+                        <div class="loader-container">
+                            <div class="ball-beat loader-purple">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#        <div class="card-body">#}
+        {#            <div class="card">#}
+        {#                <div class="card-header">#}
+        {#                    <h4 class="card-title">REFERRAL FOCUS SUMMARY</h4>#}
+        {#                </div>#}
+        {##}
+        {#                <table id = "table" class = "table table-bordered">#}
+        {#                    <thead class = "alert-primary">#}
+        {#                    <tr>#}
+        {#                        <th>REFERRAL TYPE</th>#}
+        {#                        <th>NUMBER OF REFERRALS</th>#}
+        {##}
+        {#                    </tr>#}
+        {#                    </thead>#}
+        {#                    <tbody>#}
+        {#                    {% for x in referral_types_focus %}#}
+        {#                        <tr>#}
+        {#                            <td align="center">{{ x.focus }}</td>#}
+        {#                            <td align="center">{{ x.value }}</td>#}
+        {#                        </tr>#}
+        {#                    {% endfor %}#}
+        {#                    </tbody>#}
+        {#                </table>#}
+        {##}
+        {##}
+        {#            </div>#}
+        {#        </div>#}
+    </div>
+
+    <div class="row">
+
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">REFERRAL STATUS BAR GRAPH</h4>
+                </div>
+                <div id="container_bar" class="col-md-12">
+                    <div class="loader-wrapper" id="area_spinner">
+                        <div class="loader-container">
+                            <div class="ball-beat loader-purple">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#        <div class="card-body">#}
+        {#            <div class="card">#}
+        {#                <div class="card-header">#}
+        {#                    <h4 class="card-title">REFERRAL TOTAL SUMMARY</h4>#}
+        {#                </div>#}
+        {##}
+        {#                <table id = "table" class = "table table-bordered">#}
+        {#                    <thead class = "alert-success">#}
+        {#                    <tr>#}
+        {#                        <th>REFERRAL STATUS</th>#}
+        {#                        <th>NUMBER OF REFERRALS</th>#}
+        {##}
+        {#                    </tr>#}
+        {#                    </thead>#}
+        {#                    <tbody>#}
+        {#                    {% for x in referral_status %}#}
+        {#                        <tr>#}
+        {#                            <td align="center">{{ x.businessstatus }}</td>#}
+        {#                            <td align="center">{{ x.value }}</td>#}
+        {#                        </tr>#}
+        {#                    {% endfor %}#}
+        {#                    </tbody>#}
+        {#                </table>#}
+        {##}
+        {##}
+        {#            </div>#}
+        {#        </div>#}
+
+    </div>
+
+    <div class="row">
+
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">TOTAL ISSUED REFERRALS LINE GRAPH</h4>
+                </div>
+                <div id="container_referral_line" class="col-md-12">
+                    <div class="loader-wrapper" id="area_spinner">
+                        <div class="loader-container">
+                            <div class="ball-beat loader-purple">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+    <script>
+
+        $(document).ready(function(){
+
+            $("#filter_spinner").hide();
+
+            var locationData = localStorage.getItem('locationData');
+
+            Highcharts.chart('container_area', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Referral Focus'
+                },
+                xAxis: {
+                    categories: [
+
+                        {% for entry in referral_types_focus %}'{{ entry.focus }} '{% if not forloop.last %}, {% endif %}{% endfor %}
+                    ]
+                },
+                series: [{
+                    name: 'Number of Referrals',
+                    data: [
+                        {% for entry in referral_types_focus %}{{ entry.value }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    ],
+                    color: 'DodgerBlue'
+                }]
+
+
+            });
+
+            Highcharts.chart('container_referral_line', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Referral Types Issued'
+                },
+                xAxis: {
+                    categories: [
+
+                        {% for entry in total_issued_referrals %}'{{ entry.event_type }} '{% if not forloop.last %}, {% endif %}{% endfor %}
+                    ]
+                },
+                series: [{
+                    name: 'Number of Referrals',
+                    data: [
+                        {% for entry in total_issued_referrals %}{{ entry.value }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    ],
+                    color: 'DodgerBlue'
+                }]
+
+
+            });
+
+            Highcharts.chart('container_bar', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Referral Status'
+                },
+                xAxis: {
+                    categories: [
+
+                        {% for entry in referral_status %}'{{ entry.businessstatus }} '{% if not forloop.last %}, {% endif %}{% endfor %}
+                    ]
+                },
+                series: [{
+                    name: 'Number of Referrals',
+                    data: [
+                        {% for entry in referral_status %}{{ entry.value }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    ],
+                    color: 'Olive'
+                }]
+
+
+            });
+
+            $("#btn_filter").on("click", function () {
+
+                $("#filter_spinner").show();
+
+                var date_from = document.getElementById("id_date_from").value;
+                var date_to = document.getElementById("id_date_to").value;
+                var location_id = document.getElementById("selected_location_id").value;
+
+                var url = "{% url 'filter_referrals_summary' %}";
+
+                if (date_from == "" || date_to == "" || location_id == "")
+                {
+                    swal("Empty Filter(s)!", "One or more filters are missing.", "warning");
+                }
+
+                else {
+                    if (date_from > date_to)
+                    {
+                        swal("Error!", "Date From is greater than Date To", "error");
+                    }
+
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                date_from: date_from, date_to: date_to, location_id: location_id,
+                                'csrfmiddlewaretoken': '{{ csrf_token }}'
+                            },
+
+                            success: function (data) {
+
+                                data = $.parseJSON(data);
+
+                                var focus_data = data['referral_types_focus'];
+                                var focus_data_categories = [];
+                                var focus_data_values = [];
+
+                                var referral_status_data = data['referral_status'];
+                                var referral_status_categories = [];
+                                var referral_status_values = [];
+
+                                var total_referrals_data = data['total_issued_referrals'];
+                                var total_referrals_categories = [];
+                                var total_referrals_values = [];
+
+
+                                $.each(focus_data, function (k, v) {
+                                    focus_data_categories.push(v.focus);
+                                    focus_data_values.push(v.value);
+                                });
+
+                                $.each(referral_status_data, function (k, v) {
+                                    referral_status_categories.push(v.businessstatus);
+                                    referral_status_values.push(v.value);
+                                });
+
+                                $.each(total_referrals_data, function (k, v) {
+                                    total_referrals_categories.push(v.event_type);
+                                    total_referrals_values.push(v.value);
+                                });
+
+
+                                Highcharts.chart('container_area', {
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: 'Referral Focus'
+                                    },
+                                    xAxis: {
+                                        categories: focus_data_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of Referrals',
+                                        data: focus_data_values,
+                                        color: 'DodgerBlue'
+                                    }]
+
+
+                                });
+
+                                Highcharts.chart('container_referral_line', {
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: 'Referral Types Issued'
+                                    },
+                                    xAxis: {
+                                        categories: total_referrals_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of Referrals',
+                                        data: total_referrals_values,
+                                        color: 'DodgerBlue'
+                                    }]
+
+
+                                });
+
+                                Highcharts.chart('container_bar', {
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: 'Referral Status'
+                                    },
+                                    xAxis: {
+                                        categories: referral_status_categories,
+                                    },
+                                    series: [{
+                                        name: 'Number of Referrals',
+                                        data: referral_status_values,
+                                        color: 'Olive'
+                                    }]
+
+
+                                });
+
+                                $("#filter_spinner").hide();
+
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                $("#filter_spinner").hide();
+
+                                swal("Error!", "Operation Failed.", "error");
+
+                            }
+                        });
+                    }
+                }
+
+
+            });
+
+
+
+        });
+
+    </script>
+
+
+{% endblock %}

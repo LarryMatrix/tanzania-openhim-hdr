@@ -9,7 +9,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
 def get_login_page(request):
-    return render(request, 'UserManagement/Login.html')
+    return render(request, 'UserManagement/Auth/Login.html')
 
 
 @login_required(login_url='/')
@@ -27,7 +27,7 @@ def change_password(request):
             return redirect(request.META['HTTP_REFERER'])
     else:
         form = PasswordChangeForm(request.user)
-        return render(request, 'UserManagement/ChangePassword.html', {
+        return render(request, 'UserManagement/Auth/ChangePassword.html', {
             'form': form
         })
 
@@ -57,13 +57,13 @@ def authenticate_user(request):
 
             else:
                 messages.success(request,'Not allowed to access this portal')
-                return render(request, 'UserManagement/Login.html')
+                return render(request, 'UserManagement/Auth/Login.html')
         else:
             messages.success(request, 'User is not active')
-            return render(request, 'UserManagement/Login.html')
+            return render(request, 'UserManagement/Auth/Login.html')
     else:
         messages.success(request, 'User name or Password is wrong')
-        return render(request, 'UserManagement/Login.html')
+        return render(request, 'UserManagement/Auth/Login.html')
 
 
 @login_required(login_url='/')

@@ -20,6 +20,7 @@ from django.urls import path, include
 from API import views as api_views
 
 urlpatterns = [
+    path('', include('UserManagement.urls')),
     path('admin/', admin.site.urls),
     path('api_', include('API.urls')),
     path('clients_events/', api_views.ClientEventView.as_view(), name='clients_events'),

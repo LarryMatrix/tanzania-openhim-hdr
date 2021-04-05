@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+
+    <div class="row" id="teams">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Team Management</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        {% render_table teams_table %}
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+
+        $(document).ready(function() {
+
+            $("#filter_spinner").hide();
+
+        });
+
+    </script>
+
+{% endblock %}
