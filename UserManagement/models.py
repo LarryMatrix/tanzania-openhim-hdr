@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from MasterData import models as master_data_models
 
 
 # Create your models here.
@@ -20,13 +21,7 @@ class Profile(models.Model):
     date_time_created = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=30, choices=GENDER_TYPE_CHOICES)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='created_by')
-    changed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='changed_by')
-    retired_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='retired_by')
-    created_on = models.DateTimeField(null=True, blank=True)
-    changed_on = models.DateTimeField(null=True, blank=True)
-    retired_on = models.DateTimeField(null=True, blank=True)
-    retire_reason = models.TextField(null=True, blank=True)
+    facility = models.ForeignKey(master_data_models.Facility, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = 'UserProfile'

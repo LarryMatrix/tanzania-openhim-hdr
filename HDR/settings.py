@@ -42,11 +42,15 @@ INSTALLED_APPS = [
     'API',
     'UserManagement',
     'MasterData',
+    'Core',
 
     # APi specific apps
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'xlwt',
+    'crispy_forms',
+    'django_tables2',
 ]
 
 REST_FRAMEWORK = {
@@ -74,23 +78,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'HDR.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 WSGI_APPLICATION = 'HDR.wsgi.application'
+
 
 
 # Database
@@ -100,13 +90,10 @@ WSGI_APPLICATION = 'HDR.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'OPTIONS': {
-          'options': '-c search_path=core,public'
-        },
         'NAME': 'hdr',
         'USER': 'postgres',
-        'PASSWORD': 'HdrPostgresPass2020',
-        'HOST': '139.162.149.249',
+        'PASSWORD': 'wewewawa',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -131,6 +118,32 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_PROFILE_MODULE = 'UserManagement.Profile'
+
+LOGIN_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+            ],
+        },
+    },
+]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

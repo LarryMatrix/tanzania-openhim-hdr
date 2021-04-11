@@ -14,8 +14,7 @@
     <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
     <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
-    <title>Family Planning Dashboard</title>
-    <link rel="apple-touch-icon" href="{% static "app-assets/images/ico/apple-icon-120.png" %}">
+    <title>Health Data Repository</title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static "app-assets/images/ico/favicon.ico" %}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/vendors.min.css" %}">
@@ -48,8 +47,8 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
-                <li class="nav-item"><a class="navbar-brand" href=""><img class="brand-logo" alt="modern admin logo" src="{% static "app-assets/images/logo/logo.png" %}">
-                    <h3 class="brand-text">Family Planning</h3>
+                <li class="nav-item"><a class="navbar-brand" href=""><img class="brand-logo" alt="modern admin logo" src="{% static "app-assets/images/tanzania_logo.png" %}">
+                    <h3 class="brand-text">HDR Admin Panel</h3>
                 </a></li>
                 <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
             </ul>
@@ -80,44 +79,43 @@
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class="active"><a href="{% url 'filter_dashboard' %}"><i class="la la-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
-            </li>
-            <li class=" navigation-header"><span data-i18n="nav.category.professional"><b>Features</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Professional"></i>
-            </li>
-            <li class=" nav-item"><a href="#"><i class="la la-file"></i><span class="menu-title" data-i18n="">Reports</span></a>
-                <ul class="menu-content">
-                    <li id="btn_chw_performance"><a href="{% url 'chw_performance' %}"><i></i><span>CHW Performance</span></a>
-                    </li>
-                    <li id="btn_health_education"><a href="{% url 'health_education' %}"><i></i><span>Health Education</span></a>
-                    </li>
-                    <li id = "btn_household_theme"><a href="{% url 'household_themes' %}"><i></i><span>Household Themes</span></a>
-                    </li>
-                </ul>
+
+            <li class="navigation-header"><span data-i18n="nav.category.professional"><b>Transaction Summary</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Professional"></i>
             </li>
 
-            </li>
-            <li class=" nav-item" id="btn_team"><a href="{% url 'team_management' %}"><i class="la la-users"></i><span class="menu-title" data-i18n="">Team Management</span></a>
-            </li>
-
-            </li>
-            <li class=" nav-item" id="btn_location"><a href="{% url 'location_management' %}"><i class="la la-building"></i><span class="menu-title" data-i18n="">Location Management</span></a>
+            <li class=" nav-item" id="btn_passed_transactions"><a href=""><i class="la la-check"></i><span class="menu-title" data-i18n="">Passed Transactions</span></a>
             </li>
 
-            <li class=" navigation-header"><span data-i18n="nav.category.apps"><b>Dashboard Summary</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Apps"></i>
+            <li class=" nav-item" id="btn_failed_transactions"><a href=""><i class="la la-times-circle-o"></i><span class="menu-title" data-i18n="">Failed Transactions</span></a>
             </li>
 
-            <li class=" nav-item" id="btn_method"><a href="{% url 'methods' %}"><i class="la la-scissors"></i><span class="menu-title" data-i18n="">Methods</span></a>
+        </ul>
+
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+
+            <li class=" navigation-header"><span data-i18n="nav.category.professional"><b>Masterdata Mappings</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Professional"></i>
             </li>
 
-            <li class=" nav-item"><a href="{% url 'clients_summary' %}"><i class="la la-users"></i><span class="menu-title" data-i18n="">All Clients</span><div class="summary-spacing badge bg-blue-grey">{{ total_clients }}</div></a>
+            <li class=" nav-item" id="btn_departments"><a href="{% url 'get_departments_page' %}"><i class="la la-building"></i><span class="menu-title" data-i18n="">Departments</span></a>
             </li>
-            <li class=" nav-item"><a href="{% url 'referrals_summary' %}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">Referrals</span><div class="summary-spacing badge bg-blue-grey">{{ total_referrals }}</div></a>
+
+            <li class=" nav-item" id="btn_exemptions"><a href="{% url 'get_exemptions_page' %}"><i class="la la-group"></i><span class="menu-title" data-i18n="">Exemptions</span></a>
             </li>
-            <li class=" nav-item"><a href="{% url 'visits_summary' %}"><i class="la la-car"></i><span class="menu-title" data-i18n="">Follow up</span><div class="summary-spacing badge bg-blue-grey">{{ total_visits }}</div></a>
+
+            <li class=" nav-item" id="btn_payers"><a href="{% url 'get_payers_page' %}"><i class="la la-money"></i><span class="menu-title" data-i18n="">Payers</span></a>
             </li>
-            <li class=" nav-item"><a href="{% url 'initiations_summary' %}"><i class="la la-thumbs-up"></i><span class="menu-title" data-i18n="">FP Registrations</span><div class="summary-spacing badge bg-blue-grey">{{ total_family_planning_initiations }}</div></a>
+
+            <li class=" nav-item" id="btn_wards"><a href="{% url 'get_wards_page' %}"><i class="la la-bed"></i><span class="menu-title" data-i18n="">Wards</span></a>
             </li>
-            <li class=" nav-item"><a href="{% url 'citizens_report_summary' %}"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Citizens Report</span><div class="summary-spacing badge bg-blue-grey">{{ total_citizen_reports }}</div></a>
+
+            <li class=" nav-item" id="btn_wards"><a href="{% url 'get_gender_page' %}"><i class="la la-mars"></i><span class="menu-title" data-i18n="">Gender</span></a>
+            </li>
+
+             <li class=" nav-item" id="btn_wards"><a href="{% url 'get_places_of_death_page' %}"><i class="la la-map"></i><span class="menu-title" data-i18n="">Places Of Death</span></a>
+            </li>
+
+
+             <li class=" nav-item" id="btn_wards"><a href="{% url 'get_service_provider_rankings_page' %}"><i class="la la-hospital-o"></i><span class="menu-title" data-i18n=""> Rankings</span></a>
             </li>
 
 
@@ -131,68 +129,6 @@
         <div class="content-header row mb-1">
         </div>
         <div class="content-body">
-            <div class="row" id="filters">
-                <div class="col-md-12 col-sm-12">
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Filters</h4>
-                        </div>
-
-                        <div class="card-body">
-
-                            {#                            <input type="text" id="location_data" value="{{ tree_locations }}" hidden/>#}
-
-                            <div class="col-md-12 col-sm-12">
-                                <div class="card">
-                                    <div class="card-body">
-
-                                        <div class="row">
-
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="issueinput3">Date From:</label>
-                                                    <input type="date" id="id_date_from" class="form-control" name="datefrom" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date From">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="issueinput4">Date To:</label>
-                                                    <input type="date" id="id_date_to" class="form-control" name="dateto" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date To">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <h6>Location:</h6>
-                                                <input type="text" value="" id="selected_location_id" disabled="true" class="form-control" hidden/>
-                                                <input type="text" value="Loading..." id="selected_location" disabled="true" class="form-control" />
-                                                <div id="tree1" style="position: absolute; overflow: hidden; background: skyblue; width: 75%;z-index:1; top:80%"></div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class ="row" style="padding-top: 30px;">
-                                            <div class="col-md-3">
-                                                <button type="button" class="btn btn-primary round width-200 buttonAnimation" id="btn_filter" data-animation="pulse" data-toggle="modal" data-backdrop="static" data-target="#modalCategoryMapping">
-                                                    <i class="la la-download"></i> Update Data
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="loader" style="margin:0 auto;"  id="filter_spinner"></div>
-
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="form-group">
@@ -246,90 +182,6 @@
     $(document).ready(function(){
 
 
-
-        var now = new Date();
-
-        {#        Date From#}
-        var day = ("0" + (now.getDate() - 1)).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-        var yesterday = now.getFullYear()+"-"+(month)+"-"+(day) ;
-
-        {#       Date To#}
-        var three_months_ago = ("0" + (now.getMonth())).slice(-2);
-        var three_months_ago_date = now.getFullYear()+"-"+(three_months_ago)+"-"+(day) ;
-
-        $('#id_date_from').val(three_months_ago_date);
-        $('#id_date_to').val(yesterday);
-
-        var locationData = localStorage.getItem('locationData');
-
-        if (locationData == null) {
-            var url = "{% url 'get_parent_child_relationship' %}";
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-
-                success: function (response) {
-
-                    var data = $.parseJSON(response);
-                    localStorage.setItem('locationData', JSON.stringify(data));
-
-                    $('#tree1').tree({
-                        data: data,
-                        autoOpen: false,
-                        dragAndDrop: true
-                    });
-
-                    $('#selected_location').val('Select Location');
-
-                },
-                error: function () {
-
-                    swal('Error', 'Operation failed', 'error');
-
-                }
-            });
-        }
-        else
-        {
-            $('#tree1').tree({
-                data: $.parseJSON(locationData),
-                autoOpen: false,
-                dragAndDrop: true
-            });
-
-            $('#selected_location').val('Select Location');
-
-        }
-
-
-        $('#tree1').on(
-                'tree.click',
-                function(event) {
-                    // The clicked node is 'event.node'
-                    var node = event.node;
-                    $("#selected_location").val(node.name);
-                    $("#selected_location_id").val(node.id);
-
-
-                }
-        );
-
-        $("#id_logout").on("click", function () {
-
-            localStorage.removeItem("locationData");
-
-        });
-
-        $("#change_password").on("click", function()
-        {
-            $("#popModal").load('{% url 'change_password' %}', function() {
-                $("#popModal").modal("show");
-            });
-        });
 
 
     });

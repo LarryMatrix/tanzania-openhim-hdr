@@ -8,9 +8,9 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
+
 def get_login_page(request):
     return render(request, 'UserManagement/Auth/Login.html')
-
 
 @login_required(login_url='/')
 def change_password(request):
@@ -53,8 +53,7 @@ def authenticate_user(request):
                 return redirect('/admin/')
             elif user.is_staff:
                 login(request, user)
-                return None
-
+                return render(request, 'UserManagement/Dashboard/index.html')
             else:
                 messages.success(request,'Not allowed to access this portal')
                 return render(request, 'UserManagement/Auth/Login.html')
@@ -87,9 +86,5 @@ def set_changed_password(request):
             return HttpResponse(status=401)
 
 
-
-
-
-
-
-
+def get_dashboard(request):
+    return render(request, 'UserManagement/Dashboard/index.html')

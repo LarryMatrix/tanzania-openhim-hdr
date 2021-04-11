@@ -1,6 +1,7 @@
 from django.contrib import admin
 from MasterData.models import Department, Ward, Payer, Exemption, Facility, ExemptionCategory, PayerCategory, \
-    ICD10Code, CPTCode,PayerMapping, ExemptionMapping, DepartmentMappings
+    ICD10Code, CPTCode,PayerMapping, ExemptionMapping, DepartmentMapping, Gender, GenderMapping, ServiceProviderRanking, \
+    ServiceProviderRankingMapping, PlaceOfDeath, PlaceOfDeathMapping
 
 # Register your models here.
 class DepartmentAdmin(admin.ModelAdmin):
@@ -53,6 +54,16 @@ class ExemptionMappingsAdmin(admin.ModelAdmin):
     search_fields = ['local_exemption_description', ]
 
 
+class GenderAdmin(admin.ModelAdmin):
+    list_display = ('id','description')
+    search_fields = ['description', ]
+
+
+class GenderMappingsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'gender','local_gender_description','facility')
+    search_fields = ['local_gender_description', ]
+
+
 class ICD10MappingAdmin(admin.ModelAdmin):
     list_display = ('icd10_code', 'icd10_description')
     search_fields = ['icd10_description', ]
@@ -63,8 +74,30 @@ class CPTCodeAdmin(admin.ModelAdmin):
     search_fields = ['cpt_description', ]
 
 
+class ServiceProviderRankingAdmin(admin.ModelAdmin):
+    list_display = ('description',)
+    search_fields = ['description', ]
+
+
+class ServiceProviderRankingMappingAdmin(admin.ModelAdmin):
+    list_display = ('service_provider_ranking','local_service_provider_ranking_id',
+                    'local_service_provider_ranking_description','facility')
+    search_fields = ['local_service_provider_ranking_description', ]
+
+
+class PlaceOfDeathAdmin(admin.ModelAdmin):
+    list_display = ('description',)
+    search_fields = ['description', ]
+
+
+class PlaceOfDeathMappingAdmin(admin.ModelAdmin):
+    list_display = ('place_of_death','local_place_of_death_id',
+                    'local_place_of_death_description','facility')
+    search_fields = ['local_place_of_death_description', ]
+
+
 admin.site.register(Department, DepartmentAdmin)
-admin.site.register(DepartmentMappings, DepartmentMappingsAdmin)
+admin.site.register(DepartmentMapping, DepartmentMappingsAdmin)
 admin.site.register(Facility, FacilityAdmin)
 admin.site.register(Ward, WardAdmin)
 admin.site.register(PayerCategory, PayerCategoryAdmin)
@@ -75,4 +108,10 @@ admin.site.register(ExemptionMapping, ExemptionMappingsAdmin)
 admin.site.register(ExemptionCategory, ExemptionCategoryAdmin)
 admin.site.register(ICD10Code, ICD10MappingAdmin)
 admin.site.register(CPTCode, CPTCodeAdmin)
+admin.site.register(Gender, GenderAdmin)
+admin.site.register(GenderMapping, GenderMappingsAdmin)
+admin.site.register(ServiceProviderRanking, ServiceProviderRankingAdmin)
+admin.site.register(ServiceProviderRankingMapping, ServiceProviderRankingMappingAdmin)
+admin.site.register(PlaceOfDeath, PlaceOfDeathAdmin)
+admin.site.register(PlaceOfDeathMapping, PlaceOfDeathMappingAdmin)
 

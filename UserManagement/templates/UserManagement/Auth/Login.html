@@ -2,19 +2,20 @@
 
 {% block content %}
 
+    {% load static %}
     <body class="vertical-layout vertical-compact-menu 1-column blank-page" data-open="click" data-menu="vertical-compact-menu" data-col="1-column">
 
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="col-md-12">
                 <div class="content-header row mb-1">
-                    <h1 style="color:white; font-size:40px; font-weight:bold; margin-left: 40px">Family Planning</h1>
-                </div>
-                <div class="content-header row mb-1">
-                    <h3 style="color:white; margin-left: 50px; margin-top: 0px; font-weight:bold;">Provision Of Quality Reproductive Health</h3>
+                    <h1 style="color:white; font-size:30px; font-weight:bold; margin-top:20px; margin-left: 20px">Health Data Repository Admin Panel</h1>
                 </div>
             </div>
-            <div class="content-body">
+        <div class="col-md-12">
+                    <img class="" src="{% static "app-assets/images/tanzania_logo.png" %}" style="margin-left: 20px"/>
+        </div>
+            <div class="col-md-12  content-body" align="center">
                 <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
                     <form class="login100-form validate-form flex-sb flex-w" action="{% url 'authenticate_user' %}" method="post">
 
@@ -62,7 +63,6 @@
                     </form>
                 </div>
 
-                {#                <div id="dropDownSelect1"></div>#}
             </div>
 
         </div>
