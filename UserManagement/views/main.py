@@ -7,7 +7,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-
+from ..tables import TransactionSummaryTable
+from Core import models as core_models
+from django_tables2 import RequestConfig
 
 def get_login_page(request):
     return render(request, 'UserManagement/Auth/Login.html')
@@ -87,4 +89,8 @@ def set_changed_password(request):
 
 
 def get_dashboard(request):
-    return render(request, 'UserManagement/Dashboard/index.html')
+    facility = request.user.profile.facility
+    transaction_summary = core_models.TransactionSummary.objects.filter(facility_hfr_code=facility.facility_hfr_code).order_by('-transaction_date_time')
+    transaction_summary_table = TransactionSummaryTable(transaction_summary)
+    RequestConfig(request, paginate={"per_page": 10}).configure(transaction_summary_table)
+    return render(request, 'UserManagement/Dashboard/index.html',{"transaction_summary_table": transaction_summary_table})

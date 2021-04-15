@@ -64,6 +64,7 @@
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700"> {{ user }}</span></a>
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" id="change_password"><i class="ft-user"></i>Change Password</a>
                             <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'logout' %}" id="id_logout"><i class="ft-power"></i> Logout</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item"><i></i><p style="color:red"> Access Level : {{ user.profile.facility }}</p></a>
                         </div>
                     </li>
                 </ul>
@@ -83,10 +84,10 @@
             <li class="navigation-header"><span data-i18n="nav.category.professional"><b>Transaction Summary</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Professional"></i>
             </li>
 
-            <li class=" nav-item" id="btn_passed_transactions"><a href=""><i class="la la-check"></i><span class="menu-title" data-i18n="">Passed Transactions</span></a>
+            <li class=" nav-item" id="btn_passed_transactions"><a href="{% url 'dashboard' %}"><i class="la la-check"></i><span class="menu-title" data-i18n="">Passed Transactions</span></a>
             </li>
 
-            <li class=" nav-item" id="btn_failed_transactions"><a href=""><i class="la la-times-circle-o"></i><span class="menu-title" data-i18n="">Failed Transactions</span></a>
+            <li class=" nav-item" id="btn_failed_transactions"><a href="{% url 'dashboard' %}"><i class="la la-times-circle-o"></i><span class="menu-title" data-i18n="">Failed Transactions</span></a>
             </li>
 
         </ul>

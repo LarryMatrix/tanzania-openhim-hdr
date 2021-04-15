@@ -1,29 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load render_table from django_tables2 %}
 
 
 {% block content %}
 
-    <div class="row">
-        <div class="card-body">
+    <div class="row" id="department_mappings">
+        <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">TRANSACTIONS ACTIVITY</h4>
+                    <h4 class="card-title">Transaction Summary</h4>
                 </div>
-                <div id="container_clients_line" class="col-md-12">
-                    <div class="loader-wrapper" id="area_spinner">
-                        <div class="loader-container">
-                            <div class="ball-beat loader-purple">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        {% render_table transaction_summary_table %}
+
                     </div>
+
                 </div>
             </div>
         </div>
-
     </div>
 
 

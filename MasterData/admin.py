@@ -1,5 +1,5 @@
 from django.contrib import admin
-from MasterData.models import Department, Ward, Payer, Exemption, Facility, ExemptionCategory, PayerCategory, \
+from MasterData.models import Department, Ward, Payer, Exemption, Facility, \
     ICD10Code, CPTCode,PayerMapping, ExemptionMapping, DepartmentMapping, Gender, GenderMapping, ServiceProviderRanking, \
     ServiceProviderRankingMapping, PlaceOfDeath, PlaceOfDeathMapping
 
@@ -15,7 +15,7 @@ class DepartmentMappingsAdmin(admin.ModelAdmin):
 
 
 class FacilityAdmin(admin.ModelAdmin):
-    list_display = ('id','description', 'hfr_code')
+    list_display = ('id','description', 'facility_hfr_code', 'is_active')
     search_fields = ['description',]
 
 
@@ -24,13 +24,8 @@ class WardAdmin(admin.ModelAdmin):
     search_fields = ['local_ward_description']
 
 
-class PayerCategoryAdmin(admin.ModelAdmin):
-    list_display = ('id','description')
-    search_fields = ['description',]
-
-
 class PayerAdmin(admin.ModelAdmin):
-    list_display = ('id','payer_category','description')
+    list_display = ('id','description')
     search_fields = ['description',]
 
 
@@ -39,13 +34,8 @@ class PayerMappingsAdmin(admin.ModelAdmin):
     search_fields = ['local_payer_description',]
 
 
-class ExemptionCategoryAdmin(admin.ModelAdmin):
-    list_display = ('id','description')
-    search_fields = ['description',]
-
-
 class ExemptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'exemption_category','description')
+    list_display = ('id','description')
     search_fields = ['description', ]
 
 
@@ -100,12 +90,10 @@ admin.site.register(Department, DepartmentAdmin)
 admin.site.register(DepartmentMapping, DepartmentMappingsAdmin)
 admin.site.register(Facility, FacilityAdmin)
 admin.site.register(Ward, WardAdmin)
-admin.site.register(PayerCategory, PayerCategoryAdmin)
 admin.site.register(Payer, PayerAdmin)
 admin.site.register(PayerMapping, PayerMappingsAdmin)
 admin.site.register(Exemption, ExemptionAdmin)
 admin.site.register(ExemptionMapping, ExemptionMappingsAdmin)
-admin.site.register(ExemptionCategory, ExemptionCategoryAdmin)
 admin.site.register(ICD10Code, ICD10MappingAdmin)
 admin.site.register(CPTCode, CPTCodeAdmin)
 admin.site.register(Gender, GenderAdmin)
