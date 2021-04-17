@@ -3,7 +3,6 @@ aniso8601==3.0.2
 appdirs==1.4.4
 asgiref==3.2.10
 asn1crypto==0.24.0
-astroid==2.3.1
 billiard==3.5.0.5
 cairocffi==1.1.0
 CairoSVG==2.4.1
@@ -100,7 +99,6 @@ responses==0.9.0
 rollbar==0.14.5
 Rx==1.6.1
 singledispatch==3.4.0.3
-six==1.11.0
 sqlparse==0.3.0
 stevedore==3.3.0
 tablib==0.12.1
