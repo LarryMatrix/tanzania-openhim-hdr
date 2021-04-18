@@ -28,5 +28,3 @@ admin.site.index_title = 'App Configurations'
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
-
-# Register your models here.

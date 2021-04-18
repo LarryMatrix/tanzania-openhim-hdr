@@ -7,10 +7,12 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from ..tables import TransactionSummaryTable
+from Core import models as core_models
+from django_tables2 import RequestConfig
 
 def get_login_page(request):
-    return render(request, 'UserManagement/Login.html')
-
+    return render(request, 'UserManagement/Auth/Login.html')
 
 @login_required(login_url='/')
 def change_password(request):
@@ -27,7 +29,7 @@ def change_password(request):
             return redirect(request.META['HTTP_REFERER'])
     else:
         form = PasswordChangeForm(request.user)
-        return render(request, 'UserManagement/ChangePassword.html', {
+        return render(request, 'UserManagement/Auth/ChangePassword.html', {
             'form': form
         })
 
@@ -53,17 +55,16 @@ def authenticate_user(request):
                 return redirect('/admin/')
             elif user.is_staff:
                 login(request, user)
-                return None
-
+                return render(request, 'UserManagement/Dashboard/index.html')
             else:
                 messages.success(request,'Not allowed to access this portal')
-                return render(request, 'UserManagement/Login.html')
+                return render(request, 'UserManagement/Auth/Login.html')
         else:
             messages.success(request, 'User is not active')
-            return render(request, 'UserManagement/Login.html')
+            return render(request, 'UserManagement/Auth/Login.html')
     else:
         messages.success(request, 'User name or Password is wrong')
-        return render(request, 'UserManagement/Login.html')
+        return render(request, 'UserManagement/Auth/Login.html')
 
 
 @login_required(login_url='/')
@@ -87,9 +88,9 @@ def set_changed_password(request):
             return HttpResponse(status=401)
 
 
-
-
-
-
-
-
+def get_dashboard(request):
+    facility = request.user.profile.facility
+    transaction_summary = core_models.TransactionSummary.objects.filter(facility_hfr_code=facility.facility_hfr_code).order_by('-transaction_date_time')
+    transaction_summary_table = TransactionSummaryTable(transaction_summary)
+    RequestConfig(request, paginate={"per_page": 10}).configure(transaction_summary_table)
+    return render(request, 'UserManagement/Dashboard/index.html',{"transaction_summary_table": transaction_summary_table})

@@ -25,7 +25,7 @@ SECRET_KEY = '&dsrr!838+mbs+ebn1*i4w-(c@%^e6c2zd+w2+51sz!onm1a3g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['139.162.149.249','127.0.0.1']
+ALLOWED_HOSTS = ['41.59.227.81','127.0.0.1']
 
 
 # Application definition
@@ -42,11 +42,15 @@ INSTALLED_APPS = [
     'API',
     'UserManagement',
     'MasterData',
+    'Core',
 
     # APi specific apps
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'xlwt',
+    'crispy_forms',
+    'django_tables2',
 ]
 
 REST_FRAMEWORK = {
@@ -74,42 +78,28 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'HDR.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 WSGI_APPLICATION = 'HDR.wsgi.application'
+
 
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'OPTIONS': {
-          'options': '-c search_path=core,public'
-        },
-        'NAME': 'hdr',
-        'USER': 'postgres',
-        'PASSWORD': 'HdrPostgresPass2020',
-        'HOST': '139.162.149.249',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'hdr',
+#         'USER': 'postgres',
+#         'PASSWORD': '',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
+
+
 
 
 # Password validation
@@ -131,6 +121,32 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_PROFILE_MODULE = 'UserManagement.Profile'
+
+LOGIN_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+            ],
+        },
+    },
+]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

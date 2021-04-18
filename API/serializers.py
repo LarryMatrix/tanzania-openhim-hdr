@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
-from MasterData import models as master_data_models
 from UserManagement import models as user_management_models
+from Core import models as core_models
 from rest_framework import serializers
 
 
@@ -28,64 +28,85 @@ class TokenSerializer(serializers.ModelSerializer):
         fields = ('key', 'user')  # there I add the `user` field ( this is my need data ).
 
 
-class ClientSerializer(serializers.ModelSerializer):
+class TransactionSummarySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = master_data_models.Client
+        model = core_models.TransactionSummary
         fields = '__all__'
 
 
-class ClientMetadataSerializer(serializers.ModelSerializer):
+class ServiceReceivedItemsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = master_data_models.ClientMetadata
+        model = core_models.ServiceReceivedItems
+        fields = ('service_received', 'department_name','department_id', 'patient_id', 'gender', 'date_of_birth',
+                  'med_svc_code', 'icd_10_code', 'service_date','service_provider_ranking_id','visit_type' )
+
+
+class ServiceReceivedSerializer(serializers.ModelSerializer):
+    items = ServiceReceivedItemsSerializer(many=True, read_only=False)
+
+    class Meta:
+        model = core_models.ServiceReceived
+        fields = ('org_name','facility_hfr_code','items')
+
+
+class DeathByDiseaseCaseAtFacilityItemsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = core_models.DeathByDiseaseCaseAtFacilityItems
         fields = '__all__'
 
 
-class EventSerializer(serializers.ModelSerializer):
+class DeathByDiseaseCaseAtFacilitySerializer(serializers.ModelSerializer):
+    items = DeathByDiseaseCaseAtFacilityItemsSerializer(many=True, read_only=False)
 
     class Meta:
-        model = master_data_models.Event
+        model = core_models.DeathByDiseaseCaseAtFacility
+        fields = ('org_name', 'facility_hfr_code', 'items')
+
+
+class DeathByDiseaseCaseNotAtFacilityItemsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = core_models.DeathByDiseaseCaseNotAtFacilityItems
         fields = '__all__'
 
 
-class EventMetadataSerializer(serializers.ModelSerializer):
+class DeathByDiseaseCaseNotAtFacilitySerializer(serializers.ModelSerializer):
+    items = DeathByDiseaseCaseNotAtFacilityItemsSerializer(many=True, read_only=False)
 
     class Meta:
-        model = master_data_models.EventMetadata
+        model = core_models.DeathByDiseaseCaseNotAtFacility
+        fields = ('org_name', 'facility_hfr_code', 'items')
+
+
+class BedOccupancyItemsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = core_models.BedOccupancyItems
         fields = '__all__'
 
 
-class LocationSerializer(serializers.ModelSerializer):
+class BedOccupancySerializer(serializers.ModelSerializer):
+    items = BedOccupancyItemsSerializer(many=True, read_only=False)
 
     class Meta:
-        model = master_data_models.Location
+        model = core_models.BedOccupancy
+        fields = ('org_name', 'facility_hfr_code', 'items')
+
+
+class RevenueReceivedItemsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = core_models.RevenueReceived
         fields = '__all__'
 
 
-class LocationMetadataSerializer(serializers.ModelSerializer):
+class RevenueReceivedSerializer(serializers.ModelSerializer):
+    items = RevenueReceivedItemsSerializer(many=True, read_only=False)
 
     class Meta:
-        model = master_data_models.LocationMetadata
-        fields = '__all__'
+        model = core_models.RevenueReceived
+        fields = ('org_name', 'facility_hfr_code', 'items')
 
-
-class HdrClientSerializer(serializers.Serializer):
-    openHimClientId = serializers.CharField()
-    name = serializers.CharField()
-
-
-class HdrEventSerializer(serializers.Serializer):
-    eventType = serializers.CharField()
-    eventDate = serializers.CharField()
-    openHimClientId = serializers.CharField()
-    mediatorVersion = serializers.CharField()
-    payload = serializers.JSONField()
-
-
-class ClientEventSerializer(serializers.Serializer):
-    hdrClient = HdrClientSerializer(many=False, read_only=False)
-    hdrEvents = HdrEventSerializer(many=True, read_only=False)
-
-    class Meta:
-        fields = ('hdrClient', 'hdrEvents')

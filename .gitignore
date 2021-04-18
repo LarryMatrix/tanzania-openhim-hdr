@@ -13,3 +13,5 @@ tests/.coverage
 build/
 tests/report/
 .idea/*
+MasterData/migrations
+UserManagement/migrations
