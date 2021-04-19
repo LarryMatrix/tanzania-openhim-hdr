@@ -2,7 +2,7 @@ from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
 from .serializers import TransactionSummarySerializer, ServiceReceivedSerializer, \
     DeathByDiseaseCaseAtFacilitySerializer, DeathByDiseaseCaseNotAtFacilitySerializer, \
-    RevenueReceivedSerializer, BedOccupancySerializer
+    RevenueReceivedSerializer, BedOccupancySerializer, ServiceReceivedItemsSerializer
 from Core.models import TransactionSummary, RevenueReceived, DeathByDiseaseCaseAtFacility, \
     DeathByDiseaseCaseNotAtFacility,ServiceReceived, BedOccupancy, RevenueReceivedItems, ServiceReceivedItems, \
     DeathByDiseaseCaseAtFacilityItems, DeathByDiseaseCaseNotAtFacilityItems, BedOccupancyItems
@@ -30,7 +30,7 @@ class ServiceReceivedView(viewsets.ModelViewSet):
         try:
             if serializer.is_valid(raise_exception=False):
                 self.perform_create(request, serializer)
-                headers = self.get_success_headers(serializer.data)
+            headers = self.get_success_headers(serializer.data)
         except IntegrityError:
             # save transaction logs
             pass
@@ -61,6 +61,11 @@ class ServiceReceivedView(viewsets.ModelViewSet):
                 instance.visit_type = serializer.data[x]["visitType"]
 
                 instance.save()
+
+    def list(self, request):
+        queryset = ServiceReceivedItems.objects.all().order_by('-id')
+        serializer = ServiceReceivedItemsSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class DeathByDiseaseCaseAtFacilityView(viewsets.ModelViewSet):
