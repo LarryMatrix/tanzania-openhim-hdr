@@ -1,9 +1,24 @@
 from django.contrib import admin
 from MasterData.models import Department, Ward, Payer, Exemption, Facility, \
     ICD10Code, CPTCode,PayerMapping, ExemptionMapping, DepartmentMapping, Gender, GenderMapping, ServiceProviderRanking, \
-    ServiceProviderRankingMapping, PlaceOfDeath, PlaceOfDeathMapping
+    ServiceProviderRankingMapping, PlaceOfDeath, PlaceOfDeathMapping, Zone, Region, DistrictCouncil
 
 # Register your models here.
+class ZoneAdmin(admin.ModelAdmin):
+    list_display = ('id','description',)
+    search_fields = ['description',]
+
+
+class RegionAdmin(admin.ModelAdmin):
+        list_display = ('id','zone', 'description',)
+        search_fields = ['description', ]
+
+
+class DistrictCouncilAdmin(admin.ModelAdmin):
+    list_display = ('id', 'region', 'description',)
+    search_fields = ['description', ]
+
+
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('id','description',)
     search_fields = ['description',]
@@ -15,7 +30,7 @@ class DepartmentMappingsAdmin(admin.ModelAdmin):
 
 
 class FacilityAdmin(admin.ModelAdmin):
-    list_display = ('id','description', 'facility_hfr_code', 'is_active')
+    list_display = ('id','description', 'facility_hfr_code','district_council', 'is_active')
     search_fields = ['description',]
 
 
@@ -86,6 +101,9 @@ class PlaceOfDeathMappingAdmin(admin.ModelAdmin):
     search_fields = ['local_place_of_death_description', ]
 
 
+admin.site.register(Zone, ZoneAdmin)
+admin.site.register(Region, RegionAdmin)
+admin.site.register(DistrictCouncil, DistrictCouncilAdmin)
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(DepartmentMapping, DepartmentMappingsAdmin)
 admin.site.register(Facility, FacilityAdmin)
