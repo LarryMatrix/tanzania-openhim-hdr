@@ -28,8 +28,8 @@ class ServiceReceivedView(viewsets.ModelViewSet):
         else:
             serializer = self.get_serializer(data=request.data)
         try:
-            if serializer.is_valid(raise_exception=False):
-                self.perform_create(request, serializer)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(request, serializer)
             headers = self.get_success_headers(serializer.data)
         except IntegrityError:
             # save transaction logs
@@ -46,7 +46,10 @@ class ServiceReceivedView(viewsets.ModelViewSet):
             instance_service_received.facility_hfr_code = serializer.data["facilityHfrCode"]
             instance_service_received.save()
 
+            print("insance is saved")
+
             for x in range(0, len(serializer.data["items"])):
+                print("service id saved is", instance_service_received.id)
                 instance = ServiceReceivedItems()
                 instance.service_received_id= instance_service_received.id
                 instance.department_name = serializer.data[x]["deptName"]
