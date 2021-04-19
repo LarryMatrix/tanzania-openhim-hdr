@@ -55,7 +55,6 @@ def authenticate_user(request):
                 return redirect('/admin/')
             elif user.is_staff:
                 login(request, user)
-                # return dashboard
                 facility = request.user.profile.facility
                 transaction_summary = core_models.TransactionSummary.objects.filter(
                     facility_hfr_code=facility.facility_hfr_code).order_by('-transaction_date_time')
