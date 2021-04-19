@@ -4,7 +4,7 @@ from django.db import models
 # models for mapping
 class Zone(models.Model):
     def __str__(self):
-        return '%d' %self.id
+        return '%s' %self.description
 
     description = models.CharField(max_length=255)
 
@@ -14,7 +14,7 @@ class Zone(models.Model):
 
 class Region(models.Model):
     def __str__(self):
-        return '%d' % self.id
+        return '%d' % self.description
 
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE, null=True, blank=True)
     description = models.CharField(max_length=255)

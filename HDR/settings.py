@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': 'hdr',
         'USER': 'postgres',
         'PASSWORD': 'HdrPostgresPass2020',
-        'HOST': '127.0.0.1',
+        'HOST': '41.59.227.81',
         'PORT': '5432',
     }
 }

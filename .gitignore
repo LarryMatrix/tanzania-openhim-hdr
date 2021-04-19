@@ -15,3 +15,5 @@ tests/report/
 .idea/*
 MasterData/migrations
 UserManagement/migrations
+Core/migrations
+HD/settings.py
