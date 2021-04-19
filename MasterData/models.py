@@ -25,7 +25,7 @@ class Region(models.Model):
 
 class DistrictCouncil(models.Model):
     def __str__(self):
-        return '%d' % self.id
+        return '%s' % self.description
 
     region = models.ForeignKey(Region, on_delete=models.CASCADE, null=True, blank=True)
     description = models.CharField(max_length=255)
@@ -217,7 +217,7 @@ class CPTCode(models.Model):
     def __str__(self):
         return '%d' %self.id
 
-    cpt_code_sub_Category = models.ForeignKey(CPTCodeSubCategory, on_delete=models.CASCADE, null=True, blank=True)
+    cpt_code_sub_category = models.ForeignKey(CPTCodeSubCategory, on_delete=models.CASCADE, null=True, blank=True)
     cpt_code = models.CharField(max_length=255)
     cpt_description = models.CharField(max_length=255)
 

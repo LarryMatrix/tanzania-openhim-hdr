@@ -1,7 +1,8 @@
 from django.contrib import admin
 from MasterData.models import Department, Ward, Payer, Exemption, Facility, \
     ICD10Code, CPTCode,PayerMapping, ExemptionMapping, DepartmentMapping, Gender, GenderMapping, ServiceProviderRanking, \
-    ServiceProviderRankingMapping, PlaceOfDeath, PlaceOfDeathMapping, Zone, Region, DistrictCouncil
+    ServiceProviderRankingMapping, PlaceOfDeath, PlaceOfDeathMapping, Zone, Region, DistrictCouncil, CPTCodeCategory, \
+    CPTCodeSubCategory, ICD10CodeCategory, ICD10CodeSubCategory
 
 # Register your models here.
 class ZoneAdmin(admin.ModelAdmin):
@@ -10,8 +11,8 @@ class ZoneAdmin(admin.ModelAdmin):
 
 
 class RegionAdmin(admin.ModelAdmin):
-        list_display = ('id','zone', 'description',)
-        search_fields = ['description', ]
+    list_display = ('id','zone', 'description',)
+    search_fields = ['description', ]
 
 
 class DistrictCouncilAdmin(admin.ModelAdmin):
@@ -69,13 +70,33 @@ class GenderMappingsAdmin(admin.ModelAdmin):
     search_fields = ['local_gender_description', ]
 
 
+class ICD10CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'description')
+    search_fields = ['description', ]
+
+
+class ICD10SubCategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'icd_10_code_category','description')
+    search_fields = ['description', ]
+
+
 class ICD10MappingAdmin(admin.ModelAdmin):
-    list_display = ('icd10_code', 'icd10_description')
+    list_display = ('icd_10_code_sub_category','icd10_code', 'icd10_description')
     search_fields = ['icd10_description', ]
 
 
+class CPTCategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'description')
+    search_fields = ['description', ]
+
+
+class CPTSubCategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'cpt_code_category','description')
+    search_fields = ['description', ]
+
+
 class CPTCodeAdmin(admin.ModelAdmin):
-    list_display = ('cpt_code', 'cpt_description')
+    list_display = ('cpt_code_sub_category','cpt_code', 'cpt_description')
     search_fields = ['cpt_description', ]
 
 
@@ -120,4 +141,8 @@ admin.site.register(ServiceProviderRanking, ServiceProviderRankingAdmin)
 admin.site.register(ServiceProviderRankingMapping, ServiceProviderRankingMappingAdmin)
 admin.site.register(PlaceOfDeath, PlaceOfDeathAdmin)
 admin.site.register(PlaceOfDeathMapping, PlaceOfDeathMappingAdmin)
+admin.site.register(ICD10CodeCategory, ICD10CategoryAdmin)
+admin.site.register(ICD10CodeSubCategory, ICD10SubCategoryAdmin)
+admin.site.register(CPTCodeCategory, CPTCategoryAdmin)
+admin.site.register(CPTCodeSubCategory, CPTSubCategoryAdmin)
 
