@@ -1,12 +1,15 @@
-from rest_framework import viewsets, status, generics
+from rest_framework import viewsets, status
+from rest_framework.permissions import  IsAuthenticated
 from rest_framework.response import Response
-from .serializers import TransactionSummarySerializer, ServiceReceivedSerializer, \
-    DeathByDiseaseCaseAtFacilitySerializer, DeathByDiseaseCaseNotAtFacilitySerializer, \
-    RevenueReceivedSerializer, BedOccupancySerializer, ServiceReceivedItemsSerializer
+from .serializers import TransactionSummarySerializer, IncomingDeathByDiseaseCaseAtTheFacilitySerializer, \
+    DeathByDiseaseCaseAtFacilityItemsSerializer, \
+    DeathByDiseaseCaseNotAtFacilityItemsSerializer, RevenueReceivedItemsSerializer,\
+    ServiceReceivedItemsSerializer, IncomingDeathByDiseaseCaseNotAtTheFacilitySerializer, \
+    IncomingServicesReceivedSerializer, IncomingBedOccupancySerializer, IncomingRevenueReceivedSerializer
 from Core.models import TransactionSummary, RevenueReceived, DeathByDiseaseCaseAtFacility, \
     DeathByDiseaseCaseNotAtFacility,ServiceReceived, BedOccupancy, RevenueReceivedItems, ServiceReceivedItems, \
     DeathByDiseaseCaseAtFacilityItems, DeathByDiseaseCaseNotAtFacilityItems, BedOccupancyItems
-from django.db import IntegrityError
+from datetime import datetime
 
 
 # Create your views here.
@@ -18,8 +21,8 @@ class TransactionSummaryView(viewsets.ModelViewSet):
 
 class ServiceReceivedView(viewsets.ModelViewSet):
     queryset = ServiceReceived.objects.all()
-    serializer_class = ServiceReceivedSerializer
-    permission_classes = ()
+    serializer_class = IncomingServicesReceivedSerializer
+    permission_classes = (IsAuthenticated,)
 
     def create(self, request):
         data = request.data
@@ -27,43 +30,39 @@ class ServiceReceivedView(viewsets.ModelViewSet):
             serializer = self.get_serializer(data=request.data, many=True)
         else:
             serializer = self.get_serializer(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(request, serializer)
-            headers = self.get_success_headers(serializer.data)
-        except IntegrityError:
-            # save transaction logs
-            pass
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(request,serializer)
+        headers = self.get_success_headers(serializer.data)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED,
                         headers=headers)
 
     def perform_create(self, request, serializer):
 
-            # validate payload
-            instance_service_received = ServiceReceived()
-            instance_service_received.org_name = serializer.data["orgName"]
-            instance_service_received.facility_hfr_code = serializer.data["facilityHfrCode"]
-            instance_service_received.save()
+        # validate payload
+        instance_service_received = ServiceReceived()
 
-            print("insance is saved")
+        instance_service_received.org_name = serializer.data["orgName"]
+        instance_service_received.facility_hfr_code = serializer.data["facilityHfrCode"]
+        instance_service_received.save()
 
-            for x in range(0, len(serializer.data["items"])):
-                print("service id saved is", instance_service_received.id)
-                instance = ServiceReceivedItems()
-                instance.service_received_id= instance_service_received.id
-                instance.department_name = serializer.data[x]["deptName"]
-                instance.department_id = serializer.data[x]["deptId"]
-                instance.patient_id = serializer.data[x]["patId"]
-                instance.gender = serializer.data[x]["gender"]
-                instance.date_of_birth = serializer.data[x]["dob"]
-                instance.med_svc_code = serializer.data[x]["medSvcCode"]
-                instance.icd_10_code = serializer.data[x]["icd10Code"]
-                instance.service_date = serializer.data[x]["serviceDate"]
-                instance.service_provider_ranking_id = serializer.data[x]["serviceProviderRankingId"]
-                instance.visit_type = serializer.data[x]["visitType"]
 
-                instance.save()
+        for val in serializer.data["items"]:
+            instance_service_received_item = ServiceReceivedItems()
+
+            instance_service_received_item.service_received_id= instance_service_received.id
+            instance_service_received_item.department_name = val["deptName"]
+            instance_service_received_item.department_id = val["deptId"]
+            instance_service_received_item.patient_id = val["patId"]
+            instance_service_received_item.gender = val["gender"]
+            instance_service_received_item.date_of_birth = convert_date_formats(val["dob"])
+            instance_service_received_item.med_svc_code = val["medSvcCode"]
+            instance_service_received_item.icd_10_code = val["icd10Code"]
+            instance_service_received_item.service_date = convert_date_formats(val["serviceDate"])
+            instance_service_received_item.service_provider_ranking_id = val["serviceProviderRankingId"]
+            instance_service_received_item.visit_type = val["visitType"]
+
+            instance_service_received_item.save()
 
     def list(self, request):
         queryset = ServiceReceivedItems.objects.all().order_by('-id')
@@ -73,8 +72,8 @@ class ServiceReceivedView(viewsets.ModelViewSet):
 
 class DeathByDiseaseCaseAtFacilityView(viewsets.ModelViewSet):
     queryset = DeathByDiseaseCaseAtFacility.objects.all()
-    serializer_class = DeathByDiseaseCaseAtFacilitySerializer
-    permission_classes = ()
+    serializer_class = IncomingDeathByDiseaseCaseAtTheFacilitySerializer
+    permission_classes = (IsAuthenticated,)
 
     def create(self, request):
         data = request.data
@@ -83,7 +82,6 @@ class DeathByDiseaseCaseAtFacilityView(viewsets.ModelViewSet):
         else:
             serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         self.perform_create(request, serializer)
         headers = self.get_success_headers(serializer.data)
 
@@ -92,26 +90,38 @@ class DeathByDiseaseCaseAtFacilityView(viewsets.ModelViewSet):
 
     def perform_create(self, request, serializer):
 
-        for x in range(0, len(serializer.data)):
-            # validate payload
-            instance = DeathByDiseaseCaseAtFacility()
-            instance.org_name = serializer.data[x]["orgName"]
-            instance.facility_hfr_code = serializer.data[x]["facilityHfrCode"]
-            instance.ward_name = serializer.data[x]["wardName"]
-            instance.ward_id = serializer.data[x]["wardId"]
-            instance.patient_id = serializer.data[x]["patId"]
-            instance.gender = serializer.data[x]["gender"]
-            instance.date_of_birth = serializer.data[x]["dob"]
-            instance.icd_10_code = serializer.data[x]["icd10Code"]
-            instance.date_death_occurred = serializer.data[x]["dateDeathOccurred"]
+        # validate payload
+        instance_death_by_disease_case_at_facility = DeathByDiseaseCaseAtFacility()
 
-            instance.save()
+        instance_death_by_disease_case_at_facility.org_name = serializer.data["orgName"]
+        instance_death_by_disease_case_at_facility.facility_hfr_code = serializer.data["facilityHfrCode"]
+        instance_death_by_disease_case_at_facility.save()
+
+        for val in serializer.data["items"]:
+            # validate payload
+            instance_death_by_disease_case_at_facility_item = DeathByDiseaseCaseAtFacilityItems()
+
+            instance_death_by_disease_case_at_facility_item.death_by_disease_case_at_facility_id = instance_death_by_disease_case_at_facility.id
+            instance_death_by_disease_case_at_facility_item.ward_name = val["wardName"]
+            instance_death_by_disease_case_at_facility_item.ward_id = val["wardId"]
+            instance_death_by_disease_case_at_facility_item.patient_id = val["patId"]
+            instance_death_by_disease_case_at_facility_item.gender = val["gender"]
+            instance_death_by_disease_case_at_facility_item.date_of_birth = convert_date_formats(val["dob"])
+            instance_death_by_disease_case_at_facility_item.icd_10_code = val["icd10Code"]
+            instance_death_by_disease_case_at_facility_item.date_death_occurred = convert_date_formats(val["dateDeathOccurred"])
+
+            instance_death_by_disease_case_at_facility_item.save()
+
+    def list(self, request):
+        queryset = DeathByDiseaseCaseAtFacilityItems.objects.all().order_by('-id')
+        serializer = DeathByDiseaseCaseAtFacilityItemsSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class DeathByDiseaseCaseNotAtFacilityView(viewsets.ModelViewSet):
     queryset = DeathByDiseaseCaseNotAtFacility.objects.all()
-    serializer_class = DeathByDiseaseCaseNotAtFacilitySerializer
-    permission_classes = ()
+    serializer_class = IncomingDeathByDiseaseCaseNotAtTheFacilitySerializer
+    permission_classes = (IsAuthenticated,)
 
     def create(self, request):
         data = request.data
@@ -128,26 +138,36 @@ class DeathByDiseaseCaseNotAtFacilityView(viewsets.ModelViewSet):
                         headers=headers)
 
     def perform_create(self, request, serializer):
+        # validate payload
+        instance_death_by_disease_case_not_at_facility = DeathByDiseaseCaseNotAtFacility()
 
-        for x in range(0, len(serializer.data)):
+        instance_death_by_disease_case_not_at_facility.org_name = serializer.data["orgName"]
+        instance_death_by_disease_case_not_at_facility.facility_hfr_code = serializer.data["facilityHfrCode"]
+        instance_death_by_disease_case_not_at_facility.save()
+
+        for val in serializer.data["items"]:
             # validate payload
-            instance = DeathByDiseaseCaseNotAtFacility()
-            instance.org_name = serializer.data[x]["orgName"]
-            instance.facility_hfr_code = serializer.data[x]["facilityHfrCode"]
-            instance.place_of_death_id = serializer.data[x]["placeOfDeathId"]
-            instance.gender = serializer.data[x]["gender"]
-            instance.date_of_birth = serializer.data[x]["dob"]
-            instance.icd_10_code = serializer.data[x]["icd10Code"]
-            instance.date_death_occurred = serializer.data[x]["dateDeathOccurred"]
-            instance.death_id = serializer.data[x]["deathId"]
+            instance_death_by_disease_case_not_at_facility_items = DeathByDiseaseCaseNotAtFacilityItems()
 
-            instance.save()
+            instance_death_by_disease_case_not_at_facility_items.place_of_death_id = val["placeOfDeathId"]
+            instance_death_by_disease_case_not_at_facility_items.gender = val["gender"]
+            instance_death_by_disease_case_not_at_facility_items.date_of_birth = convert_date_formats(val["dob"])
+            instance_death_by_disease_case_not_at_facility_items.icd_10_code = val["icd10Code"]
+            instance_death_by_disease_case_not_at_facility_items.date_death_occurred = convert_date_formats(val["dateDeathOccurred"])
+            instance_death_by_disease_case_not_at_facility_items.death_id = val["deathId"]
+
+            instance_death_by_disease_case_not_at_facility_items.save()
+
+    def list(self, request):
+        queryset = DeathByDiseaseCaseNotAtFacilityItems.objects.all().order_by('-id')
+        serializer = DeathByDiseaseCaseNotAtFacilityItemsSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class RevenueReceivedView(viewsets.ModelViewSet):
     queryset = RevenueReceived.objects.all()
-    serializer_class = RevenueReceivedSerializer
-    permission_classes = ()
+    serializer_class = IncomingRevenueReceivedSerializer
+    permission_classes = (IsAuthenticated,)
 
     def create(self, request):
         data = request.data
@@ -164,30 +184,41 @@ class RevenueReceivedView(viewsets.ModelViewSet):
                         headers=headers)
 
     def perform_create(self, request, serializer):
+        # validate payload
+        instance_revenue_received = RevenueReceived()
 
-        for x in range(0, len(serializer.data)):
+        instance_revenue_received.org_name = serializer.data["orgName"]
+        instance_revenue_received.facility_hfr_code = serializer.data["facilityHfrCode"]
+        instance_revenue_received.save()
+
+        for val in serializer.data["items"]:
             # validate payload
-            instance = RevenueReceived()
-            instance.system_trans_id = serializer.data[x]["systemTransId"]
-            instance.org_name = serializer.data[x]["orgName"]
-            instance.facility_hfr_code = serializer.data[x]["facilityHfrCode"]
-            instance.tra = serializer.data[x]["transactionDate"]
-            instance.patient_id = serializer.data[x]["patId"]
-            instance.date_of_birth = serializer.data[x]["dob"]
-            instance.med_svc_code = serializer.data[x]["medSvcCode"]
-            instance.payer_id = serializer.data[x]["payerId"]
-            instance.exemption_category_id = serializer.data[x]["exemptionCategoryId"]
-            instance.billed_amount = serializer.data[x]["billedAmount"]
-            instance.waived_amount = serializer.data[x]["waivedAmount"]
-            instance.service_provider_ranking_id = serializer.data[x]["serviceProviderRankingId"]
+            instance_revenue_received_items = RevenueReceivedItems()
 
-            instance.save()
+            instance_revenue_received_items.system_trans_id = val["systemTransId"]
+            instance_revenue_received_items.transaction_date = convert_date_formats(val["transactionDate"])
+            instance_revenue_received_items.patient_id = val["patId"]
+            instance_revenue_received_items.gender = val["gender"]
+            instance_revenue_received_items.date_of_birth = convert_date_formats(val["dob"])
+            instance_revenue_received_items.med_svc_code = val["medSvcCode"]
+            instance_revenue_received_items.payer_id = val["payerId"]
+            instance_revenue_received_items.exemption_category_id = val["exemptionCategoryId"]
+            instance_revenue_received_items.billed_amount = val["billedAmount"]
+            instance_revenue_received_items.waived_amount = val["waivedAmount"]
+            instance_revenue_received_items.service_provider_ranking_id = val["serviceProviderRankingId"]
+
+            instance_revenue_received_items.save()
+
+    def list(self, request):
+        queryset = RevenueReceivedItems.objects.all().order_by('-id')
+        serializer = RevenueReceivedItemsSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class BedOccupancyView(viewsets.ModelViewSet):
     queryset = BedOccupancy.objects.all()
-    serializer_class = BedOccupancySerializer
-    permission_classes = ()
+    serializer_class = IncomingBedOccupancySerializer
+    permission_classes = (IsAuthenticated,)
 
     def create(self, request):
         data = request.data
@@ -205,19 +236,34 @@ class BedOccupancyView(viewsets.ModelViewSet):
 
     def perform_create(self, request, serializer):
 
-        for x in range(0, len(serializer.data)):
+        # validate payload
+        instance_bed_occupancy = BedOccupancy()
+
+        instance_bed_occupancy.org_name = serializer.data["orgName"]
+        instance_bed_occupancy.facility_hfr_code = serializer.data["facilityHfrCode"]
+        instance_bed_occupancy.save()
+
+        for val in serializer.data["items"]:
             # validate payload
-            instance = BedOccupancy()
-            instance.org_name = serializer.data[x]["orgName"]
-            instance.facility_hfr_code = serializer.data[x]["facilityHfrCode"]
-            instance.patient_id = serializer.data[x]["patId"]
-            instance.admission_date = serializer.data[x]["admissionDate"]
-            instance.discharge_date = serializer.data[x]["dischargeDate"]
-            instance.ward_name = serializer.data[x]["wardName"]
-            instance.ward_id = serializer.data[x]["wardId"]
 
-            instance.save()
+            instance_bed_occupancy_item = BedOccupancyItems()
+            instance_bed_occupancy_item.patient_id = val["patId"]
+            instance_bed_occupancy_item.admission_date = convert_date_formats(val["admissionDate"])
+            instance_bed_occupancy_item.discharge_date = convert_date_formats(val["dischargeDate"])
+            instance_bed_occupancy_item.ward_name = val["wardName"]
+            instance_bed_occupancy_item.ward_id = val["wardId"]
 
+            instance_bed_occupancy_item.save()
+
+    def list(self, request):
+        queryset = BedOccupancyItems.objects.all().order_by('-id')
+        serializer = RevenueReceivedItemsSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+def convert_date_formats(date):
+    date = datetime.strptime(date, '%Y%m%d').strftime('%Y-%m-%d')
+    return date
 
 
 
