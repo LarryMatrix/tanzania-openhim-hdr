@@ -55,7 +55,13 @@ def authenticate_user(request):
                 return redirect('/admin/')
             elif user.is_staff:
                 login(request, user)
-                return render(request, 'UserManagement/Dashboard/index.html')
+                facility = request.user.profile.facility
+                transaction_summary = core_models.TransactionSummary.objects.filter(
+                    facility_hfr_code=facility.facility_hfr_code).order_by('-transaction_date_time')
+                transaction_summary_table = TransactionSummaryTable(transaction_summary)
+                RequestConfig(request, paginate={"per_page": 10}).configure(transaction_summary_table)
+                return render(request, 'UserManagement/Dashboard/index.html',
+                              {"transaction_summary_table": transaction_summary_table})
             else:
                 messages.success(request,'Not allowed to access this portal')
                 return render(request, 'UserManagement/Auth/Login.html')

@@ -134,3 +134,25 @@ def get_places_of_death_page(request):
         return render(request, 'MasterData/Features/PlacesOfDeath.html',
                       {"place_of_death_mappings_table": place_of_death_mappings_table,
                                                 "place_of_death_mapping_form": place_of_death_mapping_form})
+
+def delete_mapping(request):
+    if request.method == "POST":
+        mapping_id = int(request.POST["mapping_id"])
+        mapping_type = request.POST["mapping_type"]
+
+        if mapping_type == "departments":
+            DepartmentMapping.objects.get(id=mapping_id).delete()
+        elif mapping_type == "exemptions":
+            ExemptionMapping.objects.get(id=mapping_id).delete()
+        elif mapping_type == "payers":
+            PayerMapping.objects.get(id=mapping_id).delete()
+        elif mapping_type == "wards":
+            Ward.objects.get(id=mapping_id).delete()
+        elif mapping_type == "gender":
+            GenderMapping.objects.get(id=mapping_id).delete()
+        elif mapping_type == "places_of_death":
+            PlaceOfDeathMapping.objects.get(id=mapping_id).delete()
+        elif mapping_type == "rankings":
+            ServiceProviderRankingMapping.objects.get(id=mapping_id).delete()
+
+        return redirect(request.META['HTTP_REFERER'])

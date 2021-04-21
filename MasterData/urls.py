@@ -9,5 +9,6 @@ urlpatterns = [
     path('gender', views.get_gender_page, name='get_gender_page'),
     path('places_of_death', views.get_places_of_death_page, name='get_places_of_death_page'),
     path('service_provider_rankings', views.get_service_provider_rankings_page, name='get_service_provider_rankings_page'),
+    path('delete_mapping', views.delete_mapping, name='delete_mapping'),
 
 ]

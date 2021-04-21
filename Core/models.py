@@ -85,12 +85,12 @@ class DeathByDiseaseCaseNotAtFacilityItems(models.Model):
         return '%d' %self.id
 
     death_by_disease_case_not_at_facility = models.ForeignKey(DeathByDiseaseCaseNotAtFacility, on_delete=models.CASCADE, null=True, blank=True)
-    place_of_death_id = models.IntegerField()
+    place_of_death_id = models.CharField(max_length=255)
     gender = models.CharField(max_length=50)
     date_of_birth = models.DateField()
     icd_10_code = models.CharField(max_length=255)
     date_death_occurred = models.DateField()
-    death_id = models.IntegerField()
+    death_id = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'DeathByDiseaseCaseNotAtFacilityItems'
@@ -118,11 +118,26 @@ class BedOccupancyItems(models.Model):
     admission_date = models.DateField()
     discharge_date = models.DateField()
     ward_name = models.CharField(max_length=255)
-    ward_id = models.IntegerField()
+    ward_id = models.CharField(max_length=255)
 
     class Meta:
         db_table = 'BedOccupancyItems'
         verbose_name_plural = "Bed occupancyItems"
+
+class BedOccupancyReport(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    patient_id = models.CharField(max_length=100)
+    ward_id = models.CharField(max_length=100)
+    ward_name = models.CharField(max_length=255)
+    date = models.DateField()
+    bed_occupancy = models.DecimalField(decimal_places=4, max_digits=7)
+    facility_hfr_code = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = "BedOccupancyReport"
+
 
 
 class RevenueReceived(models.Model):
