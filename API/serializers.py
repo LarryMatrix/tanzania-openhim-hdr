@@ -74,7 +74,7 @@ class DeathByDiseaseCaseAtFacilityItemsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = core_models.DeathByDiseaseCaseAtFacilityItems
-        fields = ('death_by_disease_case_at_facility','ward_name,ward_id','patient_id',
+        fields = ('death_by_disease_case_at_facility','ward_name','ward_id','patient_id',
                   'gender','date_of_birth','icd_10_code','date_death_occurred')
 
 
@@ -84,7 +84,7 @@ class DeathByDiseaseCaseAtFacilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = core_models.DeathByDiseaseCaseAtFacility
         fields = ('org_name', 'facility_hfr_code', 'items')
-
+''
 
 class IncomingDeathByDiseaseCaseAtTheFacilityItemsSerializer(serializers.Serializer):
     wardId = serializers.CharField(max_length=255)
