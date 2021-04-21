@@ -3,7 +3,7 @@ from rest_framework.permissions import  IsAuthenticated
 from rest_framework.response import Response
 from .serializers import TransactionSummarySerializer, IncomingDeathByDiseaseCaseAtTheFacilitySerializer, \
     DeathByDiseaseCaseAtFacilityItemsSerializer, \
-    DeathByDiseaseCaseNotAtFacilityItemsSerializer, RevenueReceivedItemsSerializer,\
+    DeathByDiseaseCaseNotAtFacilityItemsSerializer, RevenueReceivedItemsSerializer,BedOccupancyItemsSerializer,\
     ServiceReceivedItemsSerializer, IncomingDeathByDiseaseCaseNotAtTheFacilitySerializer, \
     IncomingServicesReceivedSerializer, IncomingBedOccupancySerializer, IncomingRevenueReceivedSerializer
 from Core.models import TransactionSummary, RevenueReceived, DeathByDiseaseCaseAtFacility, \
@@ -257,7 +257,7 @@ class BedOccupancyView(viewsets.ModelViewSet):
 
     def list(self, request):
         queryset = BedOccupancyItems.objects.all().order_by('-id')
-        serializer = RevenueReceivedItemsSerializer(queryset, many=True)
+        serializer = BedOccupancyItemsSerializer(queryset, many=True)
         return Response(serializer.data)
 
 
