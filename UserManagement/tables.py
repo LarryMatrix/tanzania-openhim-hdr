@@ -8,29 +8,30 @@ class Actions(tables.Column):
     empty_values = list()
 
     def render(self, value, record):
-        return mark_safe('<button id="%s" class="btn_delete btn btn-danger'
-                         ' btn-sm"><i class="la la-trash"></i>Delete</button> '
-                         '<button id="%s" class="btn_update btn btn-primary'
-                         ' btn-sm"><i class="la la-pencil"></i>Edit</button>  '% (escape(record.id),escape(record.id)))
+        return mark_safe('<button id="%s" class="btn_view_more btn btn-success'
+                         ' btn-xs"><i class="la la"></i>View More Details</button> '
+                         '<button id="%s" class="btn_download btn btn-primary'
+                         ' btn-xs"><i class="la la-down"></i>Download XLS</button> '  % (escape(record.id), escape(record.id)))
 
 
 class TransactionSummaryTable(tables.Table):
+    Actions = Actions()
     id = tables.Column(
         attrs={
             "th": {"id": "id"},
             "td": {"align": "center"}
         }
     )
-    failed_records = tables.Column(
+    total_failed = tables.Column(
         attrs={
-            "th": {"id": "failed_records"},
+            "th": {"id": "total_failed"},
             "td": {"align": "center"}
         }
     )
 
-    passed_records = tables.Column(
+    total_passed = tables.Column(
         attrs={
-            "th": {"id": "passed_records"},
+            "th": {"id": "total_passed"},
             "td": {"align": "center"}
         }
     )
@@ -38,7 +39,17 @@ class TransactionSummaryTable(tables.Table):
     class Meta:
         model = core_models.TransactionSummary
         template_name = "django_tables2/bootstrap.html"
-        fields = ('id','error_message','failed_records','passed_records', 'payload' )
+        fields = ('id','message_type','org_name', 'facility_hfr_code','total_passed', 'total_failed')
+        row_attrs = {
+            'data-id': lambda record: record.pk
+        }
+
+class TransactionSummaryLineTable(tables.Table):
+
+    class Meta:
+        model = core_models.TransactionSummaryLine
+        template_name = "django_tables2/bootstrap.html"
+        fields = ('transaction', 'payload_object', 'has_passed', 'has_failed', 'error_message')
         row_attrs = {
             'data-id': lambda record: record.pk
         }

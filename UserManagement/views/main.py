@@ -7,9 +7,12 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from ..tables import TransactionSummaryTable
+from ..tables import TransactionSummaryTable, TransactionSummaryLineTable
 from Core import models as core_models
 from django_tables2 import RequestConfig
+import xlwt
+import json
+
 
 def get_login_page(request):
     return render(request, 'UserManagement/Auth/Login.html')
@@ -93,10 +96,57 @@ def set_changed_password(request):
 
             return HttpResponse(status=401)
 
+def export_transaction_lines(request):
+    if request.method == "POST":
+        transaction_id = request.POST["item_pk"]
+
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="TransactionSummaryLines.xls"'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('TransactionSummaryLines')
+
+        # Sheet header, first row
+        row_num = 0
+
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['Transaction', 'CHW ID','NUMBER OF CLIENTS REGISTERED' ]
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        # Sheet body, remaining rows
+        font_style = xlwt.XFStyle()
+
+        transaction_lines = core_models.TransactionSummaryLine.objects.filter(transaction_id = transaction_id)
+
+        for row in transaction_lines:
+            column_names = tuple(row)
+            row_num += 1
+            for col_num in range(len(column_names)):
+                print(col_num)
+                ws.write(row_num, col_num, row[col_num], font_style)
+
+        wb.save(response)
+        return response
+
 
 def get_dashboard(request):
     facility = request.user.profile.facility
     transaction_summary = core_models.TransactionSummary.objects.filter(facility_hfr_code=facility.facility_hfr_code).order_by('-transaction_date_time')
     transaction_summary_table = TransactionSummaryTable(transaction_summary)
     RequestConfig(request, paginate={"per_page": 10}).configure(transaction_summary_table)
+
     return render(request, 'UserManagement/Dashboard/index.html',{"transaction_summary_table": transaction_summary_table})
+
+
+def get_transaction_summary_lines(request,item_pk):
+    transaction_summary_lines = core_models.TransactionSummaryLine.objects.filter\
+        (transaction_id=item_pk).order_by('-id')
+    transaction_summary_lines_table = TransactionSummaryLineTable(transaction_summary_lines)
+    RequestConfig(request, paginate={"per_page": 10}).configure(transaction_summary_lines_table)
+
+    return render(request,'UserManagement/Dashboard/TransactionLines.html', {"item_pk": item_pk,
+                                                                             "transaction_summary_lines_table":transaction_summary_lines_table})

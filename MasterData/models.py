@@ -14,7 +14,7 @@ class Zone(models.Model):
 
 class Region(models.Model):
     def __str__(self):
-        return '%d' % self.description
+        return '%s' % self.description
 
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE, null=True, blank=True)
     description = models.CharField(max_length=255)

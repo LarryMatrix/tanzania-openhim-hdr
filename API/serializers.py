@@ -2,7 +2,9 @@ from django.contrib.auth.models import User
 from UserManagement import models as user_management_models
 from Core import models as core_models
 from rest_framework import serializers
-
+from Core.models import FieldValidationMapping, ValidationRule
+from .validators import convert_date_formats
+import json
 
 class ProfileSerializer(serializers.ModelSerializer):
     birth_date = serializers.DateField(format="%d-%m-%Y")
@@ -65,9 +67,15 @@ class IncomingServiceReceivedItemsSerializer(serializers.Serializer):
 
 
 class IncomingServicesReceivedSerializer(serializers.Serializer):
+    messageType = serializers.CharField(max_length=255)
     orgName = serializers.CharField(max_length=255)
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingServiceReceivedItemsSerializer(many=True, read_only=False)
+
+    def validate(self, data):
+        validate_received_payload(dict(data))
+        return data
+
 
 
 class DeathByDiseaseCaseAtFacilityItemsSerializer(serializers.ModelSerializer):
@@ -192,6 +200,107 @@ class IncomingRevenueReceivedItemsSerializer(serializers.Serializer):
 
 
 class IncomingRevenueReceivedSerializer(serializers.Serializer):
+    messageType = serializers.CharField(max_length=255)
     orgName = serializers.CharField(max_length=255)
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingRevenueReceivedItemsSerializer(many=True, read_only=False)
+
+
+def validate_received_payload(data):
+    message_type = data["messageType"]
+    org_name = data["orgName"]
+    facility_hfr_code = data["facilityHfrCode"]
+    data_items = data["items"]
+
+    instance_transaction_summary = core_models.TransactionSummary()
+    instance_transaction_summary.message_type = message_type
+    instance_transaction_summary.org_name = org_name
+    instance_transaction_summary.facility_hfr_code = facility_hfr_code
+    instance_transaction_summary.save()
+
+    for val in data_items:
+        # for x in val.keys():
+        rules = FieldValidationMapping.objects.filter(message_type=message_type)
+        for rule in rules:
+            field = rule.field
+            predefined_rule = ValidationRule.objects.get(id=rule.validation_rule_id)
+            rule_name = predefined_rule.rule_name
+
+            # save object
+            instance_transaction_summary_lines = core_models.TransactionSummaryLine()
+            instance_transaction_summary_lines.transaction_id = instance_transaction_summary.id
+            instance_transaction_summary_lines.payload_object = json.dumps(val)
+            try:
+                if rule_name == "convert_date_formats":
+                    result = convert_date_formats(val[field])
+
+                # update passed transaction number
+                previous_transaction = core_models.TransactionSummary.objects.get(id=instance_transaction_summary.id)
+                previous_transaction.total_passed +=1
+                previous_transaction.save()
+
+                # Save the object status
+                instance_transaction_summary_lines.has_passed = True
+
+            except ValueError as ve:
+                # save failed object
+                # update passed transaction number
+                previous_transaction = core_models.TransactionSummary.objects.get(
+                    id=instance_transaction_summary.id)
+                previous_transaction.total_failed += 1
+                previous_transaction.save()
+
+                # Save the object status
+                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.error_message = ve
+
+            except KeyError as ke:
+                # save failed object
+                # update passed transaction number
+                previous_transaction = core_models.TransactionSummary.objects.get(
+                    id=instance_transaction_summary.id)
+                previous_transaction.total_failed += 1
+                previous_transaction.save()
+
+                # Save the object status
+                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.error_message = ke
+
+            except RuntimeError as re:
+                # save failed object
+                # update passed transaction number
+                previous_transaction = core_models.TransactionSummary.objects.get(
+                    id=instance_transaction_summary.id)
+                previous_transaction.total_failed += 1
+                previous_transaction.save()
+
+                # Save the object status
+                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.error_message = re
+
+            except TypeError as te:
+                # save failed object
+                # update passed transaction number
+                previous_transaction = core_models.TransactionSummary.objects.get(
+                    id=instance_transaction_summary.id)
+                previous_transaction.total_failed += 1
+                previous_transaction.save()
+
+                # Save the object status
+                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.error_message = te
+
+            except NameError as ne:
+                # save failed object
+                # update passed transaction number
+                previous_transaction = core_models.TransactionSummary.objects.get(
+                    id=instance_transaction_summary.id)
+                previous_transaction.total_failed += 1
+                previous_transaction.save()
+
+                # Save the object status
+                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.error_message = ne
+
+
+            instance_transaction_summary_lines.save()
