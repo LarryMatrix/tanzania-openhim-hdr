@@ -82,6 +82,8 @@ class DeathByDiseaseCaseAtFacilityView(viewsets.ModelViewSet):
         else:
             serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
+        # Implement custom validations
         self.perform_create(request, serializer)
         headers = self.get_success_headers(serializer.data)
 
@@ -264,6 +266,7 @@ class BedOccupancyView(viewsets.ModelViewSet):
 def convert_date_formats(date):
     date = datetime.strptime(date, '%Y%m%d').strftime('%Y-%m-%d')
     return date
+
 
 
 
