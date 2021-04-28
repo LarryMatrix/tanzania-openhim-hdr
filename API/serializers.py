@@ -240,7 +240,7 @@ def validate_received_payload(data):
                 previous_transaction.save()
 
                 # Save the object status
-                instance_transaction_summary_lines.has_passed = True
+                instance_transaction_summary_lines.transaction_status = True
 
             except ValueError as ve:
                 # save failed object
@@ -251,7 +251,7 @@ def validate_received_payload(data):
                 previous_transaction.save()
 
                 # Save the object status
-                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.transaction_status = False
                 instance_transaction_summary_lines.error_message = ve
 
             except KeyError as ke:
@@ -263,7 +263,7 @@ def validate_received_payload(data):
                 previous_transaction.save()
 
                 # Save the object status
-                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.transaction_status = False
                 instance_transaction_summary_lines.error_message = ke
 
             except RuntimeError as re:
@@ -275,7 +275,7 @@ def validate_received_payload(data):
                 previous_transaction.save()
 
                 # Save the object status
-                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.transaction_status = False
                 instance_transaction_summary_lines.error_message = re
 
             except TypeError as te:
@@ -287,7 +287,7 @@ def validate_received_payload(data):
                 previous_transaction.save()
 
                 # Save the object status
-                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.transaction_status = False
                 instance_transaction_summary_lines.error_message = te
 
             except NameError as ne:
@@ -299,7 +299,7 @@ def validate_received_payload(data):
                 previous_transaction.save()
 
                 # Save the object status
-                instance_transaction_summary_lines.has_failed = True
+                instance_transaction_summary_lines.transaction_status = False
                 instance_transaction_summary_lines.error_message = ne
 
 

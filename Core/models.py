@@ -248,8 +248,7 @@ class TransactionSummaryLine(models.Model):
 
     transaction = models.ForeignKey(TransactionSummary, on_delete=models.CASCADE, null=True, blank=True)
     payload_object = models.TextField()
-    has_failed = models.BooleanField(default=0)
-    has_passed = models.BooleanField(default=0)
+    transaction_status = models.BooleanField(default=0)
     error_message = models.TextField()
 
     class Meta:

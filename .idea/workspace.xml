@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1da87fb6-8abe-4c94-a57d-83ba842ce1a4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/validators.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/TransactionLines.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/base_without_menu.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/models.py" afterPath="$PROJECT_DIR$/API/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/serializers.py" afterPath="$PROJECT_DIR$/API/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/views.py" afterPath="$PROJECT_DIR$/API/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/admin.py" afterPath="$PROJECT_DIR$/Core/admin.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/models.py" afterPath="$PROJECT_DIR$/Core/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/views.py" afterPath="$PROJECT_DIR$/Core/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/models.py" afterPath="$PROJECT_DIR$/MasterData/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/tables.py" afterPath="$PROJECT_DIR$/UserManagement/tables.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/index.html" afterPath="$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/urls.py" afterPath="$PROJECT_DIR$/UserManagement/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/views/main.py" afterPath="$PROJECT_DIR$/UserManagement/views/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,8 +33,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Core/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="248" column="2" selection-start-line="248" selection-start-column="2" selection-end-line="252" selection-end-column="38" />
+            <state relative-caret-position="711">
+              <caret line="250" column="22" selection-start-line="250" selection-start-column="4" selection-end-line="250" selection-end-column="22" />
               <folding>
                 <element signature="e#95#139#0" expanded="false" />
                 <element signature="e#210#230#0" expanded="false" />
@@ -84,23 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tables.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UserManagement/tables.py">
+      <file leaf-file-name="validators.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/API/validators.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UserManagement/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="75">
+              <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -118,6 +96,38 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Core/admin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="12" column="75" selection-start-line="12" selection-start-column="75" selection-end-line="12" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tables.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserManagement/tables.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="765">
+              <caret line="51" column="70" selection-start-line="51" selection-start-column="70" selection-end-line="51" selection-end-column="70" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tables.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MasterData/tables.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="786">
+              <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="TransactionLines.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/TransactionLines.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -130,31 +140,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base_without_menu.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/base_without_menu.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="64" column="7" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1503">
-              <caret line="41" column="5" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="serializers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/API/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="231" column="79" selection-start-line="231" selection-start-column="79" selection-end-line="231" selection-end-column="79" />
+            <state relative-caret-position="201">
+              <caret line="239" column="43" selection-start-line="239" selection-start-column="43" selection-end-line="239" selection-end-column="43" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
                 <element signature="e#2538#2877#0" expanded="false" />
@@ -168,9 +158,11 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
-              <folding />
+            <state relative-caret-position="687">
+              <caret line="66" column="16" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
+              <folding>
+                <element signature="e#1735#3756#0#HTML" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -220,16 +212,16 @@
         <option value="$PROJECT_DIR$/Core/views.py" />
         <option value="$PROJECT_DIR$/API/validators.py" />
         <option value="$PROJECT_DIR$/MasterData/models.py" />
-        <option value="$PROJECT_DIR$/Core/admin.py" />
-        <option value="$PROJECT_DIR$/Core/models.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
-        <option value="$PROJECT_DIR$/UserManagement/tables.py" />
         <option value="$PROJECT_DIR$/templates/base_without_menu.html" />
         <option value="$PROJECT_DIR$/UserManagement/views/main.py" />
         <option value="$PROJECT_DIR$/UserManagement/urls.py" />
-        <option value="$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/index.html" />
         <option value="$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/TransactionLines.html" />
+        <option value="$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/index.html" />
+        <option value="$PROJECT_DIR$/Core/models.py" />
         <option value="$PROJECT_DIR$/API/serializers.py" />
+        <option value="$PROJECT_DIR$/Core/admin.py" />
+        <option value="$PROJECT_DIR$/UserManagement/tables.py" />
       </list>
     </option>
   </component>
@@ -1052,29 +1044,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/API/validators.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/API/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="38" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1120,14 +1094,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MasterData/tables.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MasterData/templates/MasterData/Features/Departments.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="447">
@@ -1159,10 +1125,82 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1503">
+          <caret line="41" column="5" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base_without_menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="64" column="7" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="78" selection-start-line="10" selection-start-column="78" selection-end-line="10" selection-end-column="78" />
+          <folding>
+            <marker date="1619520254645" expanded="true" signature="83:871" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/TransactionLines.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="e#912#2809#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/views/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="98" column="28" selection-start-line="98" selection-start-column="4" selection-end-line="98" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="687">
+          <caret line="66" column="16" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
+          <folding>
+            <element signature="e#1735#3756#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/API/validators.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Core/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="248" column="2" selection-start-line="248" selection-start-column="2" selection-end-line="252" selection-end-column="38" />
+        <state relative-caret-position="711">
+          <caret line="250" column="22" selection-start-line="250" selection-start-column="4" selection-end-line="250" selection-end-column="22" />
           <folding>
             <element signature="e#95#139#0" expanded="false" />
             <element signature="e#210#230#0" expanded="false" />
@@ -1201,82 +1239,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/__init__.py">
+    <entry file="file://$PROJECT_DIR$/Core/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="12" column="75" selection-start-line="12" selection-start-column="75" selection-end-line="12" selection-end-column="75" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UserManagement/tables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state relative-caret-position="765">
+          <caret line="51" column="70" selection-start-line="51" selection-start-column="70" selection-end-line="51" selection-end-column="70" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
+    <entry file="file://$PROJECT_DIR$/MasterData/tables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1503">
-          <caret line="41" column="5" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="5" />
+        <state relative-caret-position="786">
+          <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base_without_menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="64" column="7" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="10" column="78" selection-start-line="10" selection-start-column="78" selection-end-line="10" selection-end-column="78" />
-          <folding>
-            <marker date="1619520254645" expanded="true" signature="83:871" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/templates/UserManagement/Dashboard/TransactionLines.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="e#912#2809#0#HTML" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/views/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="98" column="28" selection-start-line="98" selection-start-column="4" selection-end-line="98" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/API/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="231" column="79" selection-start-line="231" selection-start-column="79" selection-end-line="231" selection-end-column="79" />
+        <state relative-caret-position="201">
+          <caret line="239" column="43" selection-start-line="239" selection-start-column="43" selection-end-line="239" selection-end-column="43" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
             <element signature="e#2538#2877#0" expanded="false" />

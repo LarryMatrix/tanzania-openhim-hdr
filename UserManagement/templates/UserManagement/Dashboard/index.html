@@ -62,6 +62,8 @@
             $(".btn_download").on( "click", function( event ) {
                 var id = $(this).attr('id');
 
+                alert(id);
+
                 downloadExcel('TransactionSummary', 'transaction_summary_table');
 
             });
