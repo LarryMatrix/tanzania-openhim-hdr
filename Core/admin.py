@@ -10,7 +10,7 @@ class TransactionSummaryAdmin(admin.ModelAdmin):
 
 
 class TransactionSummaryLinesAdmin(admin.ModelAdmin):
-    list_display = ('id','transaction','payload_object','has_failed','has_passed',
+    list_display = ('id','transaction','payload_object','transaction_status',
                     'error_message')
     search_fields = []
 
