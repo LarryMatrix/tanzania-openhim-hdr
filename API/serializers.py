@@ -77,7 +77,6 @@ class IncomingServicesReceivedSerializer(serializers.Serializer):
         return data
 
 
-
 class DeathByDiseaseCaseAtFacilityItemsSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -105,9 +104,14 @@ class IncomingDeathByDiseaseCaseAtTheFacilityItemsSerializer(serializers.Seriali
 
 
 class IncomingDeathByDiseaseCaseAtTheFacilitySerializer(serializers.Serializer):
+    messageType = serializers.CharField(max_length=255)
     orgName = serializers.CharField(max_length=255)
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingDeathByDiseaseCaseAtTheFacilityItemsSerializer(many=True, read_only=False)
+
+    def validate(self, data):
+        validate_received_payload(dict(data))
+        return data
 
 
 class DeathByDiseaseCaseNotAtFacilityItemsSerializer(serializers.ModelSerializer):
@@ -135,9 +139,14 @@ class IncomingDeathByDiseaseCaseNotAtTheFacilityItemsSerializer(serializers.Seri
 
 
 class IncomingDeathByDiseaseCaseNotAtTheFacilitySerializer(serializers.Serializer):
+    messageType = serializers.CharField(max_length=255)
     orgName = serializers.CharField(max_length=255)
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingDeathByDiseaseCaseNotAtTheFacilityItemsSerializer(many=True, read_only=False)
+
+    def validate(self, data):
+        validate_received_payload(dict(data))
+        return data
 
 
 class BedOccupancyItemsSerializer(serializers.ModelSerializer):
@@ -164,9 +173,14 @@ class IncomingBedOccupancyItemsSerializer(serializers.Serializer):
 
 
 class IncomingBedOccupancySerializer(serializers.Serializer):
+    messageType = serializers.CharField(max_length=255)
     orgName = serializers.CharField(max_length=255)
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingBedOccupancyItemsSerializer(many=True, read_only=False)
+
+    def validate(self, data):
+        validate_received_payload(dict(data))
+        return data
 
 
 class RevenueReceivedItemsSerializer(serializers.ModelSerializer):
@@ -205,6 +219,10 @@ class IncomingRevenueReceivedSerializer(serializers.Serializer):
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingRevenueReceivedItemsSerializer(many=True, read_only=False)
 
+    def validate(self, data):
+        validate_received_payload(dict(data))
+        return data
+
 
 def validate_received_payload(data):
     message_type = data["messageType"]
@@ -218,89 +236,42 @@ def validate_received_payload(data):
     instance_transaction_summary.facility_hfr_code = facility_hfr_code
     instance_transaction_summary.save()
 
+    validation_rule_failed = 0
+    transaction_status = True
+    error_message = []
+
     for val in data_items:
-        # for x in val.keys():
         rules = FieldValidationMapping.objects.filter(message_type=message_type)
         for rule in rules:
             field = rule.field
             predefined_rule = ValidationRule.objects.get(id=rule.validation_rule_id)
             rule_name = predefined_rule.rule_name
 
-            # save object
-            instance_transaction_summary_lines = core_models.TransactionSummaryLine()
-            instance_transaction_summary_lines.transaction_id = instance_transaction_summary.id
-            instance_transaction_summary_lines.payload_object = json.dumps(val)
+            # Test all rules here
             try:
                 if rule_name == "convert_date_formats":
-                    result = convert_date_formats(val[field])
+                    convert_date_formats(val[field])
+                    transaction_status = True
+            except (NameError, TypeError, RuntimeError, KeyError, ValueError):
+                raised_error = "Failed to convert "+field+" with value of "+val[field]+" to a valid date format."
+                transaction_status = False
+                validation_rule_failed += 1
+                error_message.append(raised_error)
 
-                # update passed transaction number
-                previous_transaction = core_models.TransactionSummary.objects.get(id=instance_transaction_summary.id)
-                previous_transaction.total_passed +=1
-                previous_transaction.save()
+    previous_transaction = core_models.TransactionSummary.objects.get(
+        id=instance_transaction_summary.id)
 
-                # Save the object status
-                instance_transaction_summary_lines.transaction_status = True
+    if validation_rule_failed > 0:
+        previous_transaction.total_failed += 1
+    else:
+        previous_transaction.total_passed += 1
 
-            except ValueError as ve:
-                # save failed object
-                # update passed transaction number
-                previous_transaction = core_models.TransactionSummary.objects.get(
-                    id=instance_transaction_summary.id)
-                previous_transaction.total_failed += 1
-                previous_transaction.save()
+    previous_transaction.save()
 
-                # Save the object status
-                instance_transaction_summary_lines.transaction_status = False
-                instance_transaction_summary_lines.error_message = ve
+    instance_transaction_summary_lines = core_models.TransactionSummaryLine()
+    instance_transaction_summary_lines.transaction_id = instance_transaction_summary.id
+    instance_transaction_summary_lines.payload_object = json.dumps(val)
+    instance_transaction_summary_lines.transaction_status = transaction_status
+    instance_transaction_summary_lines.error_message = error_message
 
-            except KeyError as ke:
-                # save failed object
-                # update passed transaction number
-                previous_transaction = core_models.TransactionSummary.objects.get(
-                    id=instance_transaction_summary.id)
-                previous_transaction.total_failed += 1
-                previous_transaction.save()
-
-                # Save the object status
-                instance_transaction_summary_lines.transaction_status = False
-                instance_transaction_summary_lines.error_message = ke
-
-            except RuntimeError as re:
-                # save failed object
-                # update passed transaction number
-                previous_transaction = core_models.TransactionSummary.objects.get(
-                    id=instance_transaction_summary.id)
-                previous_transaction.total_failed += 1
-                previous_transaction.save()
-
-                # Save the object status
-                instance_transaction_summary_lines.transaction_status = False
-                instance_transaction_summary_lines.error_message = re
-
-            except TypeError as te:
-                # save failed object
-                # update passed transaction number
-                previous_transaction = core_models.TransactionSummary.objects.get(
-                    id=instance_transaction_summary.id)
-                previous_transaction.total_failed += 1
-                previous_transaction.save()
-
-                # Save the object status
-                instance_transaction_summary_lines.transaction_status = False
-                instance_transaction_summary_lines.error_message = te
-
-            except NameError as ne:
-                # save failed object
-                # update passed transaction number
-                previous_transaction = core_models.TransactionSummary.objects.get(
-                    id=instance_transaction_summary.id)
-                previous_transaction.total_failed += 1
-                previous_transaction.save()
-
-                # Save the object status
-                instance_transaction_summary_lines.transaction_status = False
-                instance_transaction_summary_lines.error_message = ne
-
-
-            instance_transaction_summary_lines.save()
+    instance_transaction_summary_lines.save()

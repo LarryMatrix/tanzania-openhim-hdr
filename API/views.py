@@ -34,7 +34,9 @@ class ServiceReceivedView(viewsets.ModelViewSet):
         self.perform_create(request,serializer)
         headers = self.get_success_headers(serializer.data)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
+        response = {"message": "Success", "status":status.HTTP_201_CREATED}
+
+        return Response(response, status=status.HTTP_201_CREATED,
                         headers=headers)
 
     def perform_create(self, request, serializer):
@@ -87,7 +89,9 @@ class DeathByDiseaseCaseAtFacilityView(viewsets.ModelViewSet):
         self.perform_create(request, serializer)
         headers = self.get_success_headers(serializer.data)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
+        response = {"message": "Success", "status": status.HTTP_201_CREATED}
+
+        return Response(response, status=status.HTTP_201_CREATED,
                         headers=headers)
 
     def perform_create(self, request, serializer):
@@ -136,7 +140,9 @@ class DeathByDiseaseCaseNotAtFacilityView(viewsets.ModelViewSet):
         self.perform_create(request, serializer)
         headers = self.get_success_headers(serializer.data)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
+        response = {"message": "Success", "status": status.HTTP_201_CREATED}
+
+        return Response(response, status=status.HTTP_201_CREATED,
                         headers=headers)
 
     def perform_create(self, request, serializer):
@@ -182,7 +188,9 @@ class RevenueReceivedView(viewsets.ModelViewSet):
         self.perform_create(request, serializer)
         headers = self.get_success_headers(serializer.data)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
+        response = {"message": "Success", "status": status.HTTP_201_CREATED}
+
+        return Response(response, status=status.HTTP_201_CREATED,
                         headers=headers)
 
     def perform_create(self, request, serializer):
@@ -233,7 +241,9 @@ class BedOccupancyView(viewsets.ModelViewSet):
         self.perform_create(request, serializer)
         headers = self.get_success_headers(serializer.data)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
+        response = {"message": "Success", "status": status.HTTP_201_CREATED}
+
+        return Response(response, status=status.HTTP_201_CREATED,
                         headers=headers)
 
     def perform_create(self, request, serializer):

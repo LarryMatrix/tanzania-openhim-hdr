@@ -191,14 +191,14 @@ class FieldValidationMapping(models.Model):
 
     ServicesReceived = 'SVCREC'
     DeathByDiseaseCaseAtFacility = 'DDC'
-    DeathByDiseaseCaseNotAtFacility = 'DDC'
+    DeathByDiseaseCaseNotAtFacility = 'DDCOUT'
     RevenueReceived = 'REV'
     BedOccupancy = 'BEDOCC'
 
     MESSAGE_TYPE_CHOICES = (
         (ServicesReceived, 'SVCREC'),
         (DeathByDiseaseCaseAtFacility, 'DDC'),
-        (DeathByDiseaseCaseNotAtFacility, 'DDC'),
+        (DeathByDiseaseCaseNotAtFacility, 'DDCOUT'),
         (RevenueReceived, 'REV'),
         (BedOccupancy, 'BEDOCC'),
     )
@@ -217,14 +217,14 @@ class TransactionSummary(models.Model):
 
     ServicesReceived = 'SVCREC'
     DeathByDiseaseCaseAtFacility = 'DDC'
-    DeathByDiseaseCaseNotAtFacility = 'DDC'
+    DeathByDiseaseCaseNotAtFacility = 'DDCOUT'
     RevenueReceived = 'REV'
     BedOccupancy = 'BEDOCC'
 
     MESSAGE_TYPE_CHOICES = (
         (ServicesReceived, 'SVCREC'),
         (DeathByDiseaseCaseAtFacility, 'DDC'),
-        (DeathByDiseaseCaseNotAtFacility, 'DDC'),
+        (DeathByDiseaseCaseNotAtFacility, 'DDCOUT'),
         (RevenueReceived, 'REV'),
         (BedOccupancy, 'BEDOCC'),
     )
