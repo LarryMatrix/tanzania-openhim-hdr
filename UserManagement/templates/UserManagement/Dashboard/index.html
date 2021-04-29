@@ -61,10 +61,36 @@
 
             $(".btn_download").on( "click", function( event ) {
                 var id = $(this).attr('id');
+                var url = '{% url 'export_transaction_lines' %}';
 
-                alert(id);
+                 $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            item_pk: id,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(data)
+                        {
 
-                downloadExcel('TransactionSummary', 'transaction_summary_table');
+                            swal({
+                                    title: 'Payload exported successfully.',
+                                    icon: 'success'
+                                })
+
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                              swal({
+                                    title: 'Operation failed.',
+                                    icon: 'error'
+                                });
+
+                        }
+                    });
+
+                    e.preventDefault(); // avoid to execute the actual submit of the form.
 
             });
 
