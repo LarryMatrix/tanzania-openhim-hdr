@@ -2,7 +2,7 @@ from django.contrib import admin
 from MasterData.models import Department, Ward, Payer, Exemption, Facility, \
     ICD10Code, CPTCode,PayerMapping, ExemptionMapping, DepartmentMapping, Gender, GenderMapping, ServiceProviderRanking, \
     ServiceProviderRankingMapping, PlaceOfDeath, PlaceOfDeathMapping, Zone, Region, DistrictCouncil, CPTCodeCategory, \
-    CPTCodeSubCategory, ICD10CodeCategory, ICD10CodeSubCategory
+    CPTCodeSubCategory, ICD10CodeCategory, ICD10CodeSubCategory, ICD10SubCode
 
 # Register your models here.
 class ZoneAdmin(admin.ModelAdmin):
@@ -85,6 +85,11 @@ class ICD10MappingAdmin(admin.ModelAdmin):
     search_fields = ['icd10_description', ]
 
 
+class ICD10SubCodeMappingAdmin(admin.ModelAdmin):
+    list_display = ('icd10_code','icd10_sub_code', 'icd10_sub_code_description')
+    search_fields = ['icd10_sub_code_description', ]
+
+
 class CPTCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'description')
     search_fields = ['description', ]
@@ -133,7 +138,6 @@ admin.site.register(Payer, PayerAdmin)
 admin.site.register(PayerMapping, PayerMappingsAdmin)
 admin.site.register(Exemption, ExemptionAdmin)
 admin.site.register(ExemptionMapping, ExemptionMappingsAdmin)
-admin.site.register(ICD10Code, ICD10MappingAdmin)
 admin.site.register(CPTCode, CPTCodeAdmin)
 admin.site.register(Gender, GenderAdmin)
 admin.site.register(GenderMapping, GenderMappingsAdmin)
@@ -143,6 +147,8 @@ admin.site.register(PlaceOfDeath, PlaceOfDeathAdmin)
 admin.site.register(PlaceOfDeathMapping, PlaceOfDeathMappingAdmin)
 admin.site.register(ICD10CodeCategory, ICD10CategoryAdmin)
 admin.site.register(ICD10CodeSubCategory, ICD10SubCategoryAdmin)
+admin.site.register(ICD10Code, ICD10MappingAdmin)
+admin.site.register(ICD10SubCode, ICD10SubCodeMappingAdmin),
 admin.site.register(CPTCodeCategory, CPTCategoryAdmin)
 admin.site.register(CPTCodeSubCategory, CPTSubCategoryAdmin)
 
