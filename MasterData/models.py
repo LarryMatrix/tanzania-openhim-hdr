@@ -179,7 +179,7 @@ class ICD10CodeSubCategory(models.Model):
 
 class ICD10Code(models.Model):
     def __str__(self):
-        return '%d' %self.id
+        return '%s' %self.icd10_description
 
     icd_10_code_sub_category = models.ForeignKey(ICD10CodeSubCategory, on_delete=models.CASCADE, null=True, blank=True)
     icd10_code = models.CharField(max_length=255)
@@ -188,6 +188,18 @@ class ICD10Code(models.Model):
     class Meta:
         db_table="ICD10Codes"
         verbose_name_plural = "ICD10 Codes"
+
+class ICD10SubCode(models.Model):
+    def __str__(self):
+        return '%d' %self.id
+
+    icd10_code = models.ForeignKey(ICD10Code, on_delete=models.CASCADE, null=True, blank=True)
+    icd10_sub_code = models.CharField(max_length=255)
+    icd10_sub_code_description = models.CharField(max_length=255)
+
+    class Meta:
+        db_table="ICD10SubCodes"
+        verbose_name_plural = "ICD10 SubCodes"
 
 
 class CPTCodeCategory(models.Model):
