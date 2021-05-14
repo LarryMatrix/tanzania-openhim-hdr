@@ -2,9 +2,7 @@ from django.contrib.auth.models import User
 from UserManagement import models as user_management_models
 from Core import models as core_models
 from rest_framework import serializers
-from Core.models import FieldValidationMapping, ValidationRule
-from .validators import convert_date_formats
-import json
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     birth_date = serializers.DateField(format="%d-%m-%Y")
@@ -72,10 +70,6 @@ class IncomingServicesReceivedSerializer(serializers.Serializer):
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingServiceReceivedItemsSerializer(many=True, read_only=False)
 
-    def validate(self, data):
-        validate_received_payload(dict(data))
-        return data
-
 
 class DeathByDiseaseCaseAtFacilityItemsSerializer(serializers.ModelSerializer):
 
@@ -109,10 +103,6 @@ class IncomingDeathByDiseaseCaseAtTheFacilitySerializer(serializers.Serializer):
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingDeathByDiseaseCaseAtTheFacilityItemsSerializer(many=True, read_only=False)
 
-    def validate(self, data):
-        validate_received_payload(dict(data))
-        return data
-
 
 class DeathByDiseaseCaseNotAtFacilityItemsSerializer(serializers.ModelSerializer):
 
@@ -144,10 +134,6 @@ class IncomingDeathByDiseaseCaseNotAtTheFacilitySerializer(serializers.Serialize
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingDeathByDiseaseCaseNotAtTheFacilityItemsSerializer(many=True, read_only=False)
 
-    def validate(self, data):
-        validate_received_payload(dict(data))
-        return data
-
 
 class BedOccupancyItemsSerializer(serializers.ModelSerializer):
 
@@ -177,10 +163,6 @@ class IncomingBedOccupancySerializer(serializers.Serializer):
     orgName = serializers.CharField(max_length=255)
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingBedOccupancyItemsSerializer(many=True, read_only=False)
-
-    def validate(self, data):
-        validate_received_payload(dict(data))
-        return data
 
 
 class RevenueReceivedItemsSerializer(serializers.ModelSerializer):
@@ -219,59 +201,7 @@ class IncomingRevenueReceivedSerializer(serializers.Serializer):
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingRevenueReceivedItemsSerializer(many=True, read_only=False)
 
-    def validate(self, data):
-        validate_received_payload(dict(data))
-        return data
 
 
-def validate_received_payload(data):
-    message_type = data["messageType"]
-    org_name = data["orgName"]
-    facility_hfr_code = data["facilityHfrCode"]
-    data_items = data["items"]
 
-    instance_transaction_summary = core_models.TransactionSummary()
-    instance_transaction_summary.message_type = message_type
-    instance_transaction_summary.org_name = org_name
-    instance_transaction_summary.facility_hfr_code = facility_hfr_code
-    instance_transaction_summary.save()
 
-    validation_rule_failed = 0
-    transaction_status = True
-    error_message = []
-
-    for val in data_items:
-        rules = FieldValidationMapping.objects.filter(message_type=message_type)
-        for rule in rules:
-            field = rule.field
-            predefined_rule = ValidationRule.objects.get(id=rule.validation_rule_id)
-            rule_name = predefined_rule.rule_name
-
-            # Test all rules here
-            try:
-                if rule_name == "convert_date_formats":
-                    convert_date_formats(val[field])
-                    transaction_status = True
-            except (NameError, TypeError, RuntimeError, KeyError, ValueError):
-                raised_error = "Failed to convert "+field+" with value of "+val[field]+" to a valid date format."
-                transaction_status = False
-                validation_rule_failed += 1
-                error_message.append(raised_error)
-
-    previous_transaction = core_models.TransactionSummary.objects.get(
-        id=instance_transaction_summary.id)
-
-    if validation_rule_failed > 0:
-        previous_transaction.total_failed += 1
-    else:
-        previous_transaction.total_passed += 1
-
-    previous_transaction.save()
-
-    instance_transaction_summary_lines = core_models.TransactionSummaryLine()
-    instance_transaction_summary_lines.transaction_id = instance_transaction_summary.id
-    instance_transaction_summary_lines.payload_object = json.dumps(val)
-    instance_transaction_summary_lines.transaction_status = transaction_status
-    instance_transaction_summary_lines.error_message = error_message
-
-    instance_transaction_summary_lines.save()

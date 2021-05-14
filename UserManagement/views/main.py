@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from ..tables import TransactionSummaryTable, TransactionSummaryLineTable
 from Core import models as core_models
 from django_tables2 import RequestConfig
+from MasterData import models as master_data_models
 import xlwt
 import json
 
@@ -150,3 +151,12 @@ def get_transaction_summary_lines(request,item_pk):
 
     return render(request,'UserManagement/Dashboard/TransactionLines.html', {"item_pk": item_pk,
                                                                              "transaction_summary_lines_table":transaction_summary_lines_table})
+
+def upload_payload(request):
+    if request.method == "POST":
+       message_type = request.POST["messageType"]
+       instance = master_data_models.Facility.objects.get(id=request.user.profile.facility_id)
+       facility_hfr_code = instance.facility_hfr_code
+       print(facility_hfr_code)
+       print(message_type)
+    return HttpResponse("hi")

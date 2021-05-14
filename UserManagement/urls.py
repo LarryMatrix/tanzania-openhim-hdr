@@ -1,5 +1,6 @@
 from django.urls import path
 from UserManagement.views import main
+from Core import views as core_views
 
 urlpatterns = [
     path('', main.get_login_page, name='login_page'),
@@ -11,6 +12,7 @@ urlpatterns = [
     path('accounts/login/', main.change_password, name='login_required_page'),
     path('logout', main.logout_view, name='logout'),
     path('change_password', main.change_password, name='change_password'),
-    path('export_transaction_lines', main.export_transaction_lines, name='export_transaction_lines'),
+    path('export_transaction_lines', core_views.convert_to_csv, name='export_transaction_lines'),
+    path('upload_payload', main.upload_payload, name='upload_payload'),
 
 ]
