@@ -12,7 +12,8 @@ from Core import models as core_models
 from django_tables2 import RequestConfig
 from MasterData import models as master_data_models
 import xlwt
-import json
+from Core import forms as core_forms
+import os
 
 
 def get_login_page(request):
@@ -51,12 +52,14 @@ def authenticate_user(request):
     password = request.POST['password']
 
     user = authenticate(request, username=username, password=password)
+    form = core_forms.PayloadImportForm()
 
     if user is not None and user.is_authenticated:
         if user.is_active:
             if user.is_superuser:
                 login(request, user)
                 return redirect('/admin/')
+
             elif user.is_staff:
                 login(request, user)
                 facility = request.user.profile.facility
@@ -64,8 +67,7 @@ def authenticate_user(request):
                     facility_hfr_code=facility.facility_hfr_code).order_by('-transaction_date_time')
                 transaction_summary_table = TransactionSummaryTable(transaction_summary)
                 RequestConfig(request, paginate={"per_page": 10}).configure(transaction_summary_table)
-                return render(request, 'UserManagement/Dashboard/index.html',
-                              {"transaction_summary_table": transaction_summary_table})
+                return redirect('/dashboard', {"transaction_summary_table": transaction_summary_table,"payload_form":form})
             else:
                 messages.success(request,'Not allowed to access this portal')
                 return render(request, 'UserManagement/Auth/Login.html')
@@ -75,6 +77,14 @@ def authenticate_user(request):
     else:
         messages.success(request, 'User name or Password is wrong')
         return render(request, 'UserManagement/Auth/Login.html')
+
+
+def get_admin_page(request):
+    if request.user.is_super_user:
+        return redirect('/admin/')
+    else:
+        return render(request, 'UserManagement/Auth/Login.html')
+
 
 
 @login_required(login_url='/')
@@ -135,12 +145,14 @@ def export_transaction_lines(request):
 
 
 def get_dashboard(request):
+    form = core_forms.PayloadImportForm()
     facility = request.user.profile.facility
     transaction_summary = core_models.TransactionSummary.objects.filter(facility_hfr_code=facility.facility_hfr_code).order_by('-transaction_date_time')
     transaction_summary_table = TransactionSummaryTable(transaction_summary)
     RequestConfig(request, paginate={"per_page": 10}).configure(transaction_summary_table)
 
-    return render(request, 'UserManagement/Dashboard/index.html',{"transaction_summary_table": transaction_summary_table})
+    return render(request, 'UserManagement/Dashboard/index.html',{"transaction_summary_table": transaction_summary_table,
+                                                                  "payload_form": form})
 
 
 def get_transaction_summary_lines(request,item_pk):
@@ -151,12 +163,3 @@ def get_transaction_summary_lines(request,item_pk):
 
     return render(request,'UserManagement/Dashboard/TransactionLines.html', {"item_pk": item_pk,
                                                                              "transaction_summary_lines_table":transaction_summary_lines_table})
-
-def upload_payload(request):
-    if request.method == "POST":
-       message_type = request.POST["messageType"]
-       instance = master_data_models.Facility.objects.get(id=request.user.profile.facility_id)
-       facility_hfr_code = instance.facility_hfr_code
-       print(facility_hfr_code)
-       print(message_type)
-    return HttpResponse("hi")

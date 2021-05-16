@@ -4,6 +4,7 @@ from Core import views as core_views
 
 urlpatterns = [
     path('', main.get_login_page, name='login_page'),
+    path('admin', main.get_admin_page, name= 'admin'),
     path('password/', main.change_password, name='change_password'),
     path('dashboard', main.get_dashboard, name='dashboard'),
     path('get_transaction_summary_lines/<int:item_pk>/', main.get_transaction_summary_lines, name='get_transaction_summary_lines'),
@@ -13,6 +14,6 @@ urlpatterns = [
     path('logout', main.logout_view, name='logout'),
     path('change_password', main.change_password, name='change_password'),
     path('export_transaction_lines', core_views.convert_to_csv, name='export_transaction_lines'),
-    path('upload_payload', main.upload_payload, name='upload_payload'),
+    path('upload_payload', core_views.upload_payload, name='upload_payload'),
 
 ]

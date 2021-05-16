@@ -33,15 +33,18 @@ class ServiceReceivedView(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             if False in validators.validate_received_payload(dict(serializer.data)):
-                headers = self.get_success_headers(serializer.data)
+                headers = self.get_exception_handler(serializer.data)
                 response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 return Response(response, headers=headers)
             else:
                 status_array = self.perform_create(request, serializer)
-                headers = self.get_success_headers(serializer.data)
+
                 if 400 in status_array:
+                    headers = self.get_exception_handler(serializer.data)
+                    headers = status.HTTP_400_BAD_REQUEST
                     response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 else:
+                    headers = self.get_success_headers(serializer.data)
                     response = {"message": "Success", "status": status.HTTP_201_CREATED}
 
                 return Response(response, headers=headers)
@@ -57,7 +60,6 @@ class ServiceReceivedView(viewsets.ModelViewSet):
         instance_service_received = ServiceReceived()
 
         instance_service_received.org_name = serializer.data["orgName"]
-        print(serializer.data["orgName"])
         instance_service_received.facility_hfr_code = serializer.data["facilityHfrCode"]
         instance_service_received.save()
 

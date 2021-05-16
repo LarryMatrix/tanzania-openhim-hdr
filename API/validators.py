@@ -70,6 +70,7 @@ def validate_received_payload(data):
     transaction_status = True
     error_message = []
     transaction_status_array = []
+    total_payload_transactions_status_array = []
 
     for val in data_items:
         rules = FieldValidationMapping.objects.filter(message_type=message_type)
@@ -78,6 +79,7 @@ def validate_received_payload(data):
             predefined_rule = ValidationRule.objects.get(id=rule.validation_rule_id)
             rule_name = predefined_rule.rule_name
 
+            print(val[field])
             # Convert date format
             try:
                 if rule_name == "convert_date_formats":
@@ -179,6 +181,7 @@ def validate_received_payload(data):
                 error_message.append(raised_error)
 
             transaction_status_array.append(transaction_status)
+            total_payload_transactions_status_array.append(transaction_status)
 
         previous_transaction = TransactionSummary.objects.get(
             id=instance_transaction_summary.id)
@@ -202,4 +205,9 @@ def validate_received_payload(data):
 
         instance_transaction_summary_lines.save()
 
-    return transaction_status_array
+        # initialize check
+        validation_rule_failed = 0
+        transaction_status_array = []
+        error_message = []
+
+    return total_payload_transactions_status_array
