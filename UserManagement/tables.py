@@ -11,7 +11,7 @@ class Actions(tables.Column):
         return mark_safe('<button id="%s" class="btn_view_more btn btn-success'
                          ' btn-xs"><i class="la la"></i>View More Details</button> '
                          '<button id="%s" class="btn_download btn btn-primary'
-                         ' btn-xs"><i class="la la-down"></i>Download XLS</button> '  % (escape(record.id), escape(record.id)))
+                         ' btn-xs"><i class="la la-down"></i>Download CSV</button> '  % (escape(record.id), escape(record.id)))
 
 
 class TransactionSummaryTable(tables.Table):

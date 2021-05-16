@@ -254,5 +254,3 @@ class TransactionSummaryLine(models.Model):
     class Meta:
         db_table = "TransactionSummaryLine"
         verbose_name_plural = "Transactions summary lines"
-
-
