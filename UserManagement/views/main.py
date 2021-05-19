@@ -16,6 +16,7 @@ from Core import forms as core_forms
 import os
 
 
+
 def get_login_page(request):
     return render(request, 'UserManagement/Auth/Login.html')
 

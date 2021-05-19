@@ -122,7 +122,7 @@ class Ward(models.Model):
         return '%s' %self.description
 
     description = models.CharField(max_length=255)
-    local_ward_id = models.IntegerField()
+    local_ward_id = models.CharField(max_length=100)
     local_ward_description = models.CharField(max_length=255)
     number_of_beds = models.IntegerField()
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)

@@ -107,10 +107,7 @@
                             success: function(data)
                             {
 
-                                swal({
-                                    title: 'Mapping deleted successfully',
-                                    icon: 'success'
-                                })
+                                  window.location.reload();
 
 
                             },
@@ -130,7 +127,18 @@
 
                 })
 
-            })
+            });
+
+                     $('.btn_update').on("click", function () {
+
+                var id = $(this).attr('id');
+
+
+                $("#popModal").load('{% url 'update_place_of_death' 123 %}'.replace('123',id), function() {
+                    $("#popModal").modal("show");
+                });
+
+            });
 
         });
 

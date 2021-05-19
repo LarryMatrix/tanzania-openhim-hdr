@@ -13,3 +13,8 @@ class PayloadImportForm(forms.Form):
     ]
     file = forms.FileField()
     message_type = forms.CharField(label='Message Type', widget=forms.Select(choices=message_types))
+
+
+class CPTCodeMappingImportForm(forms.Form):
+
+    file = forms.FileField()
