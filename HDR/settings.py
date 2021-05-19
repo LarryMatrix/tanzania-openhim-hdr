@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'HDR.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'test',
-        'USER': 'test',
-        'PASSWORD': 'test-apssword',
-        'HOST': 'test',
-        'PORT': 'test',
+        'NAME': 'hdr',
+        'USER': 'postgres',
+        'PASSWORD': 'HdrPostgresPass2020',
+        'HOST': '41.59.227.81',
+        'PORT': '5432',
     }
 }
 
