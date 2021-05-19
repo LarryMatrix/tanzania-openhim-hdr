@@ -4,27 +4,28 @@
 
 {% block content %}
 
-    <div class="row" id="service_provider_ranking_mappings">
+    <div class="row" id="department_mappings">
         <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Service Provider Rankings Mappings</h4>
+                    <h4 class="card-title">CPT Codes Mappings</h4>
                 </div>
-
                 <div class="col-md-2">
                     <button type="button" class="btn btn-outline-primary block btn-md" data-toggle="modal" data-target="#default">
-                        <i class="la la-plus"></i>New Service Provider Ranking Mapping
+                        <i class="la la-plus"></i>New CPT Code Mapping
                     </button>
                 </div>
 
+{#                <div align="right" style="padding-right: 50px">#}
+{#                        <a class="las la-file-excel la-3x" href="" id="id_export_xls"></a>#}
+{#                    </div>#}
                 <div class="card-body">
 
                     <div class="table-responsive">
 
-                        {% render_table service_provider_ranking_mappings_table %}
+                        {% render_table cpt_code_mappings_table %}
 
                     </div>
-
 
                 </div>
             </div>
@@ -38,7 +39,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel1">New Service Provider Ranking Mapping</h4>
+                            <h4 class="modal-title" id="myModalLabel1">New CPT Code Mapping</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -46,13 +47,13 @@
                         <div class="modal-body">
 
 
-                            <form id="form_service_provider_ranking_mapping" method = "POST" action="{% url 'get_service_provider_rankings_page' %}">
+                            <form id="form_cpt_codes_mapping" method = "POST" action="{% url 'cpt_codes_page' %}">
 
                                 {% csrf_token %}
 
                                 <table>
 
-                                    {% crispy service_provider_ranking_mappings_form %}
+                                    {% crispy cpt_code_mapping_form %}
 
 
                                 </table>
@@ -80,7 +81,9 @@
 
         $(document).ready(function() {
 
-       $(".btn_delete").on( "click", function( event ) {
+
+
+            $(".btn_delete").on( "click", function( event ) {
                 var id = $(this).attr('id');
 
                 swal({
@@ -93,46 +96,45 @@
                     ],
                     dangerMode: true,
                 }).then(function(isConfirm) {
-                    if (isConfirm) {
-                        var mapping_type = "rankings";
-                        var url = '{% url "delete_mapping" %}';
 
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: {
-                                mapping_id: id, mapping_type: mapping_type,
-                                'csrfmiddlewaretoken': '{{ csrf_token }}'
-                            },
-                            success: function(data)
-                            {
+                    var mapping_type = "cpt_codes_mappings";
+                    var url = '{% url "delete_mapping" %}';
 
-                                swal({
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            mapping_id: id, mapping_type: mapping_type,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(data)
+                        {
+
+                            swal({
                                     title: 'Mapping deleted successfully',
                                     icon: 'success'
                                 })
 
 
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                                swal({
+                              swal({
                                     title: 'Operation failed.',
                                     icon: 'error'
                                 });
 
-                            }
-                        });
+                        }
+                    });
 
-                        e.preventDefault(); // avoid to execute the actual submit of the form.
+                    e.preventDefault(); // avoid to execute the actual submit of the form.
 
-                    }
-
-                })
+                });
 
             })
 
         });
+
 
 
     </script>

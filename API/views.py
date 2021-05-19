@@ -7,10 +7,12 @@ from .serializers import TransactionSummarySerializer, IncomingDeathByDiseaseCas
     ServiceReceivedItemsSerializer, IncomingDeathByDiseaseCaseNotAtTheFacilitySerializer, \
     IncomingServicesReceivedSerializer, IncomingBedOccupancySerializer, IncomingRevenueReceivedSerializer
 from Core.models import TransactionSummary, RevenueReceived, DeathByDiseaseCaseAtFacility, \
-    DeathByDiseaseCaseNotAtFacility,ServiceReceived, BedOccupancy, RevenueReceivedItems, ServiceReceivedItems, \
+    DeathByDiseaseCaseNotAtFacility,ServiceReceived, BedOccupancy,BedOccupancyReport, RevenueReceivedItems, ServiceReceivedItems, \
     DeathByDiseaseCaseAtFacilityItems, DeathByDiseaseCaseNotAtFacilityItems, BedOccupancyItems
 
 from . import validators
+from MasterData import models as master_data_models
+import json
 
 # Create your views here.
 class TransactionSummaryView(viewsets.ModelViewSet):
@@ -33,15 +35,16 @@ class ServiceReceivedView(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             if False in validators.validate_received_payload(dict(serializer.data)):
-                headers = self.get_exception_handler(serializer.data)
+                # headers = self.get_exception_handler(serializer.data)
+                headers = None
                 response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 return Response(response, headers=headers)
             else:
                 status_array = self.perform_create(request, serializer)
 
                 if 400 in status_array:
-                    headers = self.get_exception_handler(serializer.data)
-                    headers = status.HTTP_400_BAD_REQUEST
+                    # headers = self.get_exception_handler(serializer.data)
+                    headers = None
                     response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 else:
                     headers = self.get_success_headers(serializer.data)
@@ -114,15 +117,18 @@ class DeathByDiseaseCaseAtFacilityView(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             if False in validators.validate_received_payload(dict(serializer.data)):
-                headers = self.get_success_headers(serializer.data)
+                headers = self.get_exception_handler(serializer.data)
                 response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 return Response(response, headers=headers)
             else:
                 status_array = self.perform_create(request, serializer)
-                headers = self.get_success_headers(serializer.data)
+
                 if 400 in status_array:
+                    headers = self.get_exception_handler(serializer.data)
+                    headers = status.HTTP_400_BAD_REQUEST
                     response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 else:
+                    headers = self.get_success_headers(serializer.data)
                     response = {"message": "Success", "status": status.HTTP_201_CREATED}
 
                 return Response(response, headers=headers)
@@ -162,7 +168,7 @@ class DeathByDiseaseCaseAtFacilityView(viewsets.ModelViewSet):
                 status_code = 200
                 status.append(status_code)
             except:
-                ServiceReceived.objects.get(id=instance_death_by_disease_case_at_facility.id).delete()
+                DeathByDiseaseCaseAtFacility.objects.get(id=instance_death_by_disease_case_at_facility.id).delete()
                 status_code = 400
                 status.append(status_code)
 
@@ -188,15 +194,18 @@ class DeathByDiseaseCaseNotAtFacilityView(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             if False in validators.validate_received_payload(dict(serializer.data)):
-                headers = self.get_success_headers(serializer.data)
+                headers = self.get_exception_handler(serializer.data)
                 response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 return Response(response, headers=headers)
             else:
                 status_array = self.perform_create(request, serializer)
-                headers = self.get_success_headers(serializer.data)
+
                 if 400 in status_array:
+                    headers = self.get_exception_handler(serializer.data)
+                    headers = status.HTTP_400_BAD_REQUEST
                     response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 else:
+                    headers = self.get_success_headers(serializer.data)
                     response = {"message": "Success", "status": status.HTTP_201_CREATED}
 
                 return Response(response, headers=headers)
@@ -231,7 +240,7 @@ class DeathByDiseaseCaseNotAtFacilityView(viewsets.ModelViewSet):
                 status_code = 200
                 status.append(status_code)
             except:
-                ServiceReceived.objects.get(id=instance_death_by_disease_case_not_at_facility.id).delete()
+                DeathByDiseaseCaseNotAtFacility.objects.get(id=instance_death_by_disease_case_not_at_facility.id).delete()
                 status_code = 400
                 status.append(status_code)
 
@@ -257,15 +266,18 @@ class RevenueReceivedView(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             if False in validators.validate_received_payload(dict(serializer.data)):
-                headers = self.get_success_headers(serializer.data)
+                headers = self.get_exception_handler(serializer.data)
                 response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 return Response(response, headers=headers)
             else:
                 status_array = self.perform_create(request, serializer)
-                headers = self.get_success_headers(serializer.data)
+
                 if 400 in status_array:
+                    headers = self.get_exception_handler(serializer.data)
+                    headers = status.HTTP_400_BAD_REQUEST
                     response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 else:
+                    headers = self.get_success_headers(serializer.data)
                     response = {"message": "Success", "status": status.HTTP_201_CREATED}
 
                 return Response(response, headers=headers)
@@ -305,9 +317,11 @@ class RevenueReceivedView(viewsets.ModelViewSet):
                 status_code = 200
                 status.append(status_code)
             except:
-                ServiceReceived.objects.get(id=instance_revenue_received.id).delete()
+                RevenueReceived.objects.get(id=instance_revenue_received.id).delete()
                 status_code = 400
                 status.append(status_code)
+
+            return status
 
     def list(self, request):
         queryset = RevenueReceivedItems.objects.all().order_by('-id')
@@ -328,16 +342,19 @@ class BedOccupancyView(viewsets.ModelViewSet):
             serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
+            print(dict(serializer.data))
             if False in validators.validate_received_payload(dict(serializer.data)):
                 headers = self.get_success_headers(serializer.data)
                 response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 return Response(response, headers=headers)
             else:
                 status_array = self.perform_create(request, serializer)
-                headers = self.get_success_headers(serializer.data)
+
                 if 400 in status_array:
+                    headers = self.get_success_headers(serializer.data)
                     response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
                 else:
+                    headers = self.get_success_headers(serializer.data)
                     response = {"message": "Success", "status": status.HTTP_201_CREATED}
 
                 return Response(response, headers=headers)
@@ -363,16 +380,41 @@ class BedOccupancyView(viewsets.ModelViewSet):
 
                 instance_bed_occupancy_item = BedOccupancyItems()
                 instance_bed_occupancy_item.patient_id = val["patId"]
+                instance_bed_occupancy_item.bed_occupancy_id = instance_bed_occupancy.id
                 instance_bed_occupancy_item.admission_date = validators.convert_date_formats(val["admissionDate"])
                 instance_bed_occupancy_item.discharge_date = validators.convert_date_formats(val["dischargeDate"])
                 instance_bed_occupancy_item.ward_name = val["wardName"]
                 instance_bed_occupancy_item.ward_id = val["wardId"]
 
                 instance_bed_occupancy_item.save()
+
+                # calculate bed occupancy and save
+                instance_ward = master_data_models.Ward.objects.filter(local_ward_id=val["wardId"],
+                                                facility__facility_hfr_code =serializer.data["facilityHfrCode"]).first()
+
+                if instance_ward is not None:
+                    try:
+                        bed_occupancy_rate = 1/int(instance_ward.number_of_beds) * 100
+
+                        instance_bed_occupancy_report = BedOccupancyReport()
+
+                        instance_bed_occupancy_report.patient_id = val["patId"]
+                        # date is an incremental field as the bod rate is calculated daily
+                        instance_bed_occupancy_report.date = validators.convert_date_formats(val["admissionDate"])
+                        instance_bed_occupancy_report.ward_id = val["wardId"]
+                        instance_bed_occupancy_report.ward_name = val["wardName"]
+                        instance_bed_occupancy_report.bed_occupancy = bed_occupancy_rate
+                        instance_bed_occupancy_report.facility_hfr_code =  serializer.data["facilityHfrCode"]
+                        instance_bed_occupancy_report.save()
+                    except Exception as e:
+                        print(e)
                 status_code = 200
                 status.append(status_code)
             except:
-                ServiceReceived.objects.get(id=instance_bed_occupancy.id).delete()
+                instance = BedOccupancy.objects.filter(id=instance_bed_occupancy.id)
+
+                if instance.exists():
+                    instance.delete()
                 status_code = 400
                 status.append(status_code)
 
@@ -382,9 +424,6 @@ class BedOccupancyView(viewsets.ModelViewSet):
         queryset = BedOccupancyItems.objects.all().order_by('-id')
         serializer = BedOccupancyItemsSerializer(queryset, many=True)
         return Response(serializer.data)
-
-
-
 
 
 

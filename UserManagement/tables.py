@@ -2,6 +2,7 @@ import django_tables2 as tables
 from Core import models as core_models
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
+import itertools
 
 
 class Actions(tables.Column):
@@ -16,6 +17,7 @@ class Actions(tables.Column):
 
 class TransactionSummaryTable(tables.Table):
     Actions = Actions()
+    counter = tables.Column(empty_values=(), orderable=False)
     id = tables.Column(
         attrs={
             "th": {"id": "id"},
@@ -39,17 +41,28 @@ class TransactionSummaryTable(tables.Table):
     class Meta:
         model = core_models.TransactionSummary
         template_name = "django_tables2/bootstrap.html"
-        fields = ('id','message_type','org_name', 'facility_hfr_code','total_passed', 'total_failed')
+        fields = ('counter','message_type','org_name', 'facility_hfr_code','total_passed', 'total_failed')
         row_attrs = {
             'data-id': lambda record: record.pk
         }
 
+    def render_counter(self):
+        self.row_counter = getattr(self, 'row_counter',
+                                   itertools.count(self.page.start_index()))
+        return next(self.row_counter)
+
 class TransactionSummaryLineTable(tables.Table):
+    counter = tables.Column(empty_values=(), orderable=False)
 
     class Meta:
         model = core_models.TransactionSummaryLine
         template_name = "django_tables2/bootstrap.html"
-        fields = ('transaction', 'payload_object', 'transaction_status', 'error_message')
+        fields = ('counter','transaction', 'payload_object', 'transaction_status', 'error_message')
         row_attrs = {
             'data-id': lambda record: record.pk
         }
+
+    def render_counter(self):
+        self.row_counter = getattr(self, 'row_counter',
+                                   itertools.count(self.page.start_index()))
+        return next(self.row_counter)

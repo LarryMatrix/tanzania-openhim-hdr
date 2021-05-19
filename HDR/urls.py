@@ -18,10 +18,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from API import views as api_views
+from MasterData import views as master_data_views
 
 urlpatterns = [
     path('', include('UserManagement.urls')),
     path('get_', include('MasterData.urls')),
     path('admin/', admin.site.urls),
     path('api_', include('API.urls')),
+    path('insert_icd_10', master_data_views.import_icd_10_codes, name='insert_icd_10'),
+
 ]

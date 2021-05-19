@@ -92,44 +92,44 @@
                     ],
                     dangerMode: true,
                 }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        var mapping_type = "departments";
+                        var url = '{% url "delete_mapping" %}';
 
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                mapping_id: id, mapping_type: mapping_type,
+                                'csrfmiddlewaretoken': '{{ csrf_token }}'
+                            },
+                            success: function(data)
+                            {
 
-                    var mapping_type = "departments";
-                    var url = '{% url "delete_mapping" %}';
-
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: {
-                            mapping_id: id, mapping_type: mapping_type,
-                            'csrfmiddlewaretoken': '{{ csrf_token }}'
-                        },
-                        success: function(data)
-                        {
-
-                            swal({
+                                swal({
                                     title: 'Mapping deleted successfully',
                                     icon: 'success'
                                 })
 
 
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                              swal({
+                                swal({
                                     title: 'Operation failed.',
                                     icon: 'error'
                                 });
 
-                        }
-                    });
+                            }
+                        });
 
-                    e.preventDefault(); // avoid to execute the actual submit of the form.
+                        e.preventDefault(); // avoid to execute the actual submit of the form.
 
-                });
+                    }
+
+                })
 
             })
-
         });
 
 

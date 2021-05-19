@@ -156,7 +156,7 @@ class GenderMapping(models.Model):
 
 class ICD10CodeCategory(models.Model):
     def __str__(self):
-        return '%d' %self.id
+        return '%s' %self.description
 
     description = models.CharField(max_length=255)
 
@@ -167,7 +167,7 @@ class ICD10CodeCategory(models.Model):
 
 class ICD10CodeSubCategory(models.Model):
     def __str__(self):
-        return '%d' % self.id
+        return '%s' % self.description
 
     icd_10_code_category = models.ForeignKey(ICD10CodeCategory, on_delete=models.CASCADE, null=True, blank=True)
     description = models.CharField(max_length=255)
@@ -227,7 +227,7 @@ class CPTCodeSubCategory(models.Model):
 
 class CPTCode(models.Model):
     def __str__(self):
-        return '%d' %self.id
+        return '%s' %self.cpt_code
 
     cpt_code_sub_category = models.ForeignKey(CPTCodeSubCategory, on_delete=models.CASCADE, null=True, blank=True)
     cpt_code = models.CharField(max_length=255)
@@ -284,3 +284,13 @@ class PlaceOfDeathMapping(models.Model):
         db_table = "PlaceOfDeathMappings"
 
 
+class CPTCodesMapping(models.Model):
+    def __str__(self):
+        return '%d' %self.id
+
+    cpt_code = models.ForeignKey(CPTCode, on_delete=models.CASCADE, null=True, blank=True)
+    local_code = models.CharField(max_length=255)
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE, null=True, blank=True)
+
+    class Meta:
+        db_table = "CPTCodesMappings"

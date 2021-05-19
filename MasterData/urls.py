@@ -10,5 +10,6 @@ urlpatterns = [
     path('places_of_death', views.get_places_of_death_page, name='get_places_of_death_page'),
     path('service_provider_rankings', views.get_service_provider_rankings_page, name='get_service_provider_rankings_page'),
     path('delete_mapping', views.delete_mapping, name='delete_mapping'),
+    path('cpt_codes_page', views.get_cpt_codes_page, name='cpt_codes_page'),
 
 ]
