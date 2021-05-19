@@ -4,7 +4,6 @@
     <list default="true" id="1da87fb6-8abe-4c94-a57d-83ba842ce1a4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HDR/settings.py" afterPath="$PROJECT_DIR$/HDR/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/tables.py" afterPath="$PROJECT_DIR$/MasterData/tables.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/views.py" afterPath="$PROJECT_DIR$/MasterData/views.py" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
@@ -28,31 +27,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MasterData/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="223" column="111" selection-start-line="223" selection-start-column="111" selection-end-line="223" selection-end-column="111" />
+            <state relative-caret-position="450">
+              <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
                 <element signature="e#830#1803#0" expanded="false" />
-                <element signature="e#1850#2649#0" expanded="false" />
-                <element signature="e#2689#3763#0" expanded="false" />
-                <element signature="e#3808#4589#0" expanded="false" />
-                <element signature="e#4630#5581#0" expanded="false" />
-                <element signature="e#5628#6417#0" expanded="false" />
-                <element signature="e#6454#7331#0" expanded="false" />
-                <element signature="e#7374#8123#0" expanded="false" />
-                <element signature="e#8159#9008#0" expanded="false" />
-                <element signature="e#9050#9782#0" expanded="false" />
-                <element signature="e#9819#10715#0" expanded="false" />
-                <element signature="e#10758#11517#0" expanded="false" />
-                <element signature="e#11573#12779#0" expanded="false" />
-                <element signature="e#12841#13776#0" expanded="false" />
-                <element signature="e#13822#14828#0" expanded="false" />
-                <element signature="e#14880#15737#0" expanded="false" />
-                <element signature="e#15773#16816#0" expanded="false" />
-                <element signature="e#16857#18652#0" expanded="false" />
+                <element signature="e#2763#3837#0" expanded="false" />
+                <element signature="e#4776#5727#0" expanded="false" />
+                <element signature="e#6674#7551#0" expanded="false" />
+                <element signature="e#8448#9297#0" expanded="false" />
+                <element signature="e#10176#11072#0" expanded="false" />
+                <element signature="e#12000#13206#0" expanded="false" />
+                <element signature="e#14334#15340#0" expanded="false" />
+                <element signature="e#16359#17402#0" expanded="false" />
+                <element signature="e#17443#19238#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -111,21 +102,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HDR/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="94" column="21" selection-start-line="94" selection-start-column="21" selection-end-line="94" selection-end-column="21" />
+            <state relative-caret-position="390">
+              <caret line="95" column="40" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServiceProviderRankings.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MasterData/templates/MasterData/Features/ServiceProviderRankings.html">
+      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MasterData/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="853">
-              <caret line="109" column="62" selection-start-line="109" selection-start-column="62" selection-end-line="109" selection-end-column="62" />
+            <state relative-caret-position="420">
+              <caret line="30" column="15" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -210,8 +201,8 @@
         <option value="$PROJECT_DIR$/API/views.py" />
         <option value="$PROJECT_DIR$/UserManagement/tables.py" />
         <option value="$PROJECT_DIR$/MasterData/tables.py" />
-        <option value="$PROJECT_DIR$/MasterData/views.py" />
         <option value="$PROJECT_DIR$/HDR/settings.py" />
+        <option value="$PROJECT_DIR$/MasterData/views.py" />
       </list>
     </option>
   </component>
@@ -1044,14 +1035,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MasterData/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MasterData/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1180,14 +1163,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MasterData/tables.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UserManagement/tables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -1204,39 +1179,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MasterData/views.py">
+    <entry file="file://$PROJECT_DIR$/HDR/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="223" column="111" selection-start-line="223" selection-start-column="111" selection-end-line="223" selection-end-column="111" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-            <element signature="e#830#1803#0" expanded="false" />
-            <element signature="e#1850#2649#0" expanded="false" />
-            <element signature="e#2689#3763#0" expanded="false" />
-            <element signature="e#3808#4589#0" expanded="false" />
-            <element signature="e#4630#5581#0" expanded="false" />
-            <element signature="e#5628#6417#0" expanded="false" />
-            <element signature="e#6454#7331#0" expanded="false" />
-            <element signature="e#7374#8123#0" expanded="false" />
-            <element signature="e#8159#9008#0" expanded="false" />
-            <element signature="e#9050#9782#0" expanded="false" />
-            <element signature="e#9819#10715#0" expanded="false" />
-            <element signature="e#10758#11517#0" expanded="false" />
-            <element signature="e#11573#12779#0" expanded="false" />
-            <element signature="e#12841#13776#0" expanded="false" />
-            <element signature="e#13822#14828#0" expanded="false" />
-            <element signature="e#14880#15737#0" expanded="false" />
-            <element signature="e#15773#16816#0" expanded="false" />
-            <element signature="e#16857#18652#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="390">
+          <caret line="95" column="40" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HDR/settings.py">
+    <entry file="file://$PROJECT_DIR$/MasterData/tables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="94" column="21" selection-start-line="94" selection-start-column="21" selection-end-line="94" selection-end-column="21" />
+        <state relative-caret-position="150">
+          <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MasterData/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="30" column="15" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MasterData/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+            <element signature="e#830#1803#0" expanded="false" />
+            <element signature="e#2763#3837#0" expanded="false" />
+            <element signature="e#4776#5727#0" expanded="false" />
+            <element signature="e#6674#7551#0" expanded="false" />
+            <element signature="e#8448#9297#0" expanded="false" />
+            <element signature="e#10176#11072#0" expanded="false" />
+            <element signature="e#12000#13206#0" expanded="false" />
+            <element signature="e#14334#15340#0" expanded="false" />
+            <element signature="e#16359#17402#0" expanded="false" />
+            <element signature="e#17443#19238#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
