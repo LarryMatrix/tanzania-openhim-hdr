@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from .tables import PayerMappingTable, ExemptionMappingTable, DepartmentMappingTable, WardMappingTable,\
-    GenderMappingTable, ServiceProviderRankingMappingTable, PlaceODeathMappingTable
-from .models import PayerMapping, DepartmentMapping, ExemptionMapping, Ward, GenderMapping, \
-    ServiceProviderRankingMapping, PlaceOfDeathMapping
+from .tables import PayerMappingTable, ExemptionMappingTable, DepartmentMappingTable, WardMappingTable, \
+    GenderMappingTable, ServiceProviderRankingMappingTable, PlaceODeathMappingTable, CPTCodeMappingTable
+from .models import PayerMapping, DepartmentMapping, ExemptionMapping, Ward,CPTCodesMapping, GenderMapping, \
+    ServiceProviderRankingMapping, PlaceOfDeathMapping, ICD10CodeCategory, ICD10CodeSubCategory, ICD10Code, ICD10SubCode,CPTCode
 from .forms import DepartmentMappingForm, ExemptionMappingForm, PayerMappingForm, WardMappingForm, GenderMappingForm, \
-    ServiceProviderRankingMappingForm, PlaceODeathMappingForm
+    ServiceProviderRankingMappingForm, PlaceODeathMappingForm, CPTCodesMappingForm
 from django_tables2 import RequestConfig
+import json
 
 
 def get_departments_page(request):
@@ -24,6 +25,24 @@ def get_departments_page(request):
         RequestConfig(request, paginate={"per_page": 10}).configure(department_mappings_table)
         return render(request, 'MasterData/Features/Departments.html',{"department_mappings_table": department_mappings_table,
                                                                        "department_mapping_form" : department_mapping_form})
+
+def get_cpt_codes_page(request):
+    if request.method == "POST":
+        cpt_codes_mapping_form = CPTCodesMappingForm(request.POST)
+
+        if cpt_codes_mapping_form.is_valid():
+            cpt_codes_mapping_form.full_clean()
+            cpt_codes_mapping_form.save()
+            return redirect(request.META['HTTP_REFERER'])
+    else:
+        facility = request.user.profile.facility
+        cpt_code_mappings = CPTCodesMapping.objects.filter(facility=facility)
+        cpt_code_mappings_table = CPTCodeMappingTable(cpt_code_mappings)
+        cpt_code_mapping_form = CPTCodesMappingForm(initial={'facility': request.user.profile.facility})
+        RequestConfig(request, paginate={"per_page": 10}).configure(cpt_code_mappings_table)
+        return render(request, 'MasterData/Features/CPTCodes.html',
+                      {"cpt_code_mappings_table": cpt_code_mappings_table,
+                       "cpt_code_mapping_form": cpt_code_mapping_form})
 
 
 def get_exemptions_page(request):
@@ -95,7 +114,7 @@ def get_gender_page(request):
         gender_mapping_form = GenderMappingForm(initial={'facility': request.user.profile.facility})
         RequestConfig(request, paginate={"per_page": 10}).configure(gender_mappings_table)
         return render(request, 'MasterData/Features/Gender.html', {"gender_mappings_table": gender_mappings_table,
-                                                                  "gender_mapping_form": gender_mapping_form})
+                                                                   "gender_mapping_form": gender_mapping_form})
 
 
 def get_service_provider_rankings_page(request):
@@ -114,7 +133,7 @@ def get_service_provider_rankings_page(request):
         RequestConfig(request, paginate={"per_page": 10}).configure(service_provider_ranking_mappings_table)
         return render(request, 'MasterData/Features/ServiceProviderRankings.html',
                       {"service_provider_ranking_mappings_table": service_provider_ranking_mappings_table,
-                        "service_provider_ranking_mappings_form": service_provider_ranking_mapping_mapping_form})
+                       "service_provider_ranking_mappings_form": service_provider_ranking_mapping_mapping_form})
 
 
 def get_places_of_death_page(request):
@@ -133,7 +152,7 @@ def get_places_of_death_page(request):
         RequestConfig(request, paginate={"per_page": 10}).configure(place_of_death_mappings_table)
         return render(request, 'MasterData/Features/PlacesOfDeath.html',
                       {"place_of_death_mappings_table": place_of_death_mappings_table,
-                                                "place_of_death_mapping_form": place_of_death_mapping_form})
+                       "place_of_death_mapping_form": place_of_death_mapping_form})
 
 def delete_mapping(request):
     if request.method == "POST":
@@ -154,5 +173,55 @@ def delete_mapping(request):
             PlaceOfDeathMapping.objects.get(id=mapping_id).delete()
         elif mapping_type == "rankings":
             ServiceProviderRankingMapping.objects.get(id=mapping_id).delete()
+        elif mapping_type == "cpt_codes_mappings":
+            CPTCodesMapping.objects.get(id=mapping_id).delete()
 
-        return redirect(request.META['HTTP_REFERER'])
+    return redirect(request.META['HTTP_REFERER'])
+
+
+def import_icd_10_codes(request):
+    with open ('icd10codes.json',"r") as f:
+        data = json.load(f)
+
+    for x in data:
+        categories = x['category']
+        sub_categories = x['subCategories']
+
+        # insert category
+        instance_category = ICD10CodeCategory()
+        instance_category.description = categories
+        instance_category.save()
+
+        for sub_category in sub_categories:
+            sub_category_name = sub_category['subCategoryName']
+            icd_10 = sub_category['subSubCategories'][0]["subSubCategoryName"]
+            icd_10_code = sub_category['subSubCategories'][0]["subSubCategoryCode"]
+            icd_sub_code_array = sub_category['subSubCategories'][0]["icd10Codes"]
+
+            # insert sub category
+            instance_sub_category = ICD10CodeSubCategory()
+            instance_sub_category.description = sub_category_name
+            instance_sub_category.icd_10_code_category_id = instance_category.id
+            instance_sub_category.save()
+
+            # insert icd code
+            instance_icd_code = ICD10Code()
+            instance_icd_code.icd_10_code_sub_category_id =  instance_sub_category.id
+            instance_icd_code.icd10_code = icd_10_code
+            instance_icd_code.icd10_description = icd_10
+            instance_icd_code.save()
+
+
+            for y in icd_sub_code_array:
+                icd_10_sub_code = y["icd10Code"]
+                icd_10_sub_description = y["icd10Name"]
+
+                # insert icd sub code
+                instance_icd_sub_code = ICD10SubCode()
+                instance_icd_sub_code.icd10_code_id = instance_icd_code.id
+                instance_icd_sub_code.icd10_sub_code = icd_10_sub_code
+                instance_icd_sub_code.icd10_sub_code_description = icd_10_sub_description
+                instance_icd_sub_code.save()
+
+
+

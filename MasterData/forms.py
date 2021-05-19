@@ -1,6 +1,6 @@
 from django import forms
 from .models import DepartmentMapping, ExemptionMapping, PayerMapping, Ward, GenderMapping,\
-    ServiceProviderRankingMapping,PlaceOfDeathMapping
+    ServiceProviderRankingMapping,PlaceOfDeathMapping, CPTCodesMapping
 
 
 class DepartmentMappingForm(forms.ModelForm):
@@ -43,9 +43,6 @@ class GenderMappingForm(forms.ModelForm):
 
 
 class ServiceProviderRankingMappingForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ServiceProviderRankingMappingForm, self).__init__(*args, **kwargs)
-        self.fields['facility'].disabled = True
 
     class Meta:
         model = ServiceProviderRankingMapping
@@ -54,11 +51,16 @@ class ServiceProviderRankingMappingForm(forms.ModelForm):
 
 
 class PlaceODeathMappingForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(PlaceODeathMappingForm, self).__init__(*args, **kwargs)
-        self.fields['facility'].disabled = True
 
     class Meta:
         model = PlaceOfDeathMapping
         fields = ('place_of_death', 'local_place_of_death_id','local_place_of_death_description','facility')
+        widgets = {'facility': forms.HiddenInput()}
+
+
+class CPTCodesMappingForm(forms.ModelForm):
+
+    class Meta:
+        model = CPTCodesMapping
+        fields = ('cpt_code', 'local_code','facility')
         widgets = {'facility': forms.HiddenInput()}
