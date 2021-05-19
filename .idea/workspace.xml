@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1da87fb6-8abe-4c94-a57d-83ba842ce1a4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/UpdateItem.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/views.py" afterPath="$PROJECT_DIR$/API/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/forms.py" afterPath="$PROJECT_DIR$/Core/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/models.py" afterPath="$PROJECT_DIR$/Core/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/views.py" afterPath="$PROJECT_DIR$/Core/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HDR/settings.py" afterPath="$PROJECT_DIR$/HDR/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/models.py" afterPath="$PROJECT_DIR$/MasterData/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/tables.py" afterPath="$PROJECT_DIR$/MasterData/tables.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/CPTCodes.html" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/CPTCodes.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Departments.html" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Departments.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Exemptions.html" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Exemptions.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Gender.html" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Gender.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Payers.html" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Payers.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/PlacesOfDeath.html" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/PlacesOfDeath.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/ServiceProviderRankings.html" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/ServiceProviderRankings.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Wards.html" afterPath="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Wards.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/urls.py" afterPath="$PROJECT_DIR$/MasterData/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/views.py" afterPath="$PROJECT_DIR$/MasterData/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/urls.py" afterPath="$PROJECT_DIR$/UserManagement/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/views/main.py" afterPath="$PROJECT_DIR$/UserManagement/views/main.py" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,18 +26,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Exemptions.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MasterData/templates/MasterData/Features/Exemptions.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="715">
-              <caret line="82" column="60" selection-start-line="82" selection-start-column="60" selection-end-line="82" selection-end-column="60" />
-              <folding>
-                <element signature="e#2708#4340#0#HTML" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Core/views.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -69,7 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="726">
@@ -86,6 +55,16 @@
                 <element signature="e#11859#12066#0" expanded="false" />
                 <element signature="e#15491#15666#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/HDR/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="94" column="21" selection-start-line="94" selection-start-column="21" selection-end-line="94" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -193,7 +172,6 @@
         <option value="$PROJECT_DIR$/UserManagement/tables.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/MasterData/forms.py" />
-        <option value="$PROJECT_DIR$/HDR/settings.py" />
         <option value="$PROJECT_DIR$/UserManagement/views/main.py" />
         <option value="$PROJECT_DIR$/Core/forms.py" />
         <option value="$PROJECT_DIR$/UserManagement/urls.py" />
@@ -213,6 +191,7 @@
         <option value="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Wards.html" />
         <option value="$PROJECT_DIR$/Core/models.py" />
         <option value="$PROJECT_DIR$/API/views.py" />
+        <option value="$PROJECT_DIR$/HDR/settings.py" />
       </list>
     </option>
   </component>
@@ -1004,14 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HDR/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="92" column="43" selection-start-line="92" selection-start-column="43" selection-end-line="92" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UserManagement/views/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1270,6 +1241,14 @@
             <element signature="e#11859#12066#0" expanded="false" />
             <element signature="e#15491#15666#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HDR/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="94" column="21" selection-start-line="94" selection-start-column="21" selection-end-line="94" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
