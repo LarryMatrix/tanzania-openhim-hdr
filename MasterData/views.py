@@ -29,10 +29,11 @@ def get_departments_page(request):
 
 def update_department(request, item_pk):
     instance_department = DepartmentMapping.objects.get(id=item_pk)
-    form_department = DepartmentMappingForm(instance=instance_department)
+    form = DepartmentMappingForm(instance=instance_department)
 
     if request.method == "POST":
         if request.POST:
+            form_department = DepartmentMappingForm(request.POST, instance=instance_department)
             if form_department.is_valid():
                 form_department.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -42,7 +43,7 @@ def update_department(request, item_pk):
         header = "Update Department"
         url = "update_department"
 
-        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form_department, 'header': header,
+        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
                                                                        'item_pk':item_pk, "url":url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
@@ -70,10 +71,11 @@ def get_cpt_codes_page(request):
 
 def update_cpt_code(request, item_pk):
     instance_cpt_code = CPTCodesMapping.objects.get(id=item_pk)
-    form_cpt_code = CPTCodesMappingForm(instance=instance_cpt_code)
+    form = CPTCodesMappingForm(instance=instance_cpt_code)
 
     if request.method == "POST":
         if request.POST:
+            form_cpt_code = CPTCodesMappingForm(request.POST, instance=instance_cpt_code)
             if form_cpt_code.is_valid():
                 form_cpt_code.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -83,7 +85,7 @@ def update_cpt_code(request, item_pk):
         header = "Update CPT code"
         url = "update_cpt_code"
 
-        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form_cpt_code, 'header': header,
+        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
                                                                        'item_pk': item_pk, "url": url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
@@ -107,12 +109,14 @@ def get_exemptions_page(request):
                                                                       "exemption_mapping_form":exemption_mapping_form})
 
 
+
 def update_exemption(request, item_pk):
     instance_exemption = ExemptionMapping.objects.get(id=item_pk)
-    form_exemption = ExemptionMappingForm(instance=instance_exemption)
+    form = ExemptionMappingForm(instance=instance_exemption)
 
     if request.method == "POST":
         if request.POST:
+            form_exemption = ExemptionMappingForm(request.POST, instance=instance_exemption)
             if form_exemption.is_valid():
                 form_exemption.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -122,7 +126,7 @@ def update_exemption(request, item_pk):
         header = "Update Exemption"
         url = "update_exemption"
 
-        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form_exemption, 'header': header,
+        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
                                                                        'item_pk':item_pk, "url":url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
@@ -148,10 +152,11 @@ def get_payers_page(request):
 
 def update_payer(request, item_pk):
     instance_payer = PayerMapping.objects.get(id=item_pk)
-    form_payer = PayerMappingForm(instance=instance_payer)
+    form = PayerMappingForm(instance=instance_payer)
 
     if request.method == "POST":
         if request.POST:
+            form_payer = PayerMappingForm(request.POST, instance=instance_payer)
             if form_payer.is_valid():
                 form_payer.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -161,7 +166,7 @@ def update_payer(request, item_pk):
         header = "Update Payer"
         url = "update_payer"
 
-        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form_payer, 'header': header,
+        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
                                                                        'item_pk':item_pk, "url":url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
@@ -187,10 +192,11 @@ def get_wards_page(request):
 
 def update_ward(request, item_pk):
     instance_ward = Ward.objects.get(id=item_pk)
-    form_ward = WardMappingForm(instance=instance_ward)
+    form = WardMappingForm(instance=instance_ward)
 
     if request.method == "POST":
         if request.POST:
+            form_ward = WardMappingForm(request.POST, instance=instance_ward)
             if form_ward.is_valid():
                 form_ward.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -200,7 +206,7 @@ def update_ward(request, item_pk):
         header = "Update Ward"
         url = "update_ward"
 
-        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form_ward, 'header': header,
+        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
                                                                        'item_pk':item_pk, "url":url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
@@ -225,10 +231,11 @@ def get_gender_page(request):
 
 def update_gender(request, item_pk):
     instance_gender = GenderMapping.objects.get(id=item_pk)
-    form_gender = GenderMappingForm(instance=instance_gender)
+    form = GenderMappingForm(instance=instance_gender)
 
     if request.method == "POST":
         if request.POST:
+            form_gender = GenderMappingForm(request.POST, instance=instance_gender)
             if form_gender.is_valid():
                 form_gender.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -238,7 +245,7 @@ def update_gender(request, item_pk):
         header = "Update Gender"
         url = "update_gender"
 
-        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form_gender, 'header': header,
+        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
                                                                        'item_pk':item_pk, "url":url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
@@ -265,10 +272,11 @@ def get_service_provider_rankings_page(request):
 
 def update_service_provider_ranking(request, item_pk):
     instance_server_provider_ranking = ServiceProviderRankingMapping.objects.get(id=item_pk)
-    form_service_provider_ranking = ServiceProviderRankingMappingForm(instance=instance_server_provider_ranking)
+    form = ServiceProviderRankingMappingForm(instance=instance_server_provider_ranking)
 
     if request.method == "POST":
         if request.POST:
+            form_service_provider_ranking = ServiceProviderRankingMappingForm(request.POST, instance=instance_server_provider_ranking)
             if form_service_provider_ranking.is_valid():
                 form_service_provider_ranking.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -278,7 +286,7 @@ def update_service_provider_ranking(request, item_pk):
         header = "Update Service Provider Ranking"
         url = "update_service_provider_ranking"
 
-        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form_service_provider_ranking, 'header': header,
+        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
                                                                        'item_pk': item_pk, "url": url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
@@ -305,10 +313,11 @@ def get_places_of_death_page(request):
 
 def update_place_of_death(request, item_pk):
     instance_place_of_death = ServiceProviderRankingMapping.objects.get(id=item_pk)
-    form_place_of_death = ServiceProviderRankingMappingForm(instance=instance_place_of_death)
+    form = ServiceProviderRankingMappingForm(instance=instance_place_of_death)
 
     if request.method == "POST":
         if request.POST:
+            form_place_of_death = PlaceODeathMappingForm(request.POST,instance=instance_place_of_death)
             if form_place_of_death.is_valid():
                 form_place_of_death.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -318,7 +327,7 @@ def update_place_of_death(request, item_pk):
         header = "Update Place Of Death"
         url = "update_place_of_death"
 
-        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form_place_of_death, 'header': header,
+        return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
                                                                        'item_pk': item_pk, "url": url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
