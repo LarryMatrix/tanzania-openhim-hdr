@@ -91,9 +91,9 @@ WSGI_APPLICATION = 'HDR.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'test',
+        'NAME': 'hdr',
         'USER': 'test',
-        'PASSWORD': 'test-apssword',
+        'PASSWORD': 'test',
         'HOST': 'test',
         'PORT': 'test',
     }

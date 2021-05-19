@@ -18,12 +18,7 @@ class Actions(tables.Column):
 class TransactionSummaryTable(tables.Table):
     Actions = Actions()
     counter = tables.Column(empty_values=(), orderable=False)
-    id = tables.Column(
-        attrs={
-            "th": {"id": "id"},
-            "td": {"align": "center"}
-        }
-    )
+
     total_failed = tables.Column(
         attrs={
             "th": {"id": "total_failed"},
