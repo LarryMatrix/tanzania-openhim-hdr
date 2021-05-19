@@ -80,7 +80,7 @@
 
         $(document).ready(function() {
 
-         $(".btn_delete").on( "click", function( event ) {
+            $(".btn_delete").on( "click", function( event ) {
                 var id = $(this).attr('id');
 
                 swal({
@@ -107,10 +107,7 @@
                             success: function(data)
                             {
 
-                                swal({
-                                    title: 'Mapping deleted successfully',
-                                    icon: 'success'
-                                })
+                                        window.location.reload();
 
 
                             },
@@ -130,9 +127,23 @@
 
                 })
 
-            })
+            });
+
+
+
+            $('.btn_update').on("click", function () {
+
+                var id = $(this).attr('id');
+
+
+                $("#popModal").load('{% url 'update_ward' 123 %}'.replace('123',id), function() {
+                    $("#popModal").modal("show");
+                });
+
+            });
 
         });
+
 
     </script>
 

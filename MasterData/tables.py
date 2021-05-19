@@ -10,7 +10,10 @@ class Actions(tables.Column):
 
     def render(self, value, record):
         return mark_safe('<button id="%s" class="btn_delete btn btn-danger'
-                         ' btn-sm"><i class="la la-trash"></i>Delete</button> '% (escape(record.id)))
+                         ' btn-sm"><i class="la la-trash"></i>Delete</button> '
+                         '<button id="%s" class="btn_update btn btn-primary'
+                         ' btn-sm"><i class="la la-trash"></i>Edit</button> '
+                         %  (escape(record.id),escape(record.id)))
 
 
 class PayerMappingTable(tables.Table):
@@ -143,7 +146,7 @@ class CPTCodeMappingTable(tables.Table):
     class Meta:
         model = master_data_models.CPTCodesMapping
         template_name = "django_tables2/bootstrap.html"
-        fields = ('counter','cpt_code', 'local_code')
+        fields = ('counter','cpt_code', 'cpt_code__cpt_description','local_code')
         row_attrs = {
             'data-id': lambda record: record.pk
         }

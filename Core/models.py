@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 def upload_image(self, filename):
@@ -132,6 +133,7 @@ class BedOccupancyReport(models.Model):
     patient_id = models.CharField(max_length=100)
     ward_id = models.CharField(max_length=100)
     ward_name = models.CharField(max_length=255)
+    admission_date = models.DateField(default=date.today)
     date = models.DateField()
     bed_occupancy = models.DecimalField(decimal_places=4, max_digits=7)
     facility_hfr_code = models.CharField(max_length=255)

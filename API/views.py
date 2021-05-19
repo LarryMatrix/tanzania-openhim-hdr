@@ -9,10 +9,10 @@ from .serializers import TransactionSummarySerializer, IncomingDeathByDiseaseCas
 from Core.models import TransactionSummary, RevenueReceived, DeathByDiseaseCaseAtFacility, \
     DeathByDiseaseCaseNotAtFacility,ServiceReceived, BedOccupancy,BedOccupancyReport, RevenueReceivedItems, ServiceReceivedItems, \
     DeathByDiseaseCaseAtFacilityItems, DeathByDiseaseCaseNotAtFacilityItems, BedOccupancyItems
-
-from . import validators
+import datetime
 from MasterData import models as master_data_models
 import json
+from API import validators as validators
 
 # Create your views here.
 class TransactionSummaryView(viewsets.ModelViewSet):
@@ -388,28 +388,15 @@ class BedOccupancyView(viewsets.ModelViewSet):
 
                 instance_bed_occupancy_item.save()
 
-                # calculate bed occupancy and save
-                instance_ward = master_data_models.Ward.objects.filter(local_ward_id=val["wardId"],
-                                                facility__facility_hfr_code =serializer.data["facilityHfrCode"]).first()
-
-                if instance_ward is not None:
-                    try:
-                        bed_occupancy_rate = 1/int(instance_ward.number_of_beds) * 100
-
-                        instance_bed_occupancy_report = BedOccupancyReport()
-
-                        instance_bed_occupancy_report.patient_id = val["patId"]
-                        # date is an incremental field as the bod rate is calculated daily
-                        instance_bed_occupancy_report.date = validators.convert_date_formats(val["admissionDate"])
-                        instance_bed_occupancy_report.ward_id = val["wardId"]
-                        instance_bed_occupancy_report.ward_name = val["wardName"]
-                        instance_bed_occupancy_report.bed_occupancy = bed_occupancy_rate
-                        instance_bed_occupancy_report.facility_hfr_code =  serializer.data["facilityHfrCode"]
-                        instance_bed_occupancy_report.save()
-                    except Exception as e:
-                        print(e)
                 status_code = 200
                 status.append(status_code)
+
+                # calculate bed occupancy
+                try:
+                    calculate_and_save_bed_occupancy_rate(instance_bed_occupancy.id)
+                except Exception as e:
+                    print(e)
+
             except:
                 instance = BedOccupancy.objects.filter(id=instance_bed_occupancy.id)
 
@@ -426,4 +413,59 @@ class BedOccupancyView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
+def calculate_and_save_bed_occupancy_rate(bed_occupancy_id):
+    bed_occupancy = BedOccupancy.objects.get(id=bed_occupancy_id)
+    facility_hfr_code = bed_occupancy.facility_hfr_code
+    bed_occupancy_items = BedOccupancyItems.objects.filter(bed_occupancy_id=bed_occupancy_id).order_by('admission_date')
 
+    if bed_occupancy_items is not None:
+        for item in bed_occupancy_items:
+            instance_ward = master_data_models.Ward.objects.filter(local_ward_id=item.ward_id,
+                                                                   facility__facility_hfr_code=facility_hfr_code).first()
+
+            # Get Patient admission period to add days to it
+            instance_patient = BedOccupancyReport.objects.filter(patient_id=item.patient_id, admission_date=item.admission_date)
+
+            if instance_patient.count() == 0:
+                get_patient_admission_discharge_period = BedOccupancyItems.objects.filter(patient_id=item.patient_id,admission_date = item.admission_date,
+                                                                                discharge_date=item.discharge_date).first()
+
+                if get_patient_admission_discharge_period is None:
+                    get_patient_admission_period = BedOccupancyItems.objects.filter(patient_id=item.patient_id,
+                                                                                    admission_date=item.admission_date).first()
+
+                    if get_patient_admission_period is not None:
+                        admission_date = get_patient_admission_period.admission_date
+                        discharge_date = bed_occupancy_items.last().admission_date
+                    else:
+                        get_patient_discharge_period = BedOccupancyItems.objects.filter(patient_id=item.patient_id,
+                                                                                        discharge_date=item.discharge_date).first()
+                        if get_patient_discharge_period is not None:
+                            admission_date = bed_occupancy_items.first().admission_date
+                            discharge_date = get_patient_discharge_period.discharge_date
+                else:
+                    admission_date = get_patient_admission_discharge_period.admission_date
+                    discharge_date = get_patient_admission_discharge_period.discharge_date
+            else:
+                pass
+
+            try:
+                bed_occupancy_rate = 1 / int(instance_ward.number_of_beds) * 100
+
+                create_bed_occupancy_report_record(discharge_date, admission_date, item, bed_occupancy_rate, facility_hfr_code)
+
+            except Exception as e:
+                print(e)
+
+
+def create_bed_occupancy_report_record(discharge_date, admission_date, item, bed_occupancy_rate, facility_hfr_code):
+    for x in range(int((discharge_date - admission_date).days)):
+        instance_bed_occupancy_report = BedOccupancyReport()
+        instance_bed_occupancy_report.patient_id = item.patient_id
+        instance_bed_occupancy_report.date = item.admission_date + datetime.timedelta(days=x)
+        instance_bed_occupancy_report.admission_date = item.admission_date
+        instance_bed_occupancy_report.ward_id = item.ward_id
+        instance_bed_occupancy_report.ward_name = item.ward_name
+        instance_bed_occupancy_report.bed_occupancy = bed_occupancy_rate
+        instance_bed_occupancy_report.facility_hfr_code = facility_hfr_code
+        instance_bed_occupancy_report.save()
