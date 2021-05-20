@@ -79,7 +79,6 @@ def validate_received_payload(data):
             predefined_rule = ValidationRule.objects.get(id=rule.validation_rule_id)
             rule_name = predefined_rule.rule_name
 
-            print(val[field])
             # Convert date format
             try:
                 if rule_name == "convert_date_formats":

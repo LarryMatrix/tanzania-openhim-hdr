@@ -58,7 +58,7 @@ class IncomingServiceReceivedItemsSerializer(serializers.Serializer):
     gender = serializers.CharField(max_length=255)
     dob = serializers.CharField(max_length=255)
     medSvcCode = serializers.CharField(max_length=255)
-    icd10Code = serializers.CharField(max_length=255)
+    icd10Code = serializers.CharField(max_length=255, allow_null=True, allow_blank=True)
     serviceDate = serializers.CharField(max_length=255)
     serviceProviderRankingId = serializers.CharField(max_length=255)
     visitType = serializers.CharField(max_length=255)
@@ -122,7 +122,7 @@ class DeathByDiseaseCaseNotAtFacilitySerializer(serializers.ModelSerializer):
 class IncomingDeathByDiseaseCaseNotAtTheFacilityItemsSerializer(serializers.Serializer):
     deathId = serializers.CharField(max_length=255)
     placeOfDeathId = serializers.CharField(max_length=255)
-    icd10Code = serializers.CharField(max_length=255, )
+    icd10Code = serializers.CharField(max_length=255,allow_null=True, allow_blank=True )
     gender = serializers.CharField(max_length=255)
     dob = serializers.CharField(max_length=255)
     dateDeathOccurred = serializers.CharField(max_length=255)
