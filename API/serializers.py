@@ -91,7 +91,7 @@ class IncomingDeathByDiseaseCaseAtTheFacilityItemsSerializer(serializers.Seriali
     wardId = serializers.CharField(max_length=255)
     wardName = serializers.CharField(max_length=255)
     patId = serializers.CharField(max_length=255)
-    icd10Code = serializers.CharField(max_length=255)
+    icd10Code = serializers.CharField(max_length=255, allow_null=True, allow_blank=True)
     gender = serializers.CharField(max_length=255)
     dob = serializers.CharField(max_length=255)
     dateDeathOccurred = serializers.CharField(max_length=255)
@@ -122,7 +122,7 @@ class DeathByDiseaseCaseNotAtFacilitySerializer(serializers.ModelSerializer):
 class IncomingDeathByDiseaseCaseNotAtTheFacilityItemsSerializer(serializers.Serializer):
     deathId = serializers.CharField(max_length=255)
     placeOfDeathId = serializers.CharField(max_length=255)
-    icd10Code = serializers.CharField(max_length=255)
+    icd10Code = serializers.CharField(max_length=255, )
     gender = serializers.CharField(max_length=255)
     dob = serializers.CharField(max_length=255)
     dateDeathOccurred = serializers.CharField(max_length=255)
@@ -130,7 +130,7 @@ class IncomingDeathByDiseaseCaseNotAtTheFacilityItemsSerializer(serializers.Seri
 
 class IncomingDeathByDiseaseCaseNotAtTheFacilitySerializer(serializers.Serializer):
     messageType = serializers.CharField(max_length=255)
-    orgName = serializers.CharField(max_length=255)
+    orgName = serializers.CharField(max_length=255,allow_null=True, allow_blank=True)
     facilityHfrCode = serializers.CharField(max_length=255)
     items = IncomingDeathByDiseaseCaseNotAtTheFacilityItemsSerializer(many=True, read_only=False)
 

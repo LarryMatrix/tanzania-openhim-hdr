@@ -89,7 +89,7 @@ class DeathByDiseaseCaseNotAtFacilityItems(models.Model):
     place_of_death_id = models.CharField(max_length=255)
     gender = models.CharField(max_length=50)
     date_of_birth = models.DateField()
-    icd_10_code = models.CharField(max_length=255)
+    icd_10_code = models.CharField(max_length=255, null=True, blank=True)
     date_death_occurred = models.DateField()
     death_id = models.CharField(max_length=100)
 
