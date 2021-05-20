@@ -16,4 +16,4 @@ tests/report/
 MasterData/migrations
 UserManagement/migrations
 Core/migrations
-HD/settings.py
+HDR/settings.py
