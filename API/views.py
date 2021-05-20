@@ -342,7 +342,6 @@ class BedOccupancyView(viewsets.ModelViewSet):
             serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
-            print(dict(serializer.data))
             if False in validators.validate_received_payload(dict(serializer.data)):
                 headers = self.get_success_headers(serializer.data)
                 response = {"message": "Failed", "status": status.HTTP_400_BAD_REQUEST}
