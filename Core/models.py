@@ -61,7 +61,7 @@ class DeathByDiseaseCaseAtFacilityItems(models.Model):
     patient_id = models.CharField(max_length=255)
     gender = models.CharField(max_length=50)
     date_of_birth = models.DateField()
-    icd_10_code = models.CharField(max_length=255)
+    icd_10_code = models.CharField(max_length=255, null=True, blank=True)
     date_death_occurred = models.DateField()
 
     class Meta:
