@@ -392,10 +392,10 @@ class BedOccupancyView(viewsets.ModelViewSet):
                 status.append(status_code)
 
                 # calculate bed occupancy
-                try:
-                    calculate_and_save_bed_occupancy_rate(instance_bed_occupancy.id)
-                except Exception as e:
-                    print(e)
+                # try:
+                #     calculate_and_save_bed_occupancy_rate(instance_bed_occupancy.id)
+                # except Exception as e:
+                #     print(e)
 
             except:
                 instance = BedOccupancy.objects.filter(id=instance_bed_occupancy.id)

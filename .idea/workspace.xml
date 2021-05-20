@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1da87fb6-8abe-4c94-a57d-83ba842ce1a4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/views.py" afterPath="$PROJECT_DIR$/API/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HDR/settings.py" afterPath="$PROJECT_DIR$/HDR/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MasterData/views.py" afterPath="$PROJECT_DIR$/MasterData/views.py" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,7 +27,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MasterData/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
@@ -84,8 +84,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="417" column="45" selection-start-line="417" selection-start-column="45" selection-end-line="417" selection-end-column="45" />
+            <state relative-caret-position="516">
+              <caret line="388" column="50" selection-start-line="388" selection-start-column="50" selection-end-line="388" selection-end-column="50" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
                 <element signature="e#1141#1264#0" expanded="false" />
@@ -102,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HDR/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="95" column="40" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="40" />
+            <state relative-caret-position="345">
+              <caret line="92" column="59" selection-start-line="92" selection-start-column="59" selection-end-line="92" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -198,11 +198,11 @@
         <option value="$PROJECT_DIR$/MasterData/templates/MasterData/Features/ServiceProviderRankings.html" />
         <option value="$PROJECT_DIR$/MasterData/templates/MasterData/Features/Wards.html" />
         <option value="$PROJECT_DIR$/Core/models.py" />
-        <option value="$PROJECT_DIR$/API/views.py" />
         <option value="$PROJECT_DIR$/UserManagement/tables.py" />
         <option value="$PROJECT_DIR$/MasterData/tables.py" />
-        <option value="$PROJECT_DIR$/HDR/settings.py" />
         <option value="$PROJECT_DIR$/MasterData/views.py" />
+        <option value="$PROJECT_DIR$/API/views.py" />
+        <option value="$PROJECT_DIR$/HDR/settings.py" />
       </list>
     </option>
   </component>
@@ -746,8 +746,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16488095" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -757,7 +757,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29166666" sideWeight="0.49761903" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29166666" sideWeight="0.49761903" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1144,25 +1144,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/API/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="417" column="45" selection-start-line="417" selection-start-column="45" selection-end-line="417" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-            <element signature="e#1141#1264#0" expanded="false" />
-            <element signature="e#4639#4814#0" expanded="false" />
-            <element signature="e#5095#6380#0" expanded="false" />
-            <element signature="e#6930#8035#0" expanded="false" />
-            <element signature="e#8310#8511#0" expanded="false" />
-            <element signature="e#8801#10086#0" expanded="false" />
-            <element signature="e#10147#11820#0" expanded="false" />
-            <element signature="e#11859#12066#0" expanded="false" />
-            <element signature="e#15491#15666#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UserManagement/tables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -1175,14 +1156,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HDR/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="95" column="40" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -1220,6 +1193,33 @@
             <element signature="e#16359#17402#0" expanded="false" />
             <element signature="e#17443#19238#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/API/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="516">
+          <caret line="388" column="50" selection-start-line="388" selection-start-column="50" selection-end-line="388" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#1141#1264#0" expanded="false" />
+            <element signature="e#4639#4814#0" expanded="false" />
+            <element signature="e#5095#6380#0" expanded="false" />
+            <element signature="e#6930#8035#0" expanded="false" />
+            <element signature="e#8310#8511#0" expanded="false" />
+            <element signature="e#8801#10086#0" expanded="false" />
+            <element signature="e#10147#11820#0" expanded="false" />
+            <element signature="e#11859#12066#0" expanded="false" />
+            <element signature="e#15491#15666#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HDR/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="92" column="59" selection-start-line="92" selection-start-column="59" selection-end-line="92" selection-end-column="59" />
+          <folding />
         </state>
       </provider>
     </entry>
