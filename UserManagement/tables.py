@@ -36,7 +36,7 @@ class TransactionSummaryTable(tables.Table):
     class Meta:
         model = core_models.TransactionSummary
         template_name = "django_tables2/bootstrap.html"
-        fields = ('counter','message_type','org_name', 'facility_hfr_code','total_passed', 'total_failed')
+        fields = ('counter','transaction_date_time','message_type','org_name', 'facility_hfr_code','total_passed', 'total_failed')
         row_attrs = {
             'data-id': lambda record: record.pk
         }
