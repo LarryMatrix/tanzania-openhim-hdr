@@ -142,21 +142,15 @@ def save_cpt_code_entries(file_path, facility_id, facility_hfr_code):
                     headers = line
                     row = row + 1
                 else:
-                    query_cpt_code_mappings = master_data_models.CPTCodesMapping.objects.filter(cpt_code_id = line[0],
-                                                                                                facility_id=facility_id)
+                    instance_cpt_code_mappings = master_data_models.CPTCodesMapping()
+                    instance_cpt_code_mappings.cpt_code_id = line[0]
+                    instance_cpt_code_mappings.local_code = line[4]
+                    instance_cpt_code_mappings.facility_id = facility_id
 
-                    if query_cpt_code_mappings.count() > 0:
-                        pass
-                    else:
-                        instance_cpt_code_mappings = master_data_models.CPTCodesMapping()
-                        instance_cpt_code_mappings.cpt_code_id = line[0]
-                        instance_cpt_code_mappings.local_code = line[4]
-                        instance_cpt_code_mappings.facility_id = facility_id
+                    instance_cpt_code_mappings.save()
 
-                        instance_cpt_code_mappings.save()
-
-                row = row + 1
-        fp.close()
+            row = row + 1
+    fp.close()
 
 
 def save_payload_from_csv(request,file_path, message_type, facility_hfr_code, facility_name):
