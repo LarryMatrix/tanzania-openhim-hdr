@@ -186,13 +186,13 @@ class IncomingRevenueReceivedItemsSerializer(serializers.Serializer):
     transactionDate = serializers.CharField(max_length=255)
     patId = serializers.CharField(max_length=255)
     gender = serializers.CharField(max_length=255)
-    dob = serializers.CharField(max_length=255)
+    dob = serializers.CharField(max_length=255,required=False, allow_blank=True, allow_null=True)
     medSvcCode = serializers.CharField(max_length=255)
-    payerId = serializers.IntegerField()
-    exemptionCategoryId = serializers.IntegerField(required=False, allow_blank=True, allow_null=True)
+    payerId = serializers.CharField(max_length=255)
+    exemptionCategoryId = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     billedAmount = serializers.IntegerField()
-    waivedAmount = serializers.IntegerField(required=False, allow_blank=True, allow_null=True)
-    serviceProviderRankingId = serializers.IntegerField()
+    waivedAmount = serializers.IntegerField()
+    serviceProviderRankingId = serializers.CharField(max_length=255)
 
 
 class IncomingRevenueReceivedSerializer(serializers.Serializer):
