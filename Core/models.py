@@ -167,8 +167,8 @@ class RevenueReceivedItems(models.Model):
     med_svc_code = models.CharField(max_length=50)
     payer_id = models.CharField(max_length=50)
     exemption_category_id = models.CharField(max_length=100, null=True, blank=True)
-    billed_amount = models.IntegerField()
-    waived_amount = models.IntegerField()
+    billed_amount = models.IntegerField(default=0)
+    waived_amount = models.IntegerField(default=0)
     service_provider_ranking_id = models.CharField(max_length=255)
 
     class Meta:
