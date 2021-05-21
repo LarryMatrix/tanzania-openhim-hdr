@@ -189,9 +189,9 @@ class IncomingRevenueReceivedItemsSerializer(serializers.Serializer):
     dob = serializers.CharField(max_length=255)
     medSvcCode = serializers.CharField(max_length=255)
     payerId = serializers.IntegerField()
-    exemptionCategoryId = serializers.IntegerField()
+    exemptionCategoryId = serializers.IntegerField(required=False, allow_blank=True, allow_null=True)
     billedAmount = serializers.IntegerField()
-    waivedAmount = serializers.IntegerField()
+    waivedAmount = serializers.IntegerField(required=False, allow_blank=True, allow_null=True)
     serviceProviderRankingId = serializers.IntegerField()
 
 
