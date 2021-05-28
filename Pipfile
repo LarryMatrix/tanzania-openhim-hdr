@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==3.1.6"
+django-admin = "*"
+django-crispy-forms = "==1.11.2"
+django-rest-auth = "==0.9.5"
+django-tables2 = "==2.3.4"
+django-filter = "*"
+django-cors-headers = "*"
+djangorestframework = "==3.12.2"
+markdown = "*"
+pandas = "==1.2.4"
+psycopg2-binary = "*"
+python-dateutil = "==2.8.1"
+python-barcode = "*"
+python-decouple = "*"
+requests = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

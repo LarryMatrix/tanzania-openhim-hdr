@@ -1,4 +1,3 @@
-
 """
 Django settings for HDR project.
 
@@ -11,22 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/."""
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&dsrr!838+mbs+ebn1*i4w-(c@%^e6c2zd+w2+51sz!onm1a3g'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['41.59.227.81','127.0.0.1']
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [
+    s.strip() for s in v.split(',')])
 
 # Application definition
 
@@ -65,10 +64,9 @@ REST_FRAMEWORK = {
     )
 }
 
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,10 +77,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'HDR.urls'
 
-
 WSGI_APPLICATION = 'HDR.wsgi.application'
-
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -90,18 +85,32 @@ WSGI_APPLICATION = 'HDR.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hdr',
-        'USER': 'postgres',
-        'PASSWORD': 'HdrPostgresPass2020',
-        'HOST': '41.59.227.81',
-        'PORT': '5432',
+        'ENGINE': config('ENGINE'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
+CORS_ORIGIN_WHITELIST = config('ALLOWED_HOSTS', cast=lambda v: [
+    s.strip() for s in v.split(',')])
 
-
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'authorization',
+    'access-control-allow-origin',
+    'content-type',
+    'origin',
+    'prefer',
+    'referer',
+    'user-agent',
+    'content-disposition',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -154,14 +163,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Dar_es_Salaam'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

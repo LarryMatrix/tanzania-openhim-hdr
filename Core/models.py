@@ -217,6 +217,7 @@ class TransactionSummary(models.Model):
     def __str__(self):
         return '%d' %self.id
 
+    Empty = ''
     ServicesReceived = 'SVCREC'
     DeathByDiseaseCaseAtFacility = 'DDC'
     DeathByDiseaseCaseNotAtFacility = 'DDCOUT'
@@ -224,6 +225,7 @@ class TransactionSummary(models.Model):
     BedOccupancy = 'BEDOCC'
 
     MESSAGE_TYPE_CHOICES = (
+        (Empty, ''),
         (ServicesReceived, 'SVCREC'),
         (DeathByDiseaseCaseAtFacility, 'DDC'),
         (DeathByDiseaseCaseNotAtFacility, 'DDCOUT'),
@@ -232,9 +234,9 @@ class TransactionSummary(models.Model):
     )
 
     transaction_date_time = models.DateTimeField(auto_now=True)
-    message_type = models.CharField(max_length=100, choices=MESSAGE_TYPE_CHOICES)
-    org_name = models.CharField(max_length=255)
-    facility_hfr_code  = models.CharField(max_length=255)
+    message_type = models.CharField(max_length=100, choices=MESSAGE_TYPE_CHOICES, default='')
+    org_name = models.CharField(max_length=255, default='')
+    facility_hfr_code  = models.CharField(max_length=255, default='')
     total_passed = models.IntegerField(default=0)
     total_failed = models.IntegerField(default=0)
 

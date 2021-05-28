@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .tables import PayerMappingTable, ExemptionMappingTable, DepartmentMappingTable, WardMappingTable, \
     GenderMappingTable, ServiceProviderRankingMappingTable, PlaceODeathMappingTable, CPTCodeMappingTable
-from .models import PayerMapping, DepartmentMapping, ExemptionMapping, Ward,CPTCodesMapping, GenderMapping, \
-    ServiceProviderRankingMapping, PlaceOfDeathMapping, ICD10CodeCategory, ICD10CodeSubCategory, ICD10Code, ICD10SubCode,CPTCode
+from .models import PayerMapping, DepartmentMapping, ExemptionMapping, Ward, CPTCodesMapping, GenderMapping, \
+    ServiceProviderRankingMapping, PlaceOfDeathMapping, ICD10CodeCategory, ICD10CodeSubCategory, ICD10Code, \
+    ICD10SubCode, CPTCode
 from .forms import DepartmentMappingForm, ExemptionMappingForm, PayerMappingForm, WardMappingForm, GenderMappingForm, \
     ServiceProviderRankingMappingForm, PlaceODeathMappingForm, CPTCodesMappingForm
 from django_tables2 import RequestConfig
@@ -24,8 +25,10 @@ def get_departments_page(request):
         department_mappings_table = DepartmentMappingTable(department_mappings)
         department_mapping_form = DepartmentMappingForm(initial={'facility': request.user.profile.facility})
         RequestConfig(request, paginate={"per_page": 10}).configure(department_mappings_table)
-        return render(request, 'MasterData/Features/Departments.html',{"department_mappings_table": department_mappings_table,
-                                                                       "department_mapping_form" : department_mapping_form})
+        return render(request, 'MasterData/Features/Departments.html',
+                      {"department_mappings_table": department_mappings_table,
+                       "department_mapping_form": department_mapping_form})
+
 
 def update_department(request, item_pk):
     instance_department = DepartmentMapping.objects.get(id=item_pk)
@@ -44,7 +47,7 @@ def update_department(request, item_pk):
         url = "update_department"
 
         return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
-                                                                       'item_pk':item_pk, "url":url
+                                                                       'item_pk': item_pk, "url": url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
 
@@ -67,7 +70,8 @@ def get_cpt_codes_page(request):
         return render(request, 'MasterData/Features/CPTCodes.html',
                       {"cpt_code_mappings_table": cpt_code_mappings_table,
                        "cpt_code_mapping_form": cpt_code_mapping_form,
-                       "cpt_code_mapping_import_form":cpt_code_mapping_import_form})
+                       "cpt_code_mapping_import_form": cpt_code_mapping_import_form})
+
 
 def update_cpt_code(request, item_pk):
     instance_cpt_code = CPTCodesMapping.objects.get(id=item_pk)
@@ -105,9 +109,9 @@ def get_exemptions_page(request):
         exemption_mappings_table = ExemptionMappingTable(exemption_mappings)
         exemption_mapping_form = ExemptionMappingForm(initial={'facility': request.user.profile.facility})
         RequestConfig(request, paginate={"per_page": 10}).configure(exemption_mappings_table)
-        return render(request, 'MasterData/Features/Exemptions.html',{"exemption_mappings_table":exemption_mappings_table,
-                                                                      "exemption_mapping_form":exemption_mapping_form})
-
+        return render(request, 'MasterData/Features/Exemptions.html',
+                      {"exemption_mappings_table": exemption_mappings_table,
+                       "exemption_mapping_form": exemption_mapping_form})
 
 
 def update_exemption(request, item_pk):
@@ -127,7 +131,7 @@ def update_exemption(request, item_pk):
         url = "update_exemption"
 
         return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
-                                                                       'item_pk':item_pk, "url":url
+                                                                       'item_pk': item_pk, "url": url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
 
@@ -146,8 +150,8 @@ def get_payers_page(request):
         payer_mappings_table = PayerMappingTable(payer_mappings)
         payer_mapping_form = PayerMappingForm(initial={'facility': request.user.profile.facility})
         RequestConfig(request, paginate={"per_page": 10}).configure(payer_mappings_table)
-        return render(request, 'MasterData/Features/Payers.html', {"payer_mappings_table":payer_mappings_table,
-                                                                   "payer_mapping_form":payer_mapping_form})
+        return render(request, 'MasterData/Features/Payers.html', {"payer_mappings_table": payer_mappings_table,
+                                                                   "payer_mapping_form": payer_mapping_form})
 
 
 def update_payer(request, item_pk):
@@ -167,7 +171,7 @@ def update_payer(request, item_pk):
         url = "update_payer"
 
         return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
-                                                                       'item_pk':item_pk, "url":url
+                                                                       'item_pk': item_pk, "url": url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
 
@@ -186,8 +190,8 @@ def get_wards_page(request):
         ward_mappings_table = WardMappingTable(ward_mappings)
         ward_mapping_form = WardMappingForm(initial={'facility': request.user.profile.facility})
         RequestConfig(request, paginate={"per_page": 10}).configure(ward_mappings_table)
-        return render(request, 'MasterData/Features/Wards.html',{"ward_mappings_table":ward_mappings_table,
-                                                                 "ward_mapping_form":ward_mapping_form})
+        return render(request, 'MasterData/Features/Wards.html', {"ward_mappings_table": ward_mappings_table,
+                                                                  "ward_mapping_form": ward_mapping_form})
 
 
 def update_ward(request, item_pk):
@@ -207,7 +211,7 @@ def update_ward(request, item_pk):
         url = "update_ward"
 
         return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
-                                                                       'item_pk':item_pk, "url":url
+                                                                       'item_pk': item_pk, "url": url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
 
@@ -229,6 +233,7 @@ def get_gender_page(request):
         return render(request, 'MasterData/Features/Gender.html', {"gender_mappings_table": gender_mappings_table,
                                                                    "gender_mapping_form": gender_mapping_form})
 
+
 def update_gender(request, item_pk):
     instance_gender = GenderMapping.objects.get(id=item_pk)
     form = GenderMappingForm(instance=instance_gender)
@@ -246,7 +251,7 @@ def update_gender(request, item_pk):
         url = "update_gender"
 
         return render(request, 'MasterData/Features/UpdateItem.html', {'form': form, 'header': header,
-                                                                       'item_pk':item_pk, "url":url
+                                                                       'item_pk': item_pk, "url": url
                                                                        })
     return redirect(request.META['HTTP_REFERER'])
 
@@ -263,7 +268,8 @@ def get_service_provider_rankings_page(request):
         facility = request.user.profile.facility
         service_provider_ranking_mappings = ServiceProviderRankingMapping.objects.filter(facility=facility)
         service_provider_ranking_mappings_table = ServiceProviderRankingMappingTable(service_provider_ranking_mappings)
-        service_provider_ranking_mapping_mapping_form = ServiceProviderRankingMappingForm(initial={'facility': request.user.profile.facility})
+        service_provider_ranking_mapping_mapping_form = ServiceProviderRankingMappingForm(
+            initial={'facility': request.user.profile.facility})
         RequestConfig(request, paginate={"per_page": 10}).configure(service_provider_ranking_mappings_table)
         return render(request, 'MasterData/Features/ServiceProviderRankings.html',
                       {"service_provider_ranking_mappings_table": service_provider_ranking_mappings_table,
@@ -276,7 +282,8 @@ def update_service_provider_ranking(request, item_pk):
 
     if request.method == "POST":
         if request.POST:
-            form_service_provider_ranking = ServiceProviderRankingMappingForm(request.POST, instance=instance_server_provider_ranking)
+            form_service_provider_ranking = ServiceProviderRankingMappingForm(request.POST,
+                                                                              instance=instance_server_provider_ranking)
             if form_service_provider_ranking.is_valid():
                 form_service_provider_ranking.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -317,7 +324,7 @@ def update_place_of_death(request, item_pk):
 
     if request.method == "POST":
         if request.POST:
-            form_place_of_death = PlaceODeathMappingForm(request.POST,instance=instance_place_of_death)
+            form_place_of_death = PlaceODeathMappingForm(request.POST, instance=instance_place_of_death)
             if form_place_of_death.is_valid():
                 form_place_of_death.save()
                 return redirect(request.META['HTTP_REFERER'])
@@ -359,7 +366,7 @@ def delete_mapping(request):
 
 
 def import_icd_10_codes(request):
-    with open ('icd10codes.json',"r") as f:
+    with open('icd10codes.json', "r") as f:
         data = json.load(f)
 
     for x in data:
@@ -385,11 +392,10 @@ def import_icd_10_codes(request):
 
             # insert icd code
             instance_icd_code = ICD10Code()
-            instance_icd_code.icd_10_code_sub_category_id =  instance_sub_category.id
+            instance_icd_code.icd_10_code_sub_category_id = instance_sub_category.id
             instance_icd_code.icd10_code = icd_10_code
             instance_icd_code.icd10_description = icd_10
             instance_icd_code.save()
-
 
             for y in icd_sub_code_array:
                 icd_10_sub_code = y["icd10Code"]
@@ -401,6 +407,3 @@ def import_icd_10_codes(request):
                 instance_icd_sub_code.icd10_sub_code = icd_10_sub_code
                 instance_icd_sub_code.icd10_sub_code_description = icd_10_sub_description
                 instance_icd_sub_code.save()
-
-
-

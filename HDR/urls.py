@@ -1,4 +1,3 @@
-
 """
 HDR URL Configuration
 
@@ -28,3 +27,8 @@ urlpatterns = [
     path('insert_icd_10', master_data_views.import_icd_10_codes, name='insert_icd_10'),
 
 ]
+
+admin.site.site_header = 'HDR Admin'
+admin.site.site_title = 'HDR Admin'
+admin.site.index_title = 'Welcome to HDR Admin Panel'
+admin.site.empty_value_display = '**Empty**'
