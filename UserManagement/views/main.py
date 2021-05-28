@@ -16,9 +16,12 @@ from Core import forms as core_forms
 import os
 
 
-
 def get_login_page(request):
-    return render(request, 'UserManagement/Auth/Login.html')
+    if not request.user.is_authenticated:
+        return render(request, 'UserManagement/Auth/Login.html')
+    else:
+        return redirect('/admin')
+
 
 @login_required(login_url='/')
 def change_password(request):
