@@ -16,9 +16,10 @@ A Health Data Repository for data visualization for received from EMR systems th
 7. Then, upgrade pip by running the command <code>python -m pip3 install –upgrade pip3</code>
 8. Navigate to the project folder then run the command <code>pipenv shell</code> to create and activate the Project Environment if does not exist.
 9. After successful activation of the environment, run <code>pipenv install</code> to install all the packages needed for the project.
-10. Run this command to run the development server <code>python manage.py runserver</code> or <code>./manage.py runserver</code>
-11. Press CTRL+C for Linux and Windows or CMD+C for Mac to quit the running server.
-12. Run <code>./manage.py migrate</code> to migrate the authentication tables to the database which is the SQLite database by default.
-13. Run <code>./manage.py createsuperuser</code> to create the first admin user to the sysem.
-14. Run the command <code>python manage.py runserver</code> or <code>./manage.py runserver</code> to re-run the development server.
-15. DONE!!
+10. Run this command <code>cp env.tx .env</code> to copy the sample env and set the ```empty``` fields with your own ones.
+11. Run this command to run the development server <code>python manage.py runserver</code> or <code>./manage.py runserver</code>
+12. Press CTRL+C for Linux and Windows or CMD+C for Mac to quit the running server.
+13. Run <code>./manage.py migrate</code> to migrate the authentication tables to the database which is the SQLite database by default.
+14. Run <code>./manage.py createsuperuser</code> to create the first admin user to the sysem.
+15. Run the command <code>python manage.py runserver</code> or <code>./manage.py runserver</code> to re-run the development server.
+16. DONE!!!
