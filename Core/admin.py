@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import TransactionSummary,ValidationRule , FieldValidationMapping, TransactionSummaryLine, \
     ServiceReceived, ServiceReceivedItems, DeathByDiseaseCaseAtFacility, DeathByDiseaseCaseAtFacilityItems, \
     DeathByDiseaseCaseNotAtFacility, DeathByDiseaseCaseNotAtFacilityItems, BedOccupancy, BedOccupancyItems, \
-    RevenueReceived, RevenueReceivedItems
+    RevenueReceived, RevenueReceivedItems, PayloadThreshold
 from django.contrib.admin import helpers
 
 # Register your models here.
@@ -85,6 +85,11 @@ class FieldValidationMappingAdmin(admin.ModelAdmin):
     search_fields = ['message_type', ]
 
 
+class PayloadThresholdAdmin(admin.ModelAdmin):
+    list_display = ('id', 'payload_description','payload_code','percentage_threshold')
+    search_fields = ['payload_Description', ]
+
+
 admin.site.register(TransactionSummary, TransactionSummaryAdmin)
 admin.site.register(TransactionSummaryLine, TransactionSummaryLinesAdmin)
 admin.site.register(ValidationRule, ValidationRuleAdmin)
@@ -99,4 +104,5 @@ admin.site.register(BedOccupancy, BedOccupancyAdmin)
 admin.site.register(BedOccupancyItems, BedOccupancyItemsAdmin)
 admin.site.register(RevenueReceived, RevenueReceivedAdmin)
 admin.site.register(RevenueReceivedItems, RevenueReceivedItemsAdmin)
+admin.site.register(PayloadThreshold, PayloadThresholdAdmin)
 

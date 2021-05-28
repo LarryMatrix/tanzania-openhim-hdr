@@ -16,4 +16,4 @@ tests/report/
 MasterData/migrations
 UserManagement/migrations
 Core/migrations
-HDR/settings.py
+/secrets.json

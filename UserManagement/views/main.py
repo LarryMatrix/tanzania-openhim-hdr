@@ -10,15 +10,22 @@ from django.contrib.auth.decorators import login_required
 from ..tables import TransactionSummaryTable, TransactionSummaryLineTable
 from Core import models as core_models
 from django_tables2 import RequestConfig
-from MasterData import models as master_data_models
 import xlwt
 from Core import forms as core_forms
-import os
 
 
 
 def get_login_page(request):
     return render(request, 'UserManagement/Auth/Login.html')
+
+def get_audit_report(request,item_pk):
+    transaction_summary_lines = core_models.TransactionSummaryLine.objects.filter\
+        (transaction_id=item_pk).order_by('-id')
+    transaction_summary_lines_table = TransactionSummaryLineTable(transaction_summary_lines)
+    RequestConfig(request, paginate={"per_page": 15}).configure(transaction_summary_lines_table)
+
+    return render(request,'UserManagement/Dashboard/AuditReport.html',{'item_pk':item_pk,
+                                                                       'table_transactions':transaction_summary_lines_table})
 
 @login_required(login_url='/')
 def change_password(request):

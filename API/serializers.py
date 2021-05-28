@@ -54,7 +54,7 @@ class ServiceReceivedSerializer(serializers.ModelSerializer):
 class IncomingServiceReceivedItemsSerializer(serializers.Serializer):
     deptName = serializers.CharField(max_length=255)
     deptId = serializers.CharField(max_length=255)
-    patId = serializers.CharField(max_length=255)
+    patId = serializers.CharField(max_length=255, required=False, allow_blank=True, allow_null=True)
     gender = serializers.CharField(max_length=255)
     dob = serializers.CharField(max_length=255)
     medSvcCode = serializers.CharField(max_length=255)
@@ -184,7 +184,7 @@ class RevenueReceivedSerializer(serializers.ModelSerializer):
 class IncomingRevenueReceivedItemsSerializer(serializers.Serializer):
     systemTransId = serializers.CharField(max_length=255)
     transactionDate = serializers.CharField(max_length=255)
-    patId = serializers.CharField(max_length=255)
+    patId = serializers.CharField(max_length=255, required=False, allow_blank=True, allow_null=True)
     gender = serializers.CharField(max_length=255)
     dob = serializers.CharField(max_length=255,required=False, allow_blank=True, allow_null=True)
     medSvcCode = serializers.CharField(max_length=255)
