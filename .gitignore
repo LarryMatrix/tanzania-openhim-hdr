@@ -16,4 +16,4 @@ tests/report/
 MasterData/migrations
 UserManagement/migrations
 Core/migrations
-/secrets.json
+secrets.json
