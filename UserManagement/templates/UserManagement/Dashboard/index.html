@@ -47,7 +47,7 @@
                         </div>
                         <div class="modal-body">
 
-                             <form method = "POST" action="{% url 'upload_payload' %}" enctype="multipart/form-data">
+                            <form method = "POST" action="{% url 'upload_payload' %}" enctype="multipart/form-data">
 
                                 {% csrf_token %}
 
@@ -109,14 +109,19 @@
         jQuery.noConflict();
         $(document).ready(function(){
 
-            jQuery('#file').trigger('click');
+{#            jQuery('#file').trigger('click');#}
 
-            $(".btn_view_more").on( "click", function( event ) {
-                var id = $(this).attr('id');
+            $(".btn_audit_report").on( "click", function( event ) {
+{#                var id = $(this).attr('id');#}
 
-                $("#view_more").load('{% url 'get_transaction_summary_lines' 123 %}'.replace('123', parseInt(id)), function() {
-                    $("#view_more").modal("show");
-                });
+                {#                $("#view_more").load('{% url 'get_transaction_summary_lines' 123 %}'.replace('123', parseInt(id)), function() {#}
+                {#                    $("#view_more").modal("show");#}
+                {#                });#}
+
+                var item = $(this).attr("id");
+                var url = '{% url 'get_audit_report' 12345 %}'.replace(/12345/, parseInt(item));
+
+                window.open(url, '_blank');
 
             });
 
@@ -187,7 +192,7 @@
                     type: "POST",
                     url: url,
                     data: {
-                        item_pk: id,
+                        item_pk: id,status:"",
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
                     success: function(data)
@@ -196,7 +201,7 @@
 
                         var downloadLink = document.createElement("a");
                         downloadLink.href = uri;
-                        downloadLink.download = "payload_"+dateTimeNow+".csv";
+                        downloadLink.download = "payload_transaction_"+id+"_"+dateTimeNow+".csv";
 
                         document.body.appendChild(downloadLink);
                         downloadLink.click();

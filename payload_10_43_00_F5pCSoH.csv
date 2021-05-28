@@ -1,4 +1,0 @@
-deptName,deptId,patId,gender,dob,medSvcCode,icd10Code,serviceDate,serviceProviderRankingId,visitType
-Radiology,80,108627-1,Male,19900101,002923,"A17.8, M60.1, B29",20201228,1,IPD
-Radiology,81,108627-1,Male,19900101,002923,"A17.8, M60.1, B29",20201228,1,IPD
-Radiology,82,108627-1,Male,19900101,002923,"A17.8, M60.1, B29",20201228,1,IPD

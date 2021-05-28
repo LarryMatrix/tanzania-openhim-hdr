@@ -27,6 +27,7 @@ def get_departments_page(request):
         return render(request, 'MasterData/Features/Departments.html',{"department_mappings_table": department_mappings_table,
                                                                        "department_mapping_form" : department_mapping_form})
 
+
 def update_department(request, item_pk):
     instance_department = DepartmentMapping.objects.get(id=item_pk)
     form = DepartmentMappingForm(instance=instance_department)
@@ -68,6 +69,7 @@ def get_cpt_codes_page(request):
                       {"cpt_code_mappings_table": cpt_code_mappings_table,
                        "cpt_code_mapping_form": cpt_code_mapping_form,
                        "cpt_code_mapping_import_form":cpt_code_mapping_import_form})
+
 
 def update_cpt_code(request, item_pk):
     instance_cpt_code = CPTCodesMapping.objects.get(id=item_pk)
@@ -228,6 +230,7 @@ def get_gender_page(request):
         RequestConfig(request, paginate={"per_page": 10}).configure(gender_mappings_table)
         return render(request, 'MasterData/Features/Gender.html', {"gender_mappings_table": gender_mappings_table,
                                                                    "gender_mapping_form": gender_mapping_form})
+
 
 def update_gender(request, item_pk):
     instance_gender = GenderMapping.objects.get(id=item_pk)

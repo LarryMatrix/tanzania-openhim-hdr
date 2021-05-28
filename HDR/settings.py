@@ -11,22 +11,38 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/."""
 
 import os
+import json
+from django.core.exceptions import ImproperlyConfigured
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
+
+
+def get_secret(setting, secrets=secrets):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&dsrr!838+mbs+ebn1*i4w-(c@%^e6c2zd+w2+51sz!onm1a3g'
+
+SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['41.59.227.81','127.0.0.1']
-
 
 # Application definition
 
@@ -79,6 +95,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'HDR.urls'
 
+# Celery related settings
+CELERY_BROKER_URL = 'amqp://localhost:5672'
+# CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
+
 
 WSGI_APPLICATION = 'HDR.wsgi.application'
 
@@ -87,19 +113,16 @@ WSGI_APPLICATION = 'HDR.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db-name',
-        'USER': 'postgres-user',
-        'PASSWORD': 'postgres-password',
-        'HOST': 'host-ip',
-        'PORT': 'postgres-port',
+        'ENGINE': get_secret('ENGINE'),
+        'NAME': get_secret('DB_NAME'),
+        'USER': get_secret('DB_USER'),
+        'PASSWORD': get_secret('DB_PASSWORD'),
+        'HOST': get_secret('DB_HOST'),
+        'PORT': get_secret('DB_PORT'),
     }
 }
-
-
 
 
 
